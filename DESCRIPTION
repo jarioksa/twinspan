@@ -1,0 +1,15 @@
+Package: twinspan
+Title: Two-Way Indicator Species Analysis
+Version: 0.0
+Date: 2019-07-30
+Authors@R: c(person(given = "Jari", family = "Oksanen",
+                  role = c("cre","aut"),
+                  email = "jhoksane@gmail.com",
+		  comment = c(ORCID="0000-0001-7102-9626")),
+	     person(given = c("Mark", "O."), family = "Hill",
+	     role = c("aut")))
+Description: Classification of biological communities based on splitting
+  first axis of Correspondence Analysis for the current subset of the
+  data, and finding species that best indicate the splits. The method
+  is particularly popular in vegetation science.
+License: Yet Undefined 
