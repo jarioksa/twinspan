@@ -35,5 +35,13 @@
     iend <- Z$iend
     idat <- Z$idat
     qdat <- Z$qidat
+    ## we got data, but we need species and SU names. Twinspan
+    ## requires these in two pieces of length 4+4, both in their own
+    ## vectors. The following assumes that names were original 8
+    ## characters long...
+    jname1 <- substring(colnames(x), 1, 4)
+    jname2 <- substring(colnames(x), 5, 8)
+    iname1 <- substring(rownames(x), 1, 4)
+    iname2 <- substring(rownames(x), 5, 8)
     Z
 }
