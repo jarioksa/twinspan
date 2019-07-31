@@ -15,9 +15,25 @@
 #' @param x Input data, usually a species community data set where
 #'     columns give the species and rows the sampling units.
 #'
+#' @useDynLib twinspan
+#'
 #' @export
 `twinspan` <-
     function(x)
 {
-    .NotYetImplemented()
+    x <- as.matrix(x)
+    n <- ncol(x) # no. of species
+    mm <- nrow(x) # no. of SUs
+    nid <- sum(x > 0) # number of positive items
+    ## translate data to the internal sparse format
+    Z <- .C("data2hill", as.double(x), mm = as.integer(mm),
+            n = as.integer(n), nid = as.integer(nid),
+            ibegin = integer(mm), iend = integer(mm),
+            idat = integer(nid), qidat = double(nid),
+            PACKAGE = "twinspan")
+    ibegin <- Z$ibegin
+    iend <- Z$iend
+    idat <- Z$idat
+    qdat <- Z$qidat
+    Z
 }
