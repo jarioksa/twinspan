@@ -4,11 +4,14 @@
 \alias{twinspan}
 \title{Two-Way Indicator Species Analysis}
 \usage{
-twinspan(x)
+twinspan(x, cutlevels = c(0, 2, 5, 10, 20))
 }
 \arguments{
 \item{x}{Input data, usually a species community data set where
 columns give the species and rows the sampling units.}
+
+\item{cutlevels}{Cut levels used to split quantitative data into
+binary pseudospecies.}
 }
 \description{
 Two-Way Indicator Analysis (TWINSPAN) is a divisive classification
