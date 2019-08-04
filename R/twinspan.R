@@ -43,12 +43,14 @@
     ## indices of names
     jname1 <- jname2 <- integer(nmax)
     jname1[seq_len(n)] <- jname2[seq_len(n)] <- seq_len(n)
+    jnflag <- integer(nmax)
+    jnflag[seq_len(n)] <- seq_len(n)
     Z <- .Fortran("pseudo", mm = as.integer(mm), nn = as.integer(n),
                   nmax = as.integer(nmax), nl = as.integer(nlev),
                   ndat = as.integer(ndat), nspec = as.integer(nmax),
                   idat = as.integer(idat), lcut = as.integer(cutlevels),
-                  jnflag = integer(nmax),
-                  jname1 = jname1, jname2 = jname2,
+                  jnflag = as.integer(jnflag),
+                  jname1 = as.integer(jname1), jname2 = as.integer(jname2),
                   jnam = integer(nmax), indpot = integer(nmax),
                   iy = integer(nmax), PACKAGE = "twinspan")
     Z
