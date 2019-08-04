@@ -24,17 +24,14 @@
     x <- as.matrix(x)
     n <- ncol(x) # no. of species
     mm <- nrow(x) # no. of SUs
-    nid <- sum(x > 0) # number of positive items
+    nid <- 2 * sum(x > 0) + mm # length of idat
     ## translate data to the internal sparse format
     Z <- .C("data2hill", as.double(x), mm = as.integer(mm),
             n = as.integer(n), nid = as.integer(nid),
-            ibegin = integer(mm), iend = integer(mm),
-            idat = integer(nid), qidat = double(nid),
+            ibegin = integer(mm), idat = integer(nid),
             PACKAGE = "twinspan")
     ibegin <- Z$ibegin
-    iend <- Z$iend
     idat <- Z$idat
-    qdat <- Z$qidat
     ## we got data, but we need species and SU names. Twinspan
     ## requires these in two pieces of length 4+4, both in their own
     ## vectors. The following assumes that names were original 8
