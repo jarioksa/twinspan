@@ -36,22 +36,19 @@
             PACKAGE = "twinspan")
     ibegin <- Z$ibegin
     idat <- Z$idat
-    ## we got data, but we need species and SU names. Twinspan
-    ## requires these in two pieces of length 4+4, both in their own
-    ## vectors. The following assumes that names were original 8
-    ## characters long...
-    jname1 <- substring(colnames(x), 1, 4)
-    jname2 <- substring(colnames(x), 5, 8)
-    iname1 <- substring(rownames(x), 1, 4)
-    iname2 <- substring(rownames(x), 5, 8)
     ## Pseudospecies
     cutlevels <- as.integer(1000 * cutlevels + 0.5)
     nmax <- nlev * n
+    ## R cannot pass character vectors to Fortran, but we pass integer
+    ## indices of names
+    jname1 <- jname2 <- integer(nmax)
+    jname1[seq_len(n)] <- jname2[seq_len(n)] <- seq_len(n)
     Z <- .Fortran("pseudo", mm = as.integer(mm), nn = as.integer(n),
                   nmax = as.integer(nmax), nl = as.integer(nlev),
                   ndat = as.integer(ndat), nspec = as.integer(nmax),
                   idat = as.integer(idat), lcut = as.integer(cutlevels),
-                  jnflag = integer(nmax), jname1 = jname1, jname2 = jname2,
+                  jnflag = integer(nmax),
+                  jname1 = jname1, jname2 = jname2,
                   jnam = integer(nmax), indpot = integer(nmax),
                   iy = integer(nmax), PACKAGE = "twinspan")
     Z
