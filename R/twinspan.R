@@ -47,6 +47,12 @@
     if (missing(lwgt))
         lwgt <- rep(1, length(cutlevels))
     ipunch = 0L ## never write to a file
+    ## set internal constants and their derived quantities
+    MZCRIT <- 8L
+    MZOUT <- 4L
+    MZ <- as.integer(MZCRIT + 2*MZOUT)
+    MMZ <- MZ + 4L
+    MMS <- as.integer(indmax + 4L)
     ##
     nlev <- length(cutlevels)
     x <- as.matrix(x)
