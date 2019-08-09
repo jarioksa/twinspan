@@ -4,7 +4,8 @@
 \alias{twinspan}
 \title{Two-Way Indicator Species Analysis}
 \usage{
-twinspan(x, cutlevels = c(0, 2, 5, 10, 20))
+twinspan(x, cutlevels = c(0, 2, 5, 10, 20), indmax = 7, groupmin = 5,
+  levmax = 6, lind, lwgt, noind)
 }
 \arguments{
 \item{x}{Input data, usually a species community data set where
@@ -12,11 +13,33 @@ columns give the species and rows the sampling units.}
 
 \item{cutlevels}{Cut levels used to split quantitative data into
 binary pseudospecies.}
+
+\item{indmax}{Maximum number of indicators for division.}
+
+\item{groupmin}{Minimum group size for division.}
+
+\item{levmax}{Maximum level of divisions.}
+
+\item{lind}{Weights for levels of pseudospecies. For example
+indicator potentials \code{c(1, 0, 0,1, 0)} signify that
+pseudospecies at levels 1 and 4 can be used as indicators, but
+that those at other levels cannot. In the default case, all
+species are available.}
+
+\item{lwgt}{Weights for the levels of pseudospecies. For example
+weights \code{c(1, 2, 2, 2)} signify that pseudospecies
+corresponding to 3 higher cut levels are to be given twice the
+weight of pseudospecies at the lowest level.}
+
+\item{noind}{Numbers (indices) of species that you wish to omit
+from list of potential indicators. Species omitted from this
+list are used in the calculation, but cannot appear as
+indicators.}
 }
 \description{
 Two-Way Indicator Analysis (TWINSPAN) is a divisive classification
-method that works by splitting first Correspondence-Analysis into
-two, and then recursively working with each of this split
-subsets. The function is actually much more complicated: see
+method that works by splitting first Correspondence Analysis into
+two classes, and then recursively working with each split
+subset. The function is actually much more complicated: see
 Details.
 }
