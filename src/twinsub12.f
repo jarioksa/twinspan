@@ -2,7 +2,7 @@
      1IIROW,IADDR,INDPOT,INDORD,IZONE,IY,JJCOL,IDAT,
      2INDSIG,IPICT,X,XX,RTOT,RRWT,ROWWGT,Y,YY,CTOT,CCWT,
      3COLWGT,INAME1,INAME2,JNAME1,JNAME2,JNAM,X3,X4,X5,LIND,
-     4INFLAG,IPUNCH)
+     4INFLAG,LEVMAX,MMIN)
 C THIS DOES THE CLASSIFICATION.  IF ISEC.EQ.2 IT DOES A SPECIES
 C CLASSIFICATION, PRINTING OUT LESS INFORMATION THAN IN THE CASE WHERE
 C ISEC.EQ.1.
@@ -30,6 +30,45 @@ C---Variable PRECIS added P.Minchin  June 1997
       COMMON/SWITCH/IFAIL,IDIAGR,ISTOP,IREWT
       COMMON/IARBS/ICWEXP,IEND,MMIN,IPREXP,LEVMAX
       COMMON/ARBS/CWTMIN,CRLONG,CRCUT
+C     Values for COMMON block variables
+C     LIMS
+      RARE = 0.2
+      FEEBLE = 0.1
+      FRQLIM = 0.2
+      TOL = 5E-6
+      RATLIM = 3.0
+      REPLIM = 2.0
+      PRECIS = 1E-8
+C     IARBS: MMIN and LEVMAX were added as input arguments
+      ICWEXP = 1
+      IEND = 2**(LEVMAX+2)
+C      MMIN = MMIN
+      IPREXP = 4
+C      LEVMAX = LEVMAX
+C     ARBS
+      CWTMIN = 0.01
+      CRLONG = 0.2
+      CRCUT = 0.2
+C     SWITCH
+C     idiagr is an argument to turn on drawing diagrams of division: never do
+C     ifail and istop will be re-set later in this subroutine
+      IFAIL = 1
+      IDIAGR = 0
+      ISTOP = 0
+      IREWT = 2
+C     PICT
+C     MZ calculated similarly as in calling R function
+C     Presumably calculated later, but token values given here:
+C     izd, iizd, isd, ishift
+      MZCRIT = 8
+      MZOUT = 4
+      MZ = MZCRIT + 2 * MZOUT
+      MS = 1
+      IZD = 0
+      IIZD = 0
+      ISD = 0
+      ISHIFT = 1
+      MZIND = 4
 C---FOLLOWING COMMON BLOCK ADDED BY P.R.MINCHIN SEPT 1986
 c      COMMON /LUNITS/ IUIN1,IUIN2,IUOUT1,IUOUT2,IUOUT3
       DATA PLUS/'+'/,MINUS/'-'/
