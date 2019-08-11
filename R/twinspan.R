@@ -69,7 +69,7 @@
     ibegin <- Z$ibegin
     idat <- Z$idat
     ## there should be inflag, but I have no idea what is that: guess
-    inflag <- rep(1L, nid)
+    inflag <- seq_len(n)
     ## Pseudospecies
     cutlevels <- as.integer(1000 * cutlevels + 0.5)
     nmax <- nlev * n
