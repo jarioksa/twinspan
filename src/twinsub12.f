@@ -12,7 +12,10 @@ C ISEC.EQ.1.
      3IPICT(MMZ,MMS)
 C---Changed ITEM, PLUS, MINUS to CHARACTER: P.Minchin 1997
       CHARACTER PLUS, MINUS
-      CHARACTER ITEM(200)*4
+c     We do not want to have characters since we do not want to print
+c     anything: change ITEM at the moment, and see later how to handle this
+c     CHARACTER ITEM(200)*4
+      INTEGER ITEM(200)
       INTEGER LIND(10)
 C---Changed INAME, JNAME to CHARACTER: P.Minchin 1997
       INTEGER JNAM(NN)
@@ -237,18 +240,26 @@ c 1003 FORMAT('INDICATORS, TOGETHER WITH THEIR SIGN')
       J=INDORD(IIND)
       JJ=JJCOL(J)
       IT=IT+1
-      ITEM(IT)=I2CHAR(JNAME1(JJ))
+c     ITEM(IT)=I2CHAR(JNAME1(JJ))
+      ITEM(IT) = JNAME1(JJ)
       IT=IT+1
-      ITEM(IT)=I2CHAR(JNAME2(JJ))
+c     ITEM(IT)=I2CHAR(JNAME2(JJ))
+      ITEM(IT) = JNAME2(JJ)
       IT=IT+1
 C---Convert values of JNAM to CHARACTER: P.Minchin June 1997
-      ITEM(IT)=I2CHAR(JNAM(JJ))
-      ITEM(IT)=ITEM(IT)(4:4)
+c     ITEM(IT)=I2CHAR(JNAM(JJ))
+      ITEM(IT) = JNAM(JJ)
+c      ITEM(IT)=ITEM(IT)(4:4)
       IT=IT+1
       IF(INDSIG(IIND).GT.0) GOTO 75
-      ITEM(IT)=MINUS
+c     Original function holds printable character string in ITEM and
+c     adds either + or - to show the side of indicator species. We
+c     currently work with integer indices, and make negative indicators
+c     negative
+      ITEM(IT)= -1 * ITEM(IT)
       GOTO 80
-   75 ITEM(IT)=PLUS
+c     75 ITEM(IT)=PLUS
+ 75   CONTINUE
    80 CONTINUE
 c      WRITE (IUOUT2,1004) (ITEM(IIT),IIT=1,IT)
 C---Altered format: P.Minchin June 1997
