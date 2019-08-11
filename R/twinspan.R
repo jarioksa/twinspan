@@ -53,6 +53,7 @@
     MZ <- as.integer(MZCRIT + 2*MZOUT)
     MMZ <- MZ + 4L
     MMS <- as.integer(indmax + 4L)
+    TINY <- 1e-5
     ##
     nlev <- length(cutlevels)
     x <- as.matrix(x)
@@ -67,6 +68,8 @@
             PACKAGE = "twinspan")
     ibegin <- Z$ibegin
     idat <- Z$idat
+    ## there should be inflag, but I have no idea what is that: guess
+    inflag <- rep(1L, nid)
     ## Pseudospecies
     cutlevels <- as.integer(1000 * cutlevels + 0.5)
     nmax <- nlev * n
@@ -76,6 +79,7 @@
     jname1[seq_len(n)] <- jname2[seq_len(n)] <- seq_len(n)
     jnflag <- integer(nmax)
     jnflag[seq_len(n)] <- seq_len(n)
+    iname1 <- iname2 <- seq_len(mm)
     Z <- .Fortran("pseudo", mm = as.integer(mm), nn = as.integer(n),
                   nmax = as.integer(nmax), nl = as.integer(nlev),
                   ndat = as.integer(ndat), nspec = as.integer(nmax),
@@ -84,5 +88,36 @@
                   jname1 = as.integer(jname1), jname2 = as.integer(jname2),
                   jnam = integer(nmax), indpot = integer(nmax),
                   iy = integer(nmax), PACKAGE = "twinspan")
+    nn <- Z$nn
+    mm <- Z$mm
+    jnam <- Z$jnam
+    rrwt <- rep(1.0, nn)
+    ccwt <- rep(1, nn)
+    ccwt[jnam] <- lwgt[jnam] + TINY
+    ## do not handle noind cases yet
+    indord <- rep(1L, nn)
+    ## Call CLASS: except failure & trouble
+    maxsam <- ndat # ??
+    Z <- .Fortran("class", mm=as.integer(mm), nn=as.integer(nn),
+                  ndat=as.integer(ndat), mind=as.integer(indmax),
+                  mmz=as.integer(MMZ), mms=as.integer(MMS),
+                  ix=integer(maxsam), iclass=integer(maxsam),
+                  iirow=integer(maxsam), iaddr=ibegin,
+                  indpot=Z$indpot, indord=indord,
+                  izone=integer(maxsam), iy=Z$iy, jjcol=integer(nmax),
+                  idat=Z$idat, indsig=integer(20),
+                  ipict=integer(104*25), x=double(maxsam),
+                  xx=double(maxsam), rtot=double(maxsam),
+                  rrwt=as.double(rrwt), rowwgt=double(maxsam),
+                  y=double(nmax), yy=double(nmax), ctot=double(nmax),
+                  ccwt=as.double(ccwt), colwgt=double(nmax),
+                  iname1=as.integer(iname1), iname2=as.integer(iname2),
+                  jname1=Z$jname1, jname2=Z$jname2, jnam=Z$jnam,
+                  x3=double(maxsam), x4=double(maxsam), x5=double(maxsam),
+                  lind=as.integer(lind), inflag=as.integer(inflag),
+                  ipunch=as.integer(ipunch),
+                  inlevmax=as.integer(levmax),
+                  inmmin=as.integer(groupmin),
+                  PACKAGE="twinspan")
     Z
 }
