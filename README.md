@@ -26,7 +26,8 @@ need more work:
 
 - Information on indicator species for each division.
 - Diagnostics for indicator divisions.
-- Eigenvalues associated with each species.
+- Eigenvalues associated with each division.
 - Handling of species and SU names.
 - Reporting misclassifications (_i.e._, indicator species give different
   results than actual classification).
+- Support functions (plotting, printing, extracting classifications)
