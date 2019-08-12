@@ -117,7 +117,6 @@
                   jname1=Z$jname1, jname2=Z$jname2, jnam=Z$jnam,
                   x3=double(maxsam), x4=double(maxsam), x5=double(maxsam),
                   lind=as.integer(lind), inflag=as.integer(inflag),
-                  ipunch=as.integer(ipunch),
                   inlevmax=as.integer(levmax),
                   inmmin=as.integer(groupmin),
                   PACKAGE="twinspan")
