@@ -70,8 +70,8 @@
     idat <- Z$idat
     ## inflag: zero for species omitted as potential indicators
     inflag <- seq_len(n)
-    if (!missing(noinds))
-        inflag[noinds] <- 0
+    if (!missing(noind))
+        inflag[noind] <- 0
     ## Pseudospecies
     cutlevels <- as.integer(1000 * cutlevels + 0.5)
     nmax <- nlev * n
