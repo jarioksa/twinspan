@@ -3,4 +3,5 @@
 S3method(cut,twinspan)
 S3method(print,twinspan)
 export(twinspan)
+importFrom(utils,str)
 useDynLib(twinspan)
