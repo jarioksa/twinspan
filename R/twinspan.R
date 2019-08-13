@@ -96,7 +96,7 @@
     rrwt <- rep(1.0, nn)
     ccwt <- rep(1, nn)
     ccwt[jnam] <- lwgt[jnam] + TINY
-    ## do not handle noind cases yet
+    ## noind cases handled by inflag???
     indord <- rep(1L, nn)
     indpot <- Z$indpot[1:nn]
     ## Call CLASS
