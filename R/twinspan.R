@@ -98,24 +98,25 @@
     ccwt[jnam] <- lwgt[jnam] + TINY
     ## do not handle noind cases yet
     indord <- rep(1L, nn)
-    ## Call CLASS: except failure & trouble
+    indpot <- Z$indpot[1:nn]
+    ## Call CLASS
     maxsam <- ndat # ??
     Z <- .Fortran("class", mm=as.integer(mm), nn=as.integer(nn),
                   ndat=as.integer(ndat), mind=as.integer(indmax),
                   mmz=as.integer(MMZ), mms=as.integer(MMS),
-                  ix=integer(maxsam), iclass=integer(maxsam),
-                  iirow=integer(maxsam), iaddr=ibegin,
-                  indpot=Z$indpot, indord=indord,
-                  izone=integer(maxsam), iy=Z$iy, jjcol=integer(nmax),
-                  idat=Z$idat, indsig=integer(20),
-                  ipict=integer(104*25), x=double(maxsam),
-                  xx=double(maxsam), rtot=double(maxsam),
-                  rrwt=as.double(rrwt), rowwgt=double(maxsam),
-                  y=double(nmax), yy=double(nmax), ctot=double(nmax),
-                  ccwt=as.double(ccwt), colwgt=double(nmax),
+                  ix=integer(mm), iclass=integer(mm),
+                  iirow=integer(mm), iaddr=ibegin,
+                  indpot=indpot, indord=indord,
+                  izone=integer(mm), iy=Z$iy, jjcol=integer(nmax),
+                  idat=Z$idat, indsig=integer(indmax),
+                  ipict=integer(104*25), x=double(mm),
+                  xx=double(mm), rtot=double(mm),
+                  rrwt=as.double(rrwt), rowwgt=double(mm),
+                  y=double(nn), yy=double(nn), ctot=double(nn),
+                  ccwt=as.double(ccwt), colwgt=double(nn),
                   iname1=as.integer(iname1), iname2=as.integer(iname2),
                   jname1=Z$jname1, jname2=Z$jname2, jnam=Z$jnam,
-                  x3=double(maxsam), x4=double(maxsam), x5=double(maxsam),
+                  x3=double(mm), x4=double(mm), x5=double(mm),
                   lind=as.integer(lind), inflag=as.integer(inflag),
                   inlevmax=as.integer(levmax),
                   inmmin=as.integer(groupmin),
