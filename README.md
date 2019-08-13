@@ -31,3 +31,17 @@ need more work:
 - Reporting misclassifications (_i.e._, indicator species give different
   results than actual classification).
 - Support functions (plotting, printing, extracting classifications)
+
+## Version History
+
+- **0.1:** Development version unsuitable for any work.
+- **0.2:** Marginally usable: performs SU (quadrat) classification and has 
+  support function `cut` to find SU class membership vector for any level
+  of hierarchy. No species classification, no diagnostics, no information
+  on indicator species.
+  
+### References
+
+Hill, M.O. (1979) TWINSPAN: A FORTRAN program for arranging multivariate
+data in an ordered two-way table by classification of the individuals and
+attributes. _Ecology and Systematics, Cornell University, Ithaca, NY_.
