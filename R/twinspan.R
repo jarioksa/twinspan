@@ -121,5 +121,8 @@
                   inlevmax=as.integer(levmax),
                   inmmin=as.integer(groupmin),
                   PACKAGE="twinspan")
+    ## out
+    Z$call <- match.call()
+    class(Z) <- "twinspan"
     Z
 }
