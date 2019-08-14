@@ -23,7 +23,8 @@ c advances to the end of the data
       GOTO 415
 c     NDAT must be twice the size of real length: used as workspace
   420 NDAT=NDAT/2
-c      IF (ID.GT.NDAT) GOTO 999
+c     IF (ID.GT.NDAT) GOTO 999
+      if(id.gt.ndat) call rexit("1: id > ndat")
       IID=NDAT
       DO 422 J=1,NSPEC
  422     Y(J)=0.0
@@ -44,7 +45,8 @@ c     ic/2 is a mother class
          GOTO 427
  428     ICLASS(II)=IC
  431     IF(IC.GT.ICMAX) ICMAX=IC
-c      IF (NSPEC.GT.MMAX) GOTO 999
+c     IF (NSPEC.GT.MMAX) GOTO 999
+         if(nspec.gt.mmax) call rexit("2 nspec > mmax")
       DO 432 IC=1,ICMAX
  432     TOT(IC)=0.0
       JD=0
@@ -58,7 +60,8 @@ c quadrat endmarker -1 and GOTO 437
          IF(JJ.EQ.-1) GOTO 437
          J=IABS(INDPOT(JJ))
          JD=JD+1
-c        IF(JD.GT.NDAT) GOTO 999
+c     IF(JD.GT.NDAT) GOTO 999
+         if(jd.gt.ndat) call rexit("3 jd > ndat")
          JDAT(JD)=J*IBIG+IC
          TOT(IC)=TOT(IC)+1.0
          IF(J.EQ.JJJ) GOTO 435
@@ -68,7 +71,8 @@ c        IF(JD.GT.NDAT) GOTO 999
          IDAT(ID)=J
          ID=ID+1
          IDAT(ID)=1
-c        IF(ID.GE.IID) GOTO 999
+c     IF(ID.GE.IID) GOTO 999
+         if(id.ge.iid) call rexit("4 id > iid")
          GOTO 433
  435     IDAT(ID)=IDAT(ID)+1
          GOTO 433
@@ -82,7 +86,8 @@ C WE NOW WORK ON SPECIES CLASSIFICATION
       IIBIG=IBIG-1
       DO 442 J=1,NSPEC
          JD=JD+1
-c         IF(JD.GT.NDAT) GOTO 999
+c     IF(JD.GT.NDAT) GOTO 999
+         if(jd.gt.ndat) call rexit("5 jd > ndat")
   442 JDAT(JD)=J*IBIG+IIBIG
       CALL ISORT(JDAT,JD)
 C MOVE MATRIX UP TO BACK OF ARRAY
@@ -129,7 +134,8 @@ C THE TOTALS FOR THE SAMPLE CATEGORIES
                JDAT(JD)=IC*3
  464        CONTINUE
             JD=JD+1
-c            IF(JD.GE.JJD) GOTO 999
+c     IF(JD.GE.JJD) GOTO 999
+            if(jd.ge.jjd) call rexit("6 jd > jjd")
             JDAT(JD)=-1
  470     CONTINUE
 C JDAT NOW CONTAINS DESIRED SPECIES INFORMATION.  IT IS NOW A
