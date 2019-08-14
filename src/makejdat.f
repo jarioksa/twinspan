@@ -1,5 +1,5 @@
-      subroutine makejdat(mm, nspec, ndat, nmax, iaddr, idat, indpot,
-     . iclass, y, ccwt, rrwt, tot, totj, jdat)
+      subroutine makejdat(mm, nn, nspec, ndat, nmax, iaddr, idat,
+     . indpot ,iclass, y, ccwt, rrwt, tot, totj, jdat)
 c After classifying sampling units (quadrats), twinspan makes
 c corresponding classification for species. This is not based on the
 c original data, but data on species fidelity. This piece of code builds
@@ -7,8 +7,9 @@ c up the data vector JDAT that CLASS uses to build species
 c classification.
       implicit double precision (A-H,O-Z)
       integer mm, nspec, ndat, nmax
-      integer iaddr(mm), indpot(), idat(), jdat
-      real(8) y(), ccwt(), rrwt(), tot(), totj()
+      integer iaddr(mm), indpot(nmax), iclass(mm)
+      integer idat(ndat), jdat(ndat/2)
+      real(8) y(nn), ccwt(nn), rrwt(mm), tot(511), totj(511)
 c     Arbitrary constants
       SPE1 = 0.8
       SPE2 = 2.0
@@ -81,7 +82,7 @@ C WE NOW WORK ON SPECIES CLASSIFICATION
       IIBIG=IBIG-1
       DO 442 J=1,NSPEC
          JD=JD+1
-         IF(JD.GT.NDAT) GOTO 999
+c         IF(JD.GT.NDAT) GOTO 999
   442 JDAT(JD)=J*IBIG+IIBIG
       CALL ISORT(JDAT,JD)
 C MOVE MATRIX UP TO BACK OF ARRAY
@@ -128,7 +129,7 @@ C THE TOTALS FOR THE SAMPLE CATEGORIES
                JDAT(JD)=IC*3
  464        CONTINUE
             JD=JD+1
-            IF(JD.GE.JJD) GOTO 999
+c            IF(JD.GE.JJD) GOTO 999
             JDAT(JD)=-1
  470     CONTINUE
 C JDAT NOW CONTAINS DESIRED SPECIES INFORMATION.  IT IS NOW A
@@ -150,3 +151,4 @@ C MATTER OF FIXING UP WEIGHTS AND CLASSIFYING SPECIES
          INDPOT(IIC)=IIC
  480  CONTINUE
       return
+      end
