@@ -1,13 +1,13 @@
       subroutine makejdat(mm, nn, nspec, ndat, nmax, iaddr, idat,
-     . indpot ,iclass, y, ccwt, rrwt, tot, totj, jdat)
+     . indpot ,iclass, y, ccwt, rrwt, jdat)
 c After classifying sampling units (quadrats), twinspan makes
 c corresponding classification for species. This is not based on the
 c original data, but data on species fidelity. This piece of code builds
 c up the data vector JDAT that CLASS uses to build species
 c classification.
-      implicit double precision (A-H,O-Z)
-      integer mm, nspec, ndat, nmax
-      integer iaddr(mm), indpot(nmax), iclass(mm)
+      IMPLICIT DOUBLEPRECISION (A-H,O-Z)
+      integer mm, nn, nspec, ndat, nmax
+      integer iaddr(mm), indpot(nn), iclass(mm)
       integer idat(ndat), jdat(ndat/2)
       real(8) y(nn), ccwt(nn), rrwt(mm), tot(511), totj(511)
 c     Arbitrary constants

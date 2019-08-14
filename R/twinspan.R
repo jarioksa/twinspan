@@ -93,7 +93,7 @@
     nn <- Z$nn
     mm <- Z$mm
     jnam <- Z$jnam
-    rrwt <- rep(1.0, nn)
+    rrwt <- rep(1.0, mm)
     ccwt <- rep(1, nn)
     ccwt[jnam] <- lwgt[jnam] + TINY
     ## noind cases handled by inflag???
@@ -121,7 +121,23 @@
                   inlevmax=as.integer(levmax),
                   inmmin=as.integer(groupmin),
                   PACKAGE="twinspan")
-    ## out
+    ## species classification
+    indpot <- Z$indpot
+    iclass <- Z$iclass
+    y <- Z$y
+    ccwt <- Z$ccwt
+    ctot <- Z$ctot
+    iaddr <- Z$iaddr
+    Y <- .Fortran("makejdat", mm=as.integer(mm), nn=as.integer(nn),
+                  nspec=as.integer(n), ndat=as.integer(ndat),
+                  nmax=as.integer(nmax), iaddr=as.integer(iaddr),
+                  idat=as.integer(idat), indpot=as.integer(indpot),
+                  iclass=as.integer(iclass), y=as.double(y),
+                  ccwt=as.double(ccwt), rrwt=as.double(rrwt),
+                  jdat=integer(ndat %/% 2),
+                  PACKAGE="twinspan")
+
+## out
     Z$call <- match.call()
     class(Z) <- "twinspan"
     Z
