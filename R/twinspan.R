@@ -98,7 +98,7 @@
     ccwt[jnam] <- lwgt[jnam] + TINY
     ## noind cases handled by inflag???
     indord <- rep(1L, nn)
-    indpot <- Z$indpot[1:nn]
+    indpot <- Z$indpot
     ## Call CLASS
     maxsam <- ndat # ??
     Z <- .Fortran("class", mm=as.integer(mm), nn=as.integer(nn),
@@ -122,18 +122,12 @@
                   inmmin=as.integer(groupmin),
                   PACKAGE="twinspan")
     ## species classification
-    indpot <- Z$indpot
-    iclass <- Z$iclass
-    y <- Z$y
-    ccwt <- Z$ccwt
-    ctot <- Z$ctot
-    iaddr <- Z$iaddr
     Y <- .Fortran("makejdat", mm=as.integer(mm), nn=as.integer(nn),
                   nspec=as.integer(n), ndat=as.integer(ndat),
-                  nmax=as.integer(nmax), iaddr=as.integer(iaddr),
-                  idat=as.integer(idat), indpot=as.integer(indpot),
-                  iclass=as.integer(iclass), y=as.double(y),
-                  ccwt=as.double(ccwt), rrwt=as.double(rrwt),
+                  nmax=as.integer(nmax), iaddr=as.integer(Z$iaddr),
+                  idat=as.integer(Z$idat), indpot=as.integer(Z$indpot),
+                  iclass=as.integer(Z$iclass), y=as.double(Z$y),
+                  ccwt=as.double(Z$ccwt), rrwt=as.double(Z$rrwt),
                   jdat=integer(ndat %/% 2),
                   PACKAGE="twinspan")
 
