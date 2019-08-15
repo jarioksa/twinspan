@@ -15,6 +15,8 @@ c     Arbitrary constants
       SPE2 = 2.0
       SPE3 = 6.0
       WTHIGH = 2.0
+c Initialize MMAX
+      MMAX = mm
 c ID is the first observation in the last SU, and the 415 loop
 c advances to the end of the data
       ID=IADDR(MM)
