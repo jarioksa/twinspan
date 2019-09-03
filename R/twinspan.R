@@ -74,7 +74,7 @@
         inflag[noind] <- 0
     ## Pseudospecies
     cutlevels <- as.integer(1000 * cutlevels + 0.5)
-    nmax <- nlev * n
+    nmax <- nlev * max(n, mm)
     ## R cannot pass character vectors to Fortran, but we pass integer
     ## indices of names
     jname1 <- jname2 <- integer(nmax)
@@ -93,8 +93,8 @@
     nn <- Z$nn
     mm <- Z$mm
     jnam <- Z$jnam
-    rrwt <- rep(1.0, mm)
-    ccwt <- rep(1, nn)
+    rrwt <- rep(1.0, nmax)
+    ccwt <- rep(1.0, nmax)
     ccwt[jnam] <- lwgt[jnam] + TINY
     ## noind cases handled by inflag???
     indord <- rep(1L, nn)
@@ -122,13 +122,13 @@
                   inmmin=as.integer(groupmin),
                   PACKAGE="twinspan")
     ## species classification
-    Y <- .Fortran("makejdat", mm=as.integer(mm), nn=as.integer(nn),
-                  nspec=as.integer(n), ndat=as.integer(ndat),
+    Y <- .Fortran("makejdat", mm=as.integer(mm), nn=as.integer(Z$nn),
+                  nspec=as.integer(n), ndat=as.integer(Z$ndat),
                   nmax=as.integer(nmax), iaddr=as.integer(Z$iaddr),
                   idat=as.integer(Z$idat), indpot=as.integer(Z$indpot),
                   iclass=as.integer(Z$iclass), y=as.double(Z$y),
                   ccwt=as.double(Z$ccwt), rrwt=as.double(Z$rrwt),
-                  jdat=integer(ndat %/% 2),
+                  jdat=integer(ndat),
                   PACKAGE="twinspan")
 
 ## out
