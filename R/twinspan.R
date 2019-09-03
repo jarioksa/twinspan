@@ -99,6 +99,7 @@
     ## noind cases handled by inflag???
     indord <- rep(1L, nn)
     indpot <- Z$indpot
+    jnflag <- Z$jnflag
     ## Call CLASS
     maxsam <- ndat # ??
     Z <- .Fortran("class", mm=as.integer(mm), nn=as.integer(nn),
@@ -130,6 +131,18 @@
                   ccwt=as.double(Z$ccwt), rrwt=as.double(Z$rrwt),
                   jdat=integer(ndat),
                   PACKAGE="twinspan")
+    X <- .Fortran("class", nspec=as.integer(Y$nspec),
+                  icmax=as.integer(3*max(Y$iclass)), ndat=as.integer(Y$ndat),
+                  0L, mmz=as.integer(MMZ), mms=as.integer(MMS),  ix=Z$ix,
+                  jnam=Z$jnam, iirow=Z$iirow, iaddr=Y$iaddr, indpot=Y$indpot,
+                  indord=Z$indord, izone=Z$izone, iy=Z$iy, jjcol=Z$jjcol,
+                  jdat=Y$jdat, indsig=Z$indsig, ipict=Z$ipict,
+                  x=Z$x, xx=Z$xx, rtot=Z$rtot, rrwt=Y$rrwt, rowwgt=Z$rowwgt,
+                  y=Y$y, yy=Z$yy, ctot=Z$ctot, ccwt=Y$ccwt, colwgt=Z$colwgt,
+                  jname1=Z$jname1, jname2=Z$jname2, iname1=Z$iname1,
+                  iname2=Z$iname2, inflag=Z$inflag, x3=Z$x3, x4=Z$x4, x5=Z$x5,
+                  lind=Z$lind, jnflag=as.integer(jnflag),
+                  inmmin=as.integer(groupmin), isec=2L, PACKAGE="twinspan")
 
 ## out
     Z$call <- match.call()
