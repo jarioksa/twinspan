@@ -119,7 +119,7 @@
                   x3=double(mm), x4=double(mm), x5=double(mm),
                   lind=as.integer(lind), inflag=as.integer(inflag),
                   inlevmax=as.integer(levmax),
-                  inmmin=as.integer(groupmin),
+                  inmmin=as.integer(groupmin), isec = 1L,
                   PACKAGE="twinspan")
     ## species classification
     Y <- .Fortran("makejdat", mm=as.integer(mm), nn=as.integer(Z$nn),
