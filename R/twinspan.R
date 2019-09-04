@@ -111,7 +111,7 @@
                   indpot=indpot, indord=indord,
                   izone=integer(mm), iy=Z$iy, jjcol=integer(nmax),
                   idat=Z$idat, indsig=integer(MMS),
-                  ipict=integer(104*25), x=double(nmax),
+                  ipict=integer(MMZ*MMS), x=double(nmax),
                   xx=double(nmax), rtot=double(mm),
                   rrwt=as.double(rrwt), rowwgt=double(mm),
                   y=double(nn), yy=double(nn),
@@ -144,7 +144,8 @@
                   jname1=Z$jname1, jname2=Z$jname2, iname1=Z$iname1,
                   iname2=Z$iname2, inflag=Z$inflag, x3=Z$x3, x4=Z$x4, x5=Z$x5,
                   lind=Z$lind, jnflag=as.integer(jnflag),
-                  inmmin=as.integer(groupmin), isec=2L, PACKAGE="twinspan")
+                  inlevmax = Z$inlevmax, inmmin=Z$inmmin, isec=2L,
+                  PACKAGE="twinspan")
 
 ## out
     Z$call <- match.call()
