@@ -81,7 +81,8 @@
     jname1[seq_len(n)] <- jname2[seq_len(n)] <- seq_len(n)
     jnflag <- integer(nmax)
     jnflag[seq_len(n)] <- seq_len(n)
-    iname1 <- iname2 <- seq_len(mm)
+    iname1 <- iname2 <- integer(nmax)
+    iname1[seq_len(mm)] <- iname2[seq_len(mm)] <- seq_len(mm)
     Z <- .Fortran("pseudo", mm = as.integer(mm), nn = as.integer(n),
                   nmax = as.integer(nmax), nl = as.integer(nlev),
                   ndat = as.integer(ndat), nspec = as.integer(nmax),
@@ -109,11 +110,12 @@
                   iirow=integer(mm), iaddr=ibegin,
                   indpot=indpot, indord=indord,
                   izone=integer(mm), iy=Z$iy, jjcol=integer(nmax),
-                  idat=Z$idat, indsig=integer(indmax),
-                  ipict=integer(104*25), x=double(mm),
-                  xx=double(mm), rtot=double(mm),
+                  idat=Z$idat, indsig=integer(MMS),
+                  ipict=integer(104*25), x=double(nmax),
+                  xx=double(nmax), rtot=double(mm),
                   rrwt=as.double(rrwt), rowwgt=double(mm),
-                  y=double(nn), yy=double(nn), ctot=double(nn),
+                  y=double(nn), yy=double(nn),
+                  ctot=double(nn),
                   ccwt=as.double(ccwt), colwgt=double(nn),
                   iname1=as.integer(iname1), iname2=as.integer(iname2),
                   jname1=Z$jname1, jname2=Z$jname2, jnam=Z$jnam,
