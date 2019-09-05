@@ -125,6 +125,8 @@
                   inlevmax=as.integer(levmax),
                   inmmin=as.integer(groupmin), isec = 1L,
                   PACKAGE="twinspan")
+    out <- list()
+    out$iclass <- Z$iclass[seq_len(mm)]
     ## species classification
     Y <- .Fortran("makejdat", mm=as.integer(mm), nn=as.integer(Z$nn),
                   nspec=as.integer(n), ndat=as.integer(Z$ndat),
@@ -134,7 +136,7 @@
                   ccwt=as.double(Z$ccwt), rrwt=as.double(Z$rrwt),
                   jdat=integer(ndat),
                   PACKAGE="twinspan")
-    X <- .Fortran("class", nspec=as.integer(Y$nspec),
+    Z <- .Fortran("class", nspec=as.integer(Y$nspec),
                   icmax=as.integer(3*max(Y$iclass)), ndat=as.integer(Y$ndat),
                   0L, mmz=as.integer(MMZ), mms=as.integer(MMS),  ix=Z$ix,
                   jnam=Z$jnam, iirow=Z$iirow, iaddr=Y$iaddr, indpot=Y$indpot,
@@ -147,9 +149,9 @@
                   lind=Z$lind, jnflag=as.integer(jnflag),
                   inlevmax = Z$inlevmax, inmmin=Z$inmmin, isec=2L,
                   PACKAGE="twinspan")
-
+    out$jclass <- Z$jnam[seq_len(n)]
 ## out
-    Z$call <- match.call()
-    class(Z) <- "twinspan"
-    Z
+    out$call <- match.call()
+    class(out) <- "twinspan"
+    out
 }
