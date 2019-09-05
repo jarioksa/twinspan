@@ -74,7 +74,7 @@
         inflag[noind] <- 0
     ## Pseudospecies
     cutlevels <- as.integer(1000 * cutlevels + 0.5)
-    nmax <- nlev * max(n, mm)
+    nmax <- max(nlev * max(n, mm), 3 * (2^(levmax+1)-1))
     ## R cannot pass character vectors to Fortran, but we pass integer
     ## indices of names
     jname1 <- jname2 <- integer(nmax)
@@ -102,18 +102,19 @@
     indpot <- Z$indpot
     jnflag <- Z$jnflag
     ## Call CLASS
+    mmax <- max(mm, n)
     maxsam <- ndat # ??
     Z <- .Fortran("class", mm=as.integer(mm), nn=as.integer(nn),
                   ndat=as.integer(ndat), mind=as.integer(indmax),
                   mmz=as.integer(MMZ), mms=as.integer(MMS),
-                  ix=integer(mm), iclass=integer(mm),
-                  iirow=integer(mm), iaddr=ibegin,
+                  ix=integer(mmax), iclass=integer(mmax),
+                  iirow=integer(mmax), iaddr=ibegin,
                   indpot=indpot, indord=indord,
-                  izone=integer(mm), iy=Z$iy, jjcol=integer(nmax),
+                  izone=integer(mmax), iy=Z$iy, jjcol=integer(nmax),
                   idat=Z$idat, indsig=integer(MMS),
                   ipict=integer(MMZ*MMS), x=double(nmax),
-                  xx=double(nmax), rtot=double(mm),
-                  rrwt=as.double(rrwt), rowwgt=double(mm),
+                  xx=double(nmax), rtot=double(mmax),
+                  rrwt=as.double(rrwt), rowwgt=double(mmax),
                   y=double(nn), yy=double(nn),
                   ctot=double(nn),
                   ccwt=as.double(ccwt), colwgt=double(nn),
