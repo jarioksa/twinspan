@@ -64,7 +64,7 @@
     ## translate data to the internal sparse format
     Z <- .C("data2hill", as.double(x), mm = as.integer(mm),
             n = as.integer(n), nid = as.integer(nid),
-            ibegin = integer(mm), idat = integer(ndat),
+            ibegin = integer(max(mm, n)), idat = integer(ndat),
             PACKAGE = "twinspan")
     ibegin <- Z$ibegin
     idat <- Z$idat
@@ -93,8 +93,10 @@
                   iy = integer(nmax), PACKAGE = "twinspan")
     nn <- Z$nn
     mm <- Z$mm
+    mmax <- max(mm, n)
+    mmax <- max(mmax, nmax)
     jnam <- Z$jnam
-    rrwt <- rep(1.0, nmax)
+    rrwt <- rep(1.0, mmax)
     ccwt <- rep(1.0, nmax)
     ccwt[jnam] <- lwgt[jnam] + TINY
     ## noind cases handled by inflag???
@@ -102,7 +104,6 @@
     indpot <- Z$indpot
     jnflag <- Z$jnflag
     ## Call CLASS
-    mmax <- max(mm, n)
     maxsam <- ndat # ??
     Z <- .Fortran("class", mm=as.integer(mm), nn=as.integer(nn),
                   ndat=as.integer(ndat), mind=as.integer(indmax),
@@ -115,12 +116,12 @@
                   ipict=integer(MMZ*MMS), x=double(nmax),
                   xx=double(nmax), rtot=double(mmax),
                   rrwt=as.double(rrwt), rowwgt=double(mmax),
-                  y=double(nn), yy=double(nn),
-                  ctot=double(nn),
-                  ccwt=as.double(ccwt), colwgt=double(nn),
+                  y=double(nmax), yy=double(nmax),
+                  ctot=double(nmax),
+                  ccwt=as.double(ccwt), colwgt=double(nmax),
                   iname1=as.integer(iname1), iname2=as.integer(iname2),
                   jname1=Z$jname1, jname2=Z$jname2, jnam=Z$jnam,
-                  x3=double(mm), x4=double(mm), x5=double(mm),
+                  x3=double(mmax), x4=double(mmax), x5=double(mmax),
                   lind=as.integer(lind), inflag=as.integer(inflag),
                   inlevmax=as.integer(levmax),
                   inmmin=as.integer(groupmin), isec = 1L,
