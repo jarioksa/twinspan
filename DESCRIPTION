@@ -1,7 +1,6 @@
 Package: twinspan
 Title: Two-Way Indicator Species Analysis
-Version: 0.2-0
-Date: 2019-08-13
+Version: 0.3-0
 Authors@R: c(person(given = "Jari", family = "Oksanen",
                   role = c("cre","aut"),
                   email = "jhoksane@gmail.com",
