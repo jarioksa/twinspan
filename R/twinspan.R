@@ -64,7 +64,7 @@
     ## translate data to the internal sparse format
     Z <- .C("data2hill", as.double(x), mm = as.integer(mm),
             n = as.integer(n), nid = as.integer(nid),
-            ibegin = integer(mm), idat = integer(ndat),
+            ibegin = integer(max(mm, n)), idat = integer(ndat),
             PACKAGE = "twinspan")
     ibegin <- Z$ibegin
     idat <- Z$idat
@@ -74,14 +74,15 @@
         inflag[noind] <- 0
     ## Pseudospecies
     cutlevels <- as.integer(1000 * cutlevels + 0.5)
-    nmax <- nlev * n
+    nmax <- max(nlev * max(n, mm), 3 * (2^(levmax+1)-1))
     ## R cannot pass character vectors to Fortran, but we pass integer
     ## indices of names
     jname1 <- jname2 <- integer(nmax)
     jname1[seq_len(n)] <- jname2[seq_len(n)] <- seq_len(n)
     jnflag <- integer(nmax)
     jnflag[seq_len(n)] <- seq_len(n)
-    iname1 <- iname2 <- seq_len(mm)
+    iname1 <- iname2 <- integer(nmax)
+    iname1[seq_len(mm)] <- iname2[seq_len(mm)] <- seq_len(mm)
     Z <- .Fortran("pseudo", mm = as.integer(mm), nn = as.integer(n),
                   nmax = as.integer(nmax), nl = as.integer(nlev),
                   ndat = as.integer(ndat), nspec = as.integer(nmax),
@@ -92,37 +93,66 @@
                   iy = integer(nmax), PACKAGE = "twinspan")
     nn <- Z$nn
     mm <- Z$mm
+    mmax <- max(mm, n)
+    mmax <- max(mmax, nmax)
     jnam <- Z$jnam
-    rrwt <- rep(1.0, nn)
-    ccwt <- rep(1, nn)
+    rrwt <- rep(1.0, mmax)
+    ccwt <- rep(1.0, nmax)
     ccwt[jnam] <- lwgt[jnam] + TINY
     ## noind cases handled by inflag???
     indord <- rep(1L, nn)
-    indpot <- Z$indpot[1:nn]
+    indpot <- Z$indpot
+    jnflag <- Z$jnflag
     ## Call CLASS
     maxsam <- ndat # ??
     Z <- .Fortran("class", mm=as.integer(mm), nn=as.integer(nn),
                   ndat=as.integer(ndat), mind=as.integer(indmax),
                   mmz=as.integer(MMZ), mms=as.integer(MMS),
-                  ix=integer(mm), iclass=integer(mm),
-                  iirow=integer(mm), iaddr=ibegin,
+                  ix=integer(mmax), iclass=integer(mmax),
+                  iirow=integer(mmax), iaddr=ibegin,
                   indpot=indpot, indord=indord,
-                  izone=integer(mm), iy=Z$iy, jjcol=integer(nmax),
-                  idat=Z$idat, indsig=integer(indmax),
-                  ipict=integer(104*25), x=double(mm),
-                  xx=double(mm), rtot=double(mm),
-                  rrwt=as.double(rrwt), rowwgt=double(mm),
-                  y=double(nn), yy=double(nn), ctot=double(nn),
-                  ccwt=as.double(ccwt), colwgt=double(nn),
+                  izone=integer(mmax), iy=Z$iy, jjcol=integer(nmax),
+                  idat=Z$idat, indsig=integer(MMS),
+                  ipict=integer(MMZ*MMS), x=double(nmax),
+                  xx=double(nmax), rtot=double(mmax),
+                  rrwt=as.double(rrwt), rowwgt=double(mmax),
+                  y=double(nmax), yy=double(nmax),
+                  ctot=double(nmax),
+                  ccwt=as.double(ccwt), colwgt=double(nmax),
                   iname1=as.integer(iname1), iname2=as.integer(iname2),
                   jname1=Z$jname1, jname2=Z$jname2, jnam=Z$jnam,
-                  x3=double(mm), x4=double(mm), x5=double(mm),
+                  x3=double(mmax), x4=double(mmax), x5=double(mmax),
                   lind=as.integer(lind), inflag=as.integer(inflag),
                   inlevmax=as.integer(levmax),
-                  inmmin=as.integer(groupmin),
+                  inmmin=as.integer(groupmin), isec = 1L,
                   PACKAGE="twinspan")
-    ## out
-    Z$call <- match.call()
-    class(Z) <- "twinspan"
-    Z
+    out <- list()
+    out$iclass <- Z$iclass[seq_len(mm)]
+    ## species classification
+    Y <- .Fortran("makejdat", mm=as.integer(mm), nn=as.integer(Z$nn),
+                  nspec=as.integer(n), ndat=as.integer(Z$ndat),
+                  nmax=as.integer(nmax), iaddr=as.integer(Z$iaddr),
+                  idat=as.integer(Z$idat), indpot=as.integer(Z$indpot),
+                  iclass=as.integer(Z$iclass), y=as.double(Z$y),
+                  ccwt=as.double(Z$ccwt), rrwt=as.double(Z$rrwt),
+                  jdat=integer(ndat),
+                  PACKAGE="twinspan")
+    Z <- .Fortran("class", nspec=as.integer(Y$nspec),
+                  icmax=as.integer(3*max(Y$iclass)), ndat=as.integer(Y$ndat),
+                  0L, mmz=as.integer(MMZ), mms=as.integer(MMS),  ix=Z$ix,
+                  jnam=Z$jnam, iirow=Z$iirow, iaddr=Y$iaddr, indpot=Y$indpot,
+                  indord=Z$indord, izone=Z$izone, iy=Z$iy, jjcol=Z$jjcol,
+                  jdat=Y$jdat, indsig=Z$indsig, ipict=Z$ipict,
+                  x=Z$x, xx=Z$xx, rtot=Z$rtot, rrwt=Y$rrwt, rowwgt=Z$rowwgt,
+                  y=Y$y, yy=Z$yy, ctot=Z$ctot, ccwt=Y$ccwt, colwgt=Z$colwgt,
+                  jname1=Z$jname1, jname2=Z$jname2, iname1=Z$iname1,
+                  iname2=Z$iname2, inflag=Z$inflag, x3=Z$x3, x4=Z$x4, x5=Z$x5,
+                  lind=Z$lind, jnflag=as.integer(jnflag),
+                  inlevmax = Z$inlevmax, inmmin=Z$inmmin, isec=2L,
+                  PACKAGE="twinspan")
+    out$jclass <- Z$jnam[seq_len(n)]
+## out
+    out$call <- match.call()
+    class(out) <- "twinspan"
+    out
 }
