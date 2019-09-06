@@ -39,6 +39,10 @@ need more work:
   support function `cut` to find SU class membership vector for any level
   of hierarchy. No species classification, no diagnostics, no information
   on indicator species.
+- **0.3:** Adds unordered species classification. Version **0.3-0**
+  only returns raw species classification with final units, but these
+  are not reordered to match the ordering of SU (quadrat)
+  classification.
   
 ### References
 
