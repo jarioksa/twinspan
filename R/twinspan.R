@@ -151,7 +151,16 @@
                   inlevmax = Z$inlevmax, inmmin=Z$inmmin, isec=2L,
                   PACKAGE="twinspan")
     out$jclass <- Z$jnam[seq_len(n)]
-## out
+    ## ordered index for quadrats and species
+    qindex <- .Fortran("clord", as.integer(mm), as.integer(levmax),
+                       as.integer(out$iclass), ix = integer(mm),
+                       PACKAGE = "twinspan")$ix
+    sindex <- .Fortran("clord", as.integer(n), as.integer(levmax),
+                       as.integer(out$jclass), ix = integer(n),
+                       PACKAGE = "twinspan")$ix
+    out$qindex <- qindex
+    out$sindex <- sindex
+    ## out
     out$call <- match.call()
     class(out) <- "twinspan"
     out
