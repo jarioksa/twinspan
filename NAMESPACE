@@ -2,6 +2,8 @@
 
 S3method(cut,twinspan)
 S3method(print,twinspan)
+export(twinsform)
 export(twinspan)
 importFrom(utils,str)
+importFrom(vegan,downweight)
 useDynLib(twinspan)
