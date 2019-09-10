@@ -43,7 +43,7 @@ C     LIMS
       TOL = 5E-6
       RATLIM = 3.0
       REPLIM = 2.0
-      PRECIS = 1E-8
+      PRECIS = 1E-7
 C     IARBS: MMIN and LEVMAX were added as input arguments
       ICWEXP = 1
       MMIN = INMMIN
