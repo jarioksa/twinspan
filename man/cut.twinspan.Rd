@@ -4,13 +4,16 @@
 \alias{cut.twinspan}
 \title{Return twinspan Classification at Given Level}
 \usage{
-\method{cut}{twinspan}(x, level, ...)
+\method{cut}{twinspan}(x, level, what = c("quadrat", "species"), ...)
 }
 \arguments{
 \item{x}{\code{twinspan} result.}
 
 \item{level}{Level of hierarchy for classification. If missing, the
 highest lvel used in the object will be returned.}
+
+\item{what}{Return either a \code{"quadrat"} or \code{"species"}
+classification vector.}
 
 \item{\dots}{Other parameters (ignored).}
 }
