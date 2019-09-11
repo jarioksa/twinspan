@@ -158,6 +158,13 @@
     sindex <- .Fortran("clord", as.integer(n), as.integer(levmax),
                        as.integer(out$jclass), ix = integer(n),
                        PACKAGE = "twinspan")$ix
+    irev <- 0
+    rev <- .Fortran("revspec", nspec=as.integer(n), mm=as.integer(mm),
+                    ndat=Z$ndat, ix=as.integer(qindex), iy=as.integer(sindex),
+                    x=Z$x, y=Z$y, idat=Y$idat,
+                    irev=as.integer(irev), PACKAGE="twinspan")$irev
+    if (rev)
+        sindex <- rev(sindex)
     out$qindex <- qindex
     out$sindex <- sindex
     ## out
