@@ -124,9 +124,9 @@
                   x3=double(mmax), x4=double(mmax), x5=double(mmax),
                   lind=as.integer(lind), inflag=as.integer(inflag),
                   inlevmax=as.integer(levmax),
-                  inmmin=as.integer(groupmin), isec = 1L,
-                  PACKAGE="twinspan")
-    quadrat <- list(iclass = Z$iclass[seq_len(mm)])
+                  inmmin=as.integer(groupmin), eig = double(2^levmax-1),
+                  isec = 1L, PACKAGE="twinspan")
+    quadrat <- list(iclass = Z$iclass[seq_len(mm)], eig = Z$eig)
     ## species classification
     Y <- .Fortran("makejdat", mm=as.integer(mm), nn=as.integer(Z$nn),
                   nspec=as.integer(n), ndat=as.integer(Z$ndat),
@@ -147,9 +147,10 @@
                   jname1=Z$jname1, jname2=Z$jname2, iname1=Z$iname1,
                   iname2=Z$iname2, inflag=Z$inflag, x3=Z$x3, x4=Z$x4, x5=Z$x5,
                   lind=Z$lind, jnflag=as.integer(jnflag),
-                  inlevmax = Z$inlevmax, inmmin=Z$inmmin, isec=2L,
+                  inlevmax = Z$inlevmax, inmmin=Z$inmmin,
+                  eig=double(2^levmax-1), isec=2L,
                   PACKAGE="twinspan")
-    species <- list(iclass = Z$jnam[seq_len(n)])
+    species <- list(iclass = Z$jnam[seq_len(n)], eig = Z$eig)
     ## ordered index for quadrats and species
     quadrat$index <-
         .Fortran("clord", as.integer(mm), as.integer(levmax),
