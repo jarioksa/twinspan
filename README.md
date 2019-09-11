@@ -1,5 +1,5 @@
 # twinspan
-R package for Two-Way Indicator Species Analysis (Hill 1979)
+R package for Two-Way Indicator Species Analysis (Hill 1979).
 
 Two-Way Indicator Species Analysis was developed to classify
 community data tables. It was supposed to work in the same 
@@ -24,13 +24,13 @@ return the final classification for quadrats. In the future, similar
 species classification will be available. The following features
 need more work:
 
-- Information on indicator species for each division.
-- Diagnostics for indicator divisions.
-- Eigenvalues associated with each division.
-- Handling of species and SU names.
-- Reporting misclassifications (_i.e._, indicator species give different
+- [x] Information on indicator species for each division.
+- [ ] Diagnostics for indicator divisions.
+- [x] Eigenvalues associated with each division.
+- [ ] Handling of species and SU names.
+- [ ] Reporting misclassifications (_i.e._, indicator species give different
   results than actual classification).
-- Support functions (plotting, printing, extracting classifications)
+- [ ] Support functions (plotting, printing, extracting classifications)
 
 ## Version History
 
@@ -39,13 +39,14 @@ need more work:
   support function `cut` to find SU class membership vector for any level
   of hierarchy. No species classification, no diagnostics, no information
   on indicator species.
-- **0.3:** Adds unordered species classification. Version **0.3-0**
-  only returns raw species classification with final units, but these
-  are not reordered to match the ordering of SU (quadrat)
+- **0.3:** Adds species classification. 
   classification.
+- **0.4:** Returns eigenvalues and indicator species for each division.
+  However, most support functions are still missing, and the result object
+  must be inspected manually.
   
 ### References
 
-Hill, M.O. (1979) TWINSPAN: A FORTRAN program for arranging multivariate
+Hill, M.O. (1979) _TWINSPAN: A FORTRAN program for arranging multivariate
 data in an ordered two-way table by classification of the individuals and
-attributes. _Ecology and Systematics, Cornell University, Ithaca, NY_.
+attributes_. Ecology and Systematics, Cornell University, Ithaca, NY.
