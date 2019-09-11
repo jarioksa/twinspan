@@ -105,6 +105,7 @@
     jnflag <- Z$jnflag
     ## Call CLASS
     maxsam <- ndat # ??
+    inddim <- indmax * (2^levmax-1) # dims for indicators
     Z <- .Fortran("class", mm=as.integer(mm), nn=as.integer(nn),
                   ndat=as.integer(ndat), mind=as.integer(indmax),
                   mmz=as.integer(MMZ), mms=as.integer(MMS),
@@ -125,8 +126,11 @@
                   lind=as.integer(lind), inflag=as.integer(inflag),
                   inlevmax=as.integer(levmax),
                   inmmin=as.integer(groupmin), eig = double(2^levmax-1),
-                  isec = 1L, PACKAGE="twinspan")
-    quadrat <- list(iclass = Z$iclass[seq_len(mm)], eig = Z$eig)
+                  indics = integer(inddim), isec = 1L, PACKAGE="twinspan")
+    indics <- Z$indics
+    dim(indics) <- c(indmax, 2^levmax-1)
+    quadrat <- list(iclass = Z$iclass[seq_len(mm)], eig = Z$eig,
+                    indicators = indics)
     ## species classification
     Y <- .Fortran("makejdat", mm=as.integer(mm), nn=as.integer(Z$nn),
                   nspec=as.integer(n), ndat=as.integer(Z$ndat),
@@ -148,7 +152,8 @@
                   iname2=Z$iname2, inflag=Z$inflag, x3=Z$x3, x4=Z$x4, x5=Z$x5,
                   lind=Z$lind, jnflag=as.integer(jnflag),
                   inlevmax = Z$inlevmax, inmmin=Z$inmmin,
-                  eig=double(2^levmax-1), isec=2L,
+                  eig=double(2^levmax-1), indics = integer(inddim),
+                  isec=2L,
                   PACKAGE="twinspan")
     species <- list(iclass = Z$jnam[seq_len(n)], eig = Z$eig)
     ## ordered index for quadrats and species
