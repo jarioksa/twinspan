@@ -126,8 +126,7 @@
                   inlevmax=as.integer(levmax),
                   inmmin=as.integer(groupmin), isec = 1L,
                   PACKAGE="twinspan")
-    out <- list()
-    out$iclass <- Z$iclass[seq_len(mm)]
+    quadrat <- list(iclass = Z$iclass[seq_len(mm)])
     ## species classification
     Y <- .Fortran("makejdat", mm=as.integer(mm), nn=as.integer(Z$nn),
                   nspec=as.integer(n), ndat=as.integer(Z$ndat),
@@ -150,25 +149,26 @@
                   lind=Z$lind, jnflag=as.integer(jnflag),
                   inlevmax = Z$inlevmax, inmmin=Z$inmmin, isec=2L,
                   PACKAGE="twinspan")
-    out$jclass <- Z$jnam[seq_len(n)]
+    species <- list(iclass = Z$jnam[seq_len(n)])
     ## ordered index for quadrats and species
-    qindex <- .Fortran("clord", as.integer(mm), as.integer(levmax),
-                       as.integer(out$iclass), ix = integer(mm),
+    quadrat$index <-
+        .Fortran("clord", as.integer(mm), as.integer(levmax),
+                       as.integer(quadrat$iclass), ix = integer(mm),
                        PACKAGE = "twinspan")$ix
     sindex <- .Fortran("clord", as.integer(n), as.integer(levmax),
-                       as.integer(out$jclass), ix = integer(n),
+                       as.integer(species$iclass), ix = integer(n),
                        PACKAGE = "twinspan")$ix
     irev <- 0
     rev <- .Fortran("revspec", nspec=as.integer(n), mm=as.integer(mm),
-                    ndat=Z$ndat, ix=as.integer(qindex), iy=as.integer(sindex),
+                    ndat=Z$ndat, ix=as.integer(quadrat$index),
+                    iy=as.integer(sindex),
                     x=Z$x, y=Z$y, idat=Y$idat,
                     irev=as.integer(irev), PACKAGE="twinspan")$irev
     if (rev)
         sindex <- rev(sindex)
-    out$qindex <- qindex
-    out$sindex <- sindex
+    species$index <- sindex
     ## out
-    out$call <- match.call()
+    out <- list(call = match.call(), quadrat = quadrat, species = species)
     class(out) <- "twinspan"
     out
 }
