@@ -161,8 +161,7 @@
     irev <- 0
     rev <- .Fortran("revspec", nspec=as.integer(n), mm=as.integer(mm),
                     ndat=Z$ndat, ix=as.integer(qindex), iy=as.integer(sindex),
-                    inflag=Z$inflag, indpot=Z$indpot, x=Z$x, y=Z$y,
-                    ix1=integer(n), idat=Y$idat,
+                    x=Z$x, y=Z$y, idat=Y$idat,
                     irev=as.integer(irev), PACKAGE="twinspan")$irev
     if (rev)
         sindex <- rev(sindex)
