@@ -91,6 +91,12 @@
                   jname1 = as.integer(jname1), jname2 = as.integer(jname2),
                   jnam = integer(nmax), indpot = integer(nmax),
                   iy = integer(nmax), PACKAGE = "twinspan")
+    ## names
+    rnames <- rownames(x)
+    cnames <- colnames(x)
+    k <- Z$jname1 > 0
+    pnames <- paste0(cnames[Z$jname1[k]], Z$jnam[k])
+    ## some other re-set arguments
     nn <- Z$nn
     mm <- Z$mm
     mmax <- max(mm, n)
@@ -126,11 +132,13 @@
                   lind=as.integer(lind), inflag=as.integer(inflag),
                   inlevmax=as.integer(levmax),
                   inmmin=as.integer(groupmin), eig = double(2^levmax-1),
-                  indics = integer(inddim), isec = 1L, PACKAGE="twinspan")
+                  indics = integer(inddim), limpos = integer(2^levmax-1),
+                  isec = 1L, PACKAGE="twinspan")
     indics <- Z$indics
     dim(indics) <- c(indmax, 2^levmax-1)
     quadrat <- list(iclass = Z$iclass[seq_len(mm)], eig = Z$eig,
-                    indicators = indics)
+                    indicators = indics, positivelimit = Z$limpos,
+                    labels = rnames, indlabels = pnames)
     ## species classification
     Y <- .Fortran("makejdat", mm=as.integer(mm), nn=as.integer(Z$nn),
                   nspec=as.integer(n), ndat=as.integer(Z$ndat),
@@ -153,9 +161,10 @@
                   lind=Z$lind, jnflag=as.integer(jnflag),
                   inlevmax = Z$inlevmax, inmmin=Z$inmmin,
                   eig=double(2^levmax-1), indics = integer(inddim),
-                  isec=2L,
+                  limpos = integer(2^levmax-1), isec=2L,
                   PACKAGE="twinspan")
-    species <- list(iclass = Z$jnam[seq_len(n)], eig = Z$eig)
+    species <- list(iclass = Z$jnam[seq_len(n)], eig = Z$eig,
+                    labels = cnames)
     ## ordered index for quadrats and species
     quadrat$index <-
         .Fortran("clord", as.integer(mm), as.integer(levmax),
