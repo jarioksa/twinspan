@@ -73,8 +73,8 @@ List of 3
 
 The example is from version 0.5, and some changes can be expected. However, basically the
 structure is similar as planned in advance. The main results are given in elements `quadrat`
-`species` which give the basic results of the two-way classification. These have similar
-elements, althoug `species` only have a subset of `quadrats`.
+and `species` which give the basic results of the two-way classification. These have similar
+elements, although `species` only have a subset of `quadrats`.
 
 The elements are:
 
@@ -88,16 +88,17 @@ The elements are:
   is a matrix where each column lists the indicators of the corresponding division, and if division
   was skipped, the column is zero.
 - `positivelimit`: The lowest indicator value for a positive group; if the indicator score is
-  less, the item goes to the negative group.
+  less, the item goes to the negative group ("negative" and "positive" are just conventional
+  names used in `twinspan` to separate the the branches of dichotomy).
 - `labels`: Names of the elements (quadrats or species).
 - `indlabels`: Labels for the pseudospecies. These are made by adding the cutlevel number to
   species name. The absolute values of `indicators` index these labels. In this case, the first
-  division has two indices `-105 91`, `indlabels[105]` is `"Cladrang5"` (which is a negative 
-  indicator), and `indlabels[91]` is `"Pleuschr4"` which is a positive indicator
+  division has two indices `-105` and `91`: `indlabels[105]` is `"Cladrang5"` (which is a negative 
+  indicator at cutlevel 5), and `indlabels[91]` is `"Pleuschr4"` (which is a positive indicator
+  at cutlevel 4 or higher).
 - `index`: Index that will order rows and columns according to the classification, as returned
-  from the Fortran code. The data can be tabulated by using as arguments `site.ind` and `sp.ind`
-  in **vegan** functions `vegemite` or `tabasco`.
-  `tabasco`
+  from the Fortran code. The data can be tabulated by using these as arguments `site.ind` and `sp.ind`
+  in **vegan** functions `vegemite` and `tabasco`.
   
 ### References
 
