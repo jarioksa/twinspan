@@ -6,8 +6,8 @@
     clid <- cut(object, what=what)
     len <- length(obj$eig) * 2
     state <- character(len)
-    state[unique(clid)] <- "leaf"
     state[which(obj$eig > 0)] <- "branch"
+    state[unique(clid)] <- "leaf"
     hmax <- sum(max(which(nchar(state) >0 )) >= 2^(0:10)) + 1
     z <- list()
     for(k in rev(seq_along(state))) {
