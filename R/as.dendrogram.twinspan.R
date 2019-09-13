@@ -1,5 +1,5 @@
 `as.dendrogram.twinspan` <-
-    function(object, what = c("quadrat", "species"), ...)
+    function(object, what = c("quadrat", "species"), eigenheight = FALSE, ...)
 {
     what <- match.arg(what)
     obj <- object[[what]]
@@ -8,7 +8,12 @@
     state <- character(len)
     state[which(obj$eig > 0)] <- "branch"
     state[unique(clid)] <- "leaf"
-    hmax <- sum(max(which(nchar(state) >0 )) >= 2^(0:10)) + 1
+    if (eigenheight) {
+        eig <- obj$eig
+        hmax <- 1
+    } else {
+        hmax <- sum(max(which(nchar(state) >0 )) >= 2^(0:10)) + 1
+    }
     z <- list()
     for(k in rev(seq_along(state))) {
         if(nchar(state[k]) == 0)
@@ -18,7 +23,11 @@
             attr(zk, "members") <- length(zk)
             attr(zk, "midpoint") <- (length(zk)-1)/2
             labs <- obj$labels[clid == k]
-            height <- hmax - sum(k >= 2^(0:10)) - 1
+            if (eigenheight) {
+                height <- 0
+            } else {
+                height <- hmax - sum(k >= 2^(0:10)) - 1
+            }
             for (i in seq_len(length(zk))) {
                 attr(zk[[i]], "label") <- labs[i]
                 attr(zk[[i]], "members") <- 1L
@@ -37,7 +46,11 @@
                                      attr(z[[x[2]]], "midpoint"))/2
             z[[x[1]]] <- z[[x[2]]] <- NULL
         }
-        attr(zk, "height") <- hmax - sum(k >= 2^(0:10))
+        if (eigenheight) {
+            attr(zk, "height") <- if(k==1) 1 else eig[k %/% 2]
+        }
+        else
+            attr(zk, "height") <- hmax - sum(k >= 2^(0:10))
         z[[as.character(k)]] <- zk
     }
     structure(z[[as.character(k)]], class="dendrogram")
