@@ -66,7 +66,9 @@ elements:
 
 - `iclass`: The final classification vector. This gives the ID numbers
   of the deepest level of classification, but function `cut` returns
-  the classification vector at any level of division.
+  the classification vector at any level of division. Function 
+  `as.dendrogram` will turn this into a standard **R** dendrogam
+  object that can be plotted and further manipulated.
 - `eig`: Eigenvalue of the division. This is 0 for divisions that were
   skipped because group size was too small. These can be accessed with
   function `eigenvals`.
