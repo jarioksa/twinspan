@@ -1,5 +1,5 @@
 # twinspan
-R package for Two-Way Indicator Species Analysis (Hill 1979).
+**R** package for Two-Way Indicator Species Analysis (Hill 1979).
 
 Two-Way Indicator Species Analysis was developed to classify
 community data tables. It was supposed to work in the same 
@@ -12,25 +12,12 @@ the same Fortran code, but allows using TWINSPAN from **R**
 together with other **R** functions for community ecology and
 statistics.
 
-## Status of the Package
-
 The design philosophy of TWINSPAN is completely different from
 well-behaved **R** functions. TWINSPAN is a traditional console
 program that runs through a process, and prints its results as
 it advances. In **R**, the function should work silently, and
 return the result for further analysis. The code needs a thorough
-re-design to be used in **R**. Currently, the package can only
-return the final classification for quadrats. In the future, similar
-species classification will be available. The following features
-need more work:
-
-- [x] Information on indicator species for each division.
-- [ ] Diagnostics for indicator divisions.
-- [x] Eigenvalues associated with each division.
-- [x] Handling of species and SU names.
-- [ ] Reporting misclassifications (_i.e._, indicator species give different
-  results than actual classification).
-- [ ] Support functions (plotting, printing, extracting classifications)
+re-design to be used in **R**.
 
 ## Version History
 
@@ -40,14 +27,14 @@ need more work:
   of hierarchy. No species classification, no diagnostics, no information
   on indicator species.
 - **0.3:** Adds species classification. 
-  classification.
 - **0.4:** Returns eigenvalues and indicator species for each division.
   However, most support functions are still missing, and the result object
   must be inspected manually.
-- **0.5:** Basically done and usable: output contains all basic objects that
-  are needed. However, most support functions are missing, and these elements
-  must be accessed and handled manually. The next section describes the structure
-  of the result object and its handling.
+- **0.5:** Basically done and usable: output contains all basic
+  objects that are needed. However, most support functions are
+  missing, and these elements must be accessed and handled
+  manually. The next section describes the structure of the result
+  object and its handling.
   
 ## Structure of the Result Object
 
@@ -71,34 +58,40 @@ List of 3
  - attr(*, "class")= chr "twinspan"
 ```
 
-The example is from version 0.5, and some changes can be expected. However, basically the
-structure is similar as planned in advance. The main results are given in elements `quadrat`
-and `species` which give the basic results of the two-way classification. These have similar
-elements, although `species` only have a subset of `quadrats`.
+The example is from version 0.5, and some changes can be expected.
+However, basically the structure is similar as planned in advance. The
+main results are given in elements `quadrat` and `species` which give
+the basic information of the two-way classification. These have similar
+elements:
 
-The elements are:
-
-- `iclass`: The final classification vector. This gives the ID numbers of the deepest level
-  of classification, but function `cut` returns the classification vector at any level of
-  division.
-- `eig`: Eigenvalue of the division. This is 0 for divisions that were skipped because group
-  size was too small. These can be accessed with function `eigenvals`.
-- `indicators`: Signed indices of indicator pseudospecies. The absolute value gives the index,
-  and the sign tells if the pseudospecies is an indicator of the negative or positive group. This
-  is a matrix where each column lists the indicators of the corresponding division, and if division
-  was skipped, the column is zero.
-- `positivelimit`: The lowest indicator value for a positive group; if the indicator score is
-  less, the item goes to the negative group ("negative" and "positive" are just conventional
-  names used in `twinspan` to separate the the branches of dichotomy).
+- `iclass`: The final classification vector. This gives the ID numbers
+  of the deepest level of classification, but function `cut` returns
+  the classification vector at any level of division.
+- `eig`: Eigenvalue of the division. This is 0 for divisions that were
+  skipped because group size was too small. These can be accessed with
+  function `eigenvals`.
+- `indicators`: Signed indices of indicator pseudospecies. The
+  absolute value gives the index, and the sign tells if the
+  pseudospecies is an indicator of the negative or positive
+  group. This is a matrix where each column lists the indicators of
+  the corresponding division, and if division was skipped, the column
+  is zero.
+- `positivelimit`: The lowest indicator value for the positive group;
+  if the indicator score is less, the item goes to the negative group
+  ("negative" and "positive" are just conventional names used in
+  `twinspan` to separate the branches of dichotomy).
 - `labels`: Names of the elements (quadrats or species).
-- `indlabels`: Labels for the pseudospecies. These are made by adding the cutlevel number to
-  species name. The absolute values of `indicators` index these labels. In this case, the first
-  division has two indices `-105` and `91`: `indlabels[105]` is `"Cladrang5"` (which is a negative 
-  indicator at cutlevel 5), and `indlabels[91]` is `"Pleuschr4"` (which is a positive indicator
-  at cutlevel 4 or higher).
-- `index`: Index that will order rows and columns according to the classification, as returned
-  from the Fortran code. The data can be tabulated by using these as arguments `site.ind` and `sp.ind`
-  in **vegan** functions `vegemite` and `tabasco`.
+- `indlabels`: Labels for the pseudospecies. These are made by
+  appending the cutlevel number to species name. The absolute values
+  of `indicators` index these labels. In this case, the first division
+  has two indices `-105` and `91`: `indlabels[105]` is `Cladrang5`
+  (which is a negative indicator at cutlevel 5), and `indlabels[91]`
+  is `Pleuschr` (which is a positive indicator at cutlevel 4 or
+  higher).
+- `index`: Index that will order rows and columns according to the
+  classification as returned from the Fortran code. The data can be
+  tabulated by using these as arguments `site.ind` and `sp.ind` in
+  **vegan** functions `vegemite` and `tabasco`.
   
 ### References
 
