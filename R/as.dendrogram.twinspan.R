@@ -1,3 +1,35 @@
+#' Extract Species or Quadrat Dendrograms
+#'
+#' Function extracts the species or quadrat classification as a
+#' hierarchic \code{\link[stats]{dendrogram}}.
+#'
+#' \R{} has a wealth of functions to handle and display
+#' dendrograms. See \code{\link[stats]{dendrogram}} for general
+#' description. There is even stronger support in packages (for
+#' instance, \CRANpkg{dendextend}).
+#'
+#' The \code{twinspan} dendrogram is not a completely binary tree, but
+#' there are several final units (quadrats, species). In
+#' \code{\link[stats]{dendrogram}} plots, it is best to set
+#' \code{type="triangle"} for nicer looking plots. This is even more
+#' important if the dendrogram heights are based on division
+#' eigenvalues, because then the groups heights are regularly
+#' reversed.
+#'
+#' @return A \code{\link[stats]{dendrogram}} object.
+#'
+#' @param object \code{\link{twinspan}} result object.
+#' @param what Return either a \code{"quadrat"} or \code{"species"}
+#'     dendrogram.
+#' @param eigenheight Use eigenvalues of division as dendrogram
+#'     heights. The default is to use division level as heights. NB.,
+#'     there is no guarantee that eigenvalues decrease in divisions,
+#'     and there may be reversals where lower levels are higher than
+#'     lower levels.
+#'
+#' @importFrom stats as.dendrogram
+#'
+#' @export
 `as.dendrogram.twinspan` <-
     function(object, what = c("quadrat", "species"), eigenheight = FALSE, ...)
 {
