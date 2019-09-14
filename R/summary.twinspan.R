@@ -7,13 +7,12 @@
     what <- match.arg(what)
     obj <- object[[what]]
     clid <- cut(object, what=what)
-    len <- length(obj$eig) * 4 + 1
+    len <- length(obj$eig+1) * 4 + 1
     state <- character(len)
     state[which(obj$eig > 0)] <- "division"
     state[unique(clid)] <- "cluster"
     o <- twinvisit(1, state, obj)
 }
-
 
 `twinvisit` <-
     function(k, state, obj)
@@ -28,13 +27,15 @@
 `twinreport` <-
     function(k, state, obj)
 {
+    level <- sum(2^(1:10) <= k)
+    cat(rep("  ", level), sep="")
     cat(k, ") ", sep="")
     if (state[k] == "division") {
         cat("eig=", round(obj$eig[k], 3), sep = "")
         if (!is.null(obj$indicators)) {
             ind <- obj$indicators[,k]
             ind <- ind[ind != 0]
-            nm <- paste0(c("-","+")[ind > 0], obj$indlabels[abs(ind)])
+            nm <- paste0(c("-","+")[(ind > 0) + 1], obj$indlabels[abs(ind)])
             cat(": if ", nm)
             cat(" <", obj$positivelimit[k], "goto", 2*k, "else", 2*k+1)
         }
@@ -42,6 +43,7 @@
     }
     else { # class
         nm <- obj$labels[obj$iclass == k]
-        cat("N=", length(nm), ":", nm, "\n")
+        cat("N=", length(nm), ": ", sep="")
+        cat(nm, "\n")
     }
 }
