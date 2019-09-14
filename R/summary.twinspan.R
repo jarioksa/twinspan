@@ -7,7 +7,7 @@
     what <- match.arg(what)
     obj <- object[[what]]
     clid <- cut(object, what=what)
-    len <- length(obj$eig+1) * 4 + 1
+    len <- length(obj$eig) * 2 + 1
     state <- character(len)
     state[which(obj$eig > 0)] <- "division"
     state[unique(clid)] <- "cluster"
@@ -17,7 +17,7 @@
 `twinvisit` <-
     function(k, state, obj)
 {
-    if(state[k]=="")
+    if(k > length(state) || state[k]=="")
         return(NULL)
     twinreport(k, state, obj)
     twinvisit(2*k, state, obj)
