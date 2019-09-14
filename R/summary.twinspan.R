@@ -11,22 +11,37 @@
     state <- character(len)
     state[which(obj$eig > 0)] <- "division"
     state[unique(clid)] <- "cluster"
-    o <- twinvisit(1, state)
+    o <- twinvisit(1, state, obj)
 }
 
 
 `twinvisit` <-
-    function(k, state)
+    function(k, state, obj)
 {
     if(state[k]=="")
         return(NULL)
-    twinreport(k, state)
-    twinvisit(2*k, state)
-    twinvisit(2*k+1, state)
+    twinreport(k, state, obj)
+    twinvisit(2*k, state, obj)
+    twinvisit(2*k+1, state, obj)
 }
 
 `twinreport` <-
-    function(k, state)
+    function(k, state, obj)
 {
-    cat(k, ") ", state[k], "\n", sep="")
+    cat(k, ") ", sep="")
+    if (state[k] == "division") {
+        cat("eig=", round(obj$eig[k], 3), sep = "")
+        if (!is.null(obj$indicators)) {
+            ind <- obj$indicators[,k]
+            ind <- ind[ind != 0]
+            nm <- paste0(c("-","+")[ind > 0], obj$indlabels[abs(ind)])
+            cat(": if ", nm)
+            cat(" <", obj$positivelimit[k], "goto", 2*k, "else", 2*k+1)
+        }
+        cat("\n")
+    }
+    else { # class
+        nm <- obj$labels[obj$iclass == k]
+        cat("N=", length(nm), ":", nm, "\n")
+    }
 }
