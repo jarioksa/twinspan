@@ -1,4 +1,32 @@
+### summarize classification similarly as in the printed output of
+### TWINSPAN (but in more compact form and only the essential
+### information). The function traverses the classification tree
+### recursively (depth-first).
+
 #' Summary of Twinspan Classification
+#'
+#' The function gives a compact summary of divisions with indicator
+#' species and items in final classification. The output gives the
+#' same essential information as the printed output of TWINSPAN batch
+#' program, but in more compact form.
+#'
+#' For each division, \code{summary} prints the eigenvalue, and for
+#' quadrat divisions the indicator pseudospecies with their signs,
+#' followed by \code{<} and the lowest score for the \dQuote{positive}
+#' group. If the indicator score is below this value, follow the list
+#' to the next item at the lower level, and to the second alternative
+#' at the same level if the indicator score is at the limit or
+#' higher. For division \eqn{k}, the next items are \eqn{2k}
+#' (\dQuote{negative} group) or \eqn{2k+1} (\dQuote{positive}
+#' group). For terminal groups, the function gives the size of the
+#' group and lists its elements (quadrats or species).
+#'
+#' @return The function returns nothing. It only prints the result
+#'     object in a human-readable way.
+#'
+#' @param object \code{\link{twinspan}} result object.
+#' @param what Summarize either quadrat or species classification.
+#' @param \dots Other arguments (ignored).
 #'
 #' @export
 `summary.twinspan` <-
@@ -11,6 +39,7 @@
     state <- character(len)
     state[which(obj$eig > 0)] <- "division"
     state[unique(clid)] <- "cluster"
+    ## twinvisit is called recursively
     o <- twinvisit(1, state, obj)
 }
 
