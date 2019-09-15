@@ -36,8 +36,8 @@
             ind <- obj$indicators[,k]
             ind <- ind[ind != 0]
             nm <- paste0(c("-","+")[(ind > 0) + 1], obj$indlabels[abs(ind)])
-            cat(": if ", nm)
-            cat(" <", obj$positivelimit[k], "goto", 2*k, "else", 2*k+1)
+            cat(": ", nm)
+            cat(" <", obj$positivelimit[k])
         }
         cat("\n")
     }
