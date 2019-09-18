@@ -4,7 +4,7 @@
 \alias{predict.twinspan}
 \title{Predict Class Membership of Quadrats}
 \usage{
-\method{predict}{twinspan}(object, newdata, ...)
+\method{predict}{twinspan}(object, newdata, level, ...)
 }
 \arguments{
 \item{object}{\code{twinspan} result object.}
@@ -12,6 +12,9 @@
 \item{newdata}{Data used in prediction. The species will be matched
 by their names, and the pseudospecies are based on the
 \code{cutlevels} used in the original \code{twinspan} model.}
+
+\item{level}{Level of hierarchy of classification. If missing, the
+prediction is made to the highest level of classification.}
 
 \item{\dots}{Other parameters passed to the function (ignored).}
 }

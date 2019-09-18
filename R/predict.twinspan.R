@@ -18,16 +18,20 @@
 #' @param newdata Data used in prediction. The species will be matched
 #'     by their names, and the pseudospecies are based on the
 #'     \code{cutlevels} used in the original \code{twinspan} model.
+#' @param level Level of hierarchy of classification. If missing, the
+#'     prediction is made to the highest level of classification.
 #' @param \dots Other parameters passed to the function (ignored).
 #'
 #' @importFrom stats predict
 #'
 #' @export
 `predict.twinspan` <-
-    function(object, newdata, ...)
+    function(object, newdata, level, ...)
 {
     if (missing(newdata))
         stop("needs data to predict...")
+    if (missing(level))
+        level <- 15
     inds <- object$quadrat$indicators
     poslim <- object$quadrat$positivelimit
     indlab <- object$quadrat$indlabels
@@ -47,7 +51,7 @@
         prow[] <- 0
         prow[colnames(newdata)] <- newdata[i,]
         k <- 1
-        repeat{
+        for (lvl in seq_len(level)) {
             ind <- inds[,k]
             if (all(ind == 0)) break
             ind <- ind[ind != 0]
