@@ -73,7 +73,7 @@
     if (!missing(noind))
         inflag[noind] <- 0
     ## Pseudospecies
-    cutlevels <- as.integer(1000 * cutlevels + 0.5)
+    cut1000 <- as.integer(1000 * cutlevels + 0.5)
     nmax <- max(nlev * max(n, mm), 3 * (2^(levmax+1)-1))
     ## R cannot pass character vectors to Fortran, but we pass integer
     ## indices of names
@@ -86,7 +86,7 @@
     Z <- .Fortran("pseudo", mm = as.integer(mm), nn = as.integer(n),
                   nmax = as.integer(nmax), nl = as.integer(nlev),
                   ndat = as.integer(ndat), nspec = as.integer(nmax),
-                  idat = as.integer(idat), lcut = as.integer(cutlevels),
+                  idat = as.integer(idat), lcut = as.integer(cut1000),
                   jnflag = as.integer(jnflag),
                   jname1 = as.integer(jname1), jname2 = as.integer(jname2),
                   jnam = integer(nmax), indpot = integer(nmax),
@@ -183,7 +183,8 @@
         sindex <- rev(sindex)
     species$index <- sindex
     ## out
-    out <- list(call = match.call(), quadrat = quadrat, species = species)
+    out <- list(call = match.call(), cutlevels = cutlevels,
+                quadrat = quadrat, species = species)
     class(out) <- "twinspan"
     out
 }
