@@ -29,12 +29,17 @@
 #'     binary pseudospecies.
 #' @param subset Logical vector or indices that select a subset of
 #'     quadrats (sampling units).
+#' @param downweight Downweight result similarly as in
+#'     \code{\link[vegan]{decorana}}. Downweighting is needed to
+#'     replicate the process in \code{twinspan}, but it can be left
+#'     out when we only want to have a stacked data set for other
+#'     uses.
 #'
 #' @importFrom vegan downweight
 #'
 #' @export
 `twinsform` <-
-    function(x, cutlevels = c(0,2,5,10,20), subset)
+    function(x, cutlevels = c(0,2,5,10,20), subset, downweight = TRUE)
 {
     x <- as.matrix(x)
     ## take a subset
@@ -52,6 +57,7 @@
         ax <- cbind(ax, x >= cutlevels[k])
     colnames(ax) <- paste0(nm, rep(seq_len(nlev), each=length(nm)))
     ax <- ax[, colSums(ax) > 0]
-    ax <- downweight(ax)
+    if (downweight)
+        ax <- downweight(ax)
     ax
 }
