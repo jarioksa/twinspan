@@ -4,7 +4,7 @@
 \alias{twinsform}
 \title{Transform Data for Correspondence Analysis like twinspan}
 \usage{
-twinsform(x, cutlevels = c(0, 2, 5, 10, 20), subset)
+twinsform(x, cutlevels = c(0, 2, 5, 10, 20), subset, downweight = TRUE)
 }
 \arguments{
 \item{x}{Input (community) data.}
@@ -14,6 +14,12 @@ binary pseudospecies.}
 
 \item{subset}{Logical vector or indices that select a subset of
 quadrats (sampling units).}
+
+\item{downweight}{Downweight result similarly as in
+\code{\link[vegan]{decorana}}. Downweighting is needed to
+replicate the process in \code{twinspan}, but it can be left
+out when we only want to have a stacked data set for other
+uses.}
 }
 \value{
 A stacked matrix of downweighted pseudospecies.
