@@ -1,5 +1,28 @@
-### predict classification using officia indicator pseudospecies
+### predict classification using official indicator pseudospecies
 
+#' Predict Class Membership of Quadrats
+#'
+#' Function predicts the class membership for each quadrat using the
+#' reported indicator pseudospecies and limit for the indicator score
+#' for the \dQuote{positive} (left) group.
+#'
+#' The \code{twinspan} classification is based on splicing polarized
+#' ordination axis, and the reported indicator pseudospecies only
+#' indicate the decisions in each division, and do not necessarily
+#' give the same classification: The original classification cannot be
+#' necessarily found when giving the original data as
+#' \code{newdata}. In the original TWINSPAN this called
+#' misclassification.
+#'
+#' @param object \code{twinspan} result object.
+#' @param newdata Data used in prediction. The species will be matched
+#'     by their names, and the pseudospecies are based on the
+#'     \code{cutlevels} used in the original \code{twinspan} model.
+#' @param \dots Other parameters passed to the function (ignored).
+#'
+#' @importFrom stats predict
+#'
+#' @export
 `predict.twinspan` <-
     function(object, newdata, ...)
 {
