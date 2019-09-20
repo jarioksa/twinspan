@@ -61,3 +61,31 @@
         ax <- downweight(ax)
     ax
 }
+
+### A non-exported internal function to construct stacked community
+### matrix from internal data returned by twinspan. The output is
+### similar as with twinsform(x, downweight = FALSE).
+
+`twin2stack` <-
+    function(x)
+{
+    nc <- length(x$quadrat$indlabels)
+    nr <- x$nquadrat
+    idat <- x$idat
+    out <- matrix(0, nr, nc)
+    dimnames(out) <- list(x$quadrat$labels, x$quadrat$indlabels)
+    i <- 1
+    ## Internally twinspan stores data as a vector of pseudospecies
+    ## indices (each numerically with abundance 1) separating quadrats
+    ## (SUs) by -1.
+    for(j in seq_along(idat)) {
+        ## new quadrat?
+        if(idat[j] == -1) {
+            i <- i + 1
+            next
+        }
+        ## pseudospecies is present with abundance 1
+        out[i, idat[j]] <- 1L
+    }
+    out
+}
