@@ -4,10 +4,16 @@
 \alias{twintable}
 \title{Community Table Ordered by Twinspan Classification}
 \usage{
-twintable(object)
+twintable(object, maxspp, select)
 }
 \arguments{
 \item{object}{\code{\link{twinspan}} result object.}
+
+\item{maxspp}{Maximum number of most abundant species
+displayed. The abundance is estimated with pseudospecies cut
+levels. The default is to show all species.}
+
+\item{select}{Select a subset of quadrats.}
 }
 \description{
 Prints a community table of pseudospecies ordered by
