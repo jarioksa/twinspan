@@ -28,8 +28,6 @@
 `predict.twinspan` <-
     function(object, newdata, level, ...)
 {
-    if (missing(newdata))
-        stop("needs data to predict...")
     if (missing(level))
         level <- 15
     inds <- object$quadrat$indicators
@@ -37,7 +35,10 @@
     indlab <- object$quadrat$indlabels
     cuts <- object$cutlevels
     ## handle newdata
-    newdata <- twinsform(newdata, cuts, downweight = FALSE)
+    if (missing(newdata))
+        newdata <- twin2stack(object)
+    else
+        newdata <- twinsform(newdata, cuts, downweight = FALSE)
     ## one quadrat is turned into 1-column matrix: transpose
     if (NCOL(newdata) == 1)
         newdata <- t(newdata)
