@@ -72,7 +72,7 @@
     nc <- length(x$quadrat$indlabels)
     nr <- x$nquadrat
     idat <- x$idat
-    out <- matrix(0, nr, nc)
+    out <- matrix(0L, nr, nc)
     dimnames(out) <- list(x$quadrat$labels, x$quadrat$indlabels)
     i <- 1
     ## Internally twinspan stores data as a vector of pseudospecies
@@ -86,6 +86,41 @@
         }
         ## pseudospecies is present with abundance 1
         out[i, idat[j]] <- 1L
+    }
+    out
+}
+
+### A non-exported internal function to construct pseudospecies
+### community matrix from internal data returned by twinspan. The
+### numeric values are pseudo-species transformed values. The output
+### is similar as with vegan::coverscale(x, "Hill",
+### character=FALSE). The function uses the same internal data as
+### twin2stack(), but adds binary pseudospecies to transformed values.
+
+`twin2mat` <-
+    function(x)
+{
+    nc <- x$nspecies
+    nr <- x$nquadrat
+    idat <- x$idat
+    out <- matrix(0L, nr, nc)
+    dimnames(out) <- list(x$quadrat$labels, x$species$labels)
+    ## Indices of pseudospecies > 1 are stored after the first level
+    ## of pseudospecies, for which the index matches the original
+    ## data. We update species index only when we meet such an
+    ## original index, and add values to matrix at every step.
+    i <- 1
+    for(k in seq_along(idat)) {
+        ## new quadrat?
+        if (idat[k] == -1) {
+            i <- i + 1
+            next
+        }
+        ## new species?
+        if (idat[k] <= nc) {
+            j <- idat[k]
+        }
+        out[i,j] <- out[i,j] + 1L
     }
     out
 }
