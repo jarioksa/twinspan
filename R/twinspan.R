@@ -91,7 +91,8 @@
                   jname1 = as.integer(jname1), jname2 = as.integer(jname2),
                   jnam = integer(nmax), indpot = integer(nmax),
                   iy = integer(nmax), PACKAGE = "twinspan")
-    ## names
+    ## data & names
+    idat <- Z$idat[1:which(Z$idat==-1)[mm]]
     rnames <- rownames(x)
     cnames <- colnames(x)
     k <- Z$jname1 > 0
@@ -184,6 +185,7 @@
     species$index <- sindex
     ## out
     out <- list(call = match.call(), cutlevels = cutlevels,
+                nspecies = n, nquadrat = mm, idat = idat,
                 quadrat = quadrat, species = species)
     class(out) <- "twinspan"
     out
