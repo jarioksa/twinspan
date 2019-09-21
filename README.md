@@ -35,6 +35,16 @@ re-design to be used in **R**.
   missing, and these elements must be accessed and handled
   manually. The next section describes the structure of the result
   object and its handling.
+- **0.6:** Has now most support functions: `summary` gives the division
+  history and lists the signed indicator species, `cut` returns quadrat
+  or species classification at any level, `twintable` prints the 
+  classified community table, `as.dendrogram` displays the divisions as
+  a denrogram that can be plotted and handled with standdard dendrogram 
+  tools, `predict` uses indicator species to allocate quadrats to established
+  classes also with `newdata`. In addition, `twinsform` transform data so that
+  its correspondence analysis is similar to the one in `twinspan`. However,
+  the function is not tested with all non-default options and documentation is
+  still rudimentary.
   
 ## Structure of the Result Object
 
