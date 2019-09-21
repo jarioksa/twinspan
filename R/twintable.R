@@ -34,3 +34,17 @@
 
     vegemite(mat[i,j], zero="-")
 }
+
+### Unexported function to turn the class number into binary string.
+### This is the same as the class number as binary number, but strips
+### the leading '1'.
+`class2bin` <-
+    function(cl)
+{
+    str <- ""
+    while(cl > 1) {  # cl > 0 would give the binary number
+        str <- paste0(cl %% 2L, str)
+        cl <- cl %/% 2L
+    }
+    str
+}
