@@ -247,7 +247,8 @@ The `twinspan` classification can be extracted as a standard **R** `dendrogram`.
 units contain many branches (species, quadrats), and it is best to use fan-like trees:
 ```r
 plot(as.dendrogram(tw, "species"), type = "triangle")
-
+```
+![](twintree.png)
 
 ### References
 
