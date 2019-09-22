@@ -124,10 +124,12 @@ positive group: if the indicator score is less than 1, the quadrat is in the neg
 group (2), and if it is 1 (or higher), the quadrat is in the positive group (3).
 These groups are again divided with new correspondence analysis, and from group 2 you go 
 either to 4 (negative) or 5 (positive). With default settings, groups smaller than 5
-items or deeper than 7 levels of divisions are not divided.
+items or deeper than 7 levels of divisions are not divided. First such final group is 8
+with four quadrats. For these final groups, `summary` gives the size (`N`) and lists
+the names of the members (in this case the names are numeric).
 
 You can extract the classification of each quadrat with `cut`:
-```
+```r
 > cut(tw)
  [1] 39 31 14  6 30  6 31 31  6  5  5 31 14 38 38 39 39 18  8  8  8  8  5  6
 > cut(tw, level=2) # use classification at second level
