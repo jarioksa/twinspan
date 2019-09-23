@@ -51,11 +51,30 @@
     }
     labels <- table(class)
     labels <- paste0(names(labels), " (N=", labels, ")")
-    nodelabels <- rev(which(state=="div")[-1])
+    nodelabels <- rev(which(state=="div"))
     ind <- x$quadrat$index
     order <- order(tapply(order(ind), class, min))
     out <- list(merge = merge, labels = labels, height = height, order = order,
                 nodelabels = nodelabels, method = "twinspan")
     class(out) <- "hclust"
     out
+}
+
+### plot.twinspan as plot of hclust tree
+
+#' Plot Classificaton Tree of Quadrats
+#'
+#' @param x \code{\link{twinspan}} result object.
+#' @param main Main title of the plot.
+#' @param \dots Other parameters passed to \code{\link{plot}} and
+#'     \code{\link[vegan]{ordilabel}}.
+#'
+#' @importFrom vegan ordilabel
+#' @export
+`plot.twinspan` <-
+    function(x, main = "Twinspan Dendrogram", ...)
+{
+    x <- as.hclust(x)
+    plot(x, main = main, ...)
+    ordilabel(x, "internal", labels = x$nodelabels, ...)
 }
