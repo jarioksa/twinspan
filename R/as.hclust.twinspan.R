@@ -34,9 +34,10 @@
             }
         }
     }
-    labels <- which(state=="clust")
+    labels <- table(class)
+    labels <- paste0(names(labels), " (N=", labels, ")")
     ind <- x$quadrat$index
-    order <- order(tapply(order(ind), class, mean))
+    order <- order(tapply(order(ind), class, min))
     out <- list(merge = merge, labels = labels, height = height, order = order,
                 method = "twinspan")
     class(out) <- "hclust"
