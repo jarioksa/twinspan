@@ -3,6 +3,21 @@
 ### omitted. There already is as.dendrogram, but try to see if this
 ### can be developed into a decision tree.
 
+#' Extract Quadrat Grouping as Hierarchical Cluster Tree
+#'
+#' Function extracts quadrat classification as an \code{\link{hclust}}
+#' object. The terminal items are the quadrat classes, but quadrats
+#' are not shown: \code{\link{hclust}} cannot handle polytomies that
+#' are needed to display individual quadrats.  Use
+#' \code{\link{as.dendrogram}} to show the single items or species
+#' classification.
+#'
+#' @param x \code{\link{twinspan}} result object.
+#' @param \dots Other parameters to the function (ignored).
+#'
+#' @importFrom stats as.hclust
+#'
+#' @export
 `as.hclust.twinspan` <-
     function(x, ...)
 {
