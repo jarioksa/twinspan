@@ -93,8 +93,8 @@
                   iy = integer(nmax), PACKAGE = "twinspan")
     ## data & names
     idat <- Z$idat[1:which(Z$idat==-1)[mm]]
-    rnames <- rownames(x)
-    cnames <- colnames(x)
+    rnames <- rownames(x, do.NULL = FALSE, prefix = "q")
+    cnames <- colnames(x, do.NULL = FALSE, prefix = "sp")
     k <- Z$jname1 > 0
     pnames <- paste0(cnames[Z$jname1[k]], Z$jnam[k])
     ## some other re-set arguments
