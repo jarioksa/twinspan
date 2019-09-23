@@ -26,6 +26,7 @@
 #'     there is no guarantee that eigenvalues decrease in divisions,
 #'     and there may be reversals where lower levels are higher than
 #'     lower levels.
+#' @param \dots Other parameters to functions.
 #'
 #' @importFrom stats as.dendrogram
 #'

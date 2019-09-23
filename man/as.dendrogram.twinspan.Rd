@@ -18,6 +18,8 @@ heights. The default is to use division level as heights. NB.,
 there is no guarantee that eigenvalues decrease in divisions,
 and there may be reversals where lower levels are higher than
 lower levels.}
+
+\item{\dots}{Other parameters to functions.}
 }
 \value{
 A \code{\link[stats]{dendrogram}} object.

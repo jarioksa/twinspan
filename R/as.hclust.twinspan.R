@@ -70,6 +70,8 @@
 #'     \code{\link[vegan]{ordilabel}}.
 #'
 #' @importFrom vegan ordilabel
+#' @importFrom graphics plot
+#'
 #' @export
 `plot.twinspan` <-
     function(x, main = "Twinspan Dendrogram", ...)
