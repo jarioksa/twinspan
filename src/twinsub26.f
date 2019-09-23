@@ -19,8 +19,15 @@ C THAN OR EQUAL TO IZ AND IIS IS LESS THAN OR EQUAL TO IS.
       IIS=IS-1
       IIZ=IZ-1
    30 IPICT(IZ,IS)=IPICT(IIZ,IS)+IPICT(IZ,IIS)-
-     1IPICT(IIZ,IIS)+IPICT(IZ,IS)
+     1     IPICT(IIZ,IIS)+IPICT(IZ,IS)
+c miscl=10000 guarantees that the first branch (35) will be taken on the
+c first pass in the arithmetic if(miss-miscl) and this sets iia, iib &
+c cc. However, compiler warns that these may be used uninitialized. Set
+c them any value here: they will be set later
       MISCL=10000
+      IIA = 0
+      IIB = 0
+      CC = 0.0
       DO 40 IZ=MINZ,MAXZ
       DO 40 IS=1,MS
       IIZ=IZ-MZIND
@@ -30,6 +37,7 @@ C THAN OR EQUAL TO IZ AND IIS IS LESS THAN OR EQUAL TO IS.
       C=ABS((A-B)/(A+B))
       IA=IABS(IS-ISHIFT)
       IB=IABS(1+MZ-IZ-IIZ)
+c See comment above about iia, iib & cc
       IF(MISS-MISCL) 35,36,40
    35 MISCL=MISS
       IZD1=IZ
