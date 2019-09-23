@@ -96,21 +96,21 @@ Use `summary` to see the classification:
 > summary(tw)
 1) eig=0.179:  -Cladrang5 +Pleuschr4 < 1
   2) eig=0.147:  +Callvulg2 +Pleuschr3 < 2
-    4) eig=0.163:  +Cladarbu3 < 1
-      8) N=4: 2 9 12 10 
-      9) eig=0.182:  -Cetrisla1 < 0
-        18) N=1: 4 
-        19) eig=0.169:  +Callvulg1 < 1
-          38) N=2: 7 5 
-          39) N=3: 18 6 3 
+    4) eig=0.163:  -Cladarbu3 < 0
+      8) eig=0.182:  -Cetrisla1 < 0
+        16) N=1: 4 
+        17) eig=0.169:  +Callvulg1 < 1
+          34) N=2: 7 5 
+          35) N=3: 18 6 3 
+      9) N=4: 2 9 12 10 
     5) N=3: 13 14 11 
-  3) eig=0.203:  +Cetreric1 +Cladarbu2 -Cladstel2 < 1
-    6) N=4: 27 19 28 21 
-    7) eig=0.161:  -Dicrsp2 < 0
-      14) N=2: 24 25 
-      15) eig=0.206:  +Callvulg1 < 1
-        30) N=1: 23 
-        31) N=4: 15 22 16 20
+  3) eig=0.203:  -Cetreric1 -Cladarbu2 +Cladstel2 < 0
+    6) eig=0.161:  +Dicrsp2 < 1
+      12) eig=0.206:  +Callvulg1 < 1
+        24) N=1: 23 
+        25) N=4: 15 22 16 20 
+      13) N=2: 24 25 
+    7) N=4: 27 19 28 21 
 ```
 `twinspan` is divisive: it splits data into two parts at each step, and these steps are
 described here. The splits are based on the first correspondence analysis axis of the
@@ -131,18 +131,18 @@ the names of the members (in this case the names are numeric).
 You can extract the classification of each quadrat with `cut`:
 ```r
 > cut(tw)
- [1] 39 31 14  6 30  6 31 31  6  5  5 31 14 38 38 39 39 18  8  8  8  8  5  6
+ [1] 35 25 13  7 24  7 25 25  7  5  5 25 13 34 34 35 35 16  9  9  9  9  5  7
 > cut(tw, level=2) # use classification at second level
- [1] 4 7 7 6 7 6 7 7 6 5 5 7 7 4 4 4 4 4 4 4 4 4 5 6
+ [1] 4 6 6 7 6 7 6 6 7 5 5 6 6 4 4 4 4 4 4 4 4 4 5 7
 ```
 You can also predict the membership of quadrats based on the indicator pseudospecies
 and threshold score. This can also be done with argument `newdata` using data set that
 contains same species, but is not used in developing the classification.
 ```r
 > predict(tw, level=2)
- [1] 4 7 7 6 7 6 7 7 6 5 5 7 7 4 4 4 4 4 4 4 4 4 5 4
+ [1] 4 6 6 7 6 7 6 6 7 5 5 6 6 4 4 4 4 4 4 4 4 4 5 4
 ```
-Please note that the last quadrat was classified to second-level class 6, but it is
+Please note that the last quadrat was classified to second-level class 7, but it is
 predicted to be in class 4. This can happen because TWINSPAN classification is based
 on the polished ordination, and the indicator pseudospecies only *indicate* this
 division. The analysis tries to make the concordance as good as possible, but it
@@ -156,25 +156,25 @@ classification it also classifies the species (not the pseudospecies):
 > summary(tw, "species")
 1) eig=0.543
   2) eig=0.41
-    4) eig=0.122
-      8) eig=0.068
-        16) eig=0.049
-          32) eig=0.048
-            64) N=10: Empenigr Vaccviti Pinusylv Polyjuni Pohlnuta Cladcorn Cladgrac Cladfimb Cladcris Claddefo 
-            65) N=3: Cladunci Cetrisla Peltapht 
-          33) N=3: Vacculig Polypili Cladsp 
-        17) N=4: Cladarbu Cladcocc Cetreric Cladcerv 
-      9) N=4: Cladrang Cladchlo Nepharct Stersp 
-    5) eig=0.272
-      10) N=4: Callvulg Cladstel Icmaeric Cladphyl 
-      11) N=3: Diphcomp Cladamau Flavniva 
+    4) eig=0.272
+      8) N=3: Diphcomp Cladamau Flavniva 
+      9) N=4: Callvulg Cladstel Icmaeric Cladphyl 
+    5) eig=0.122
+      10) N=4: Cladrang Cladchlo Nepharct Stersp 
+      11) eig=0.068
+        22) N=4: Cladarbu Cladcocc Cetreric Cladcerv 
+        23) eig=0.049
+          46) eig=0.048
+            92) N=10: Empenigr Vaccviti Pinusylv Polyjuni Pohlnuta Cladcorn Cladgrac Cladfimb Cladcris Claddefo 
+            93) N=3: Cladunci Cetrisla Peltapht 
+          47) N=3: Vacculig Polypili Cladsp 
   3) eig=0.405
     6) N=3: Dicrfusc Dicrpoly Ptilcili 
     7) eig=0.231
-      14) N=3: Betupube Dicrsp Cladbotr 
-      15) eig=0.254
-        30) N=3: Rhodtome Vaccmyrt Hylosple 
-        31) N=4: Descflex Pleuschr Polycomm Barbhatc 
+      14) eig=0.254
+        28) N=4: Descflex Pleuschr Polycomm Barbhatc 
+        29) N=3: Rhodtome Vaccmyrt Hylosple 
+      15) N=3: Betupube Dicrsp Cladbotr 
 ```
 Species classification is based on correspondence analysis where species are weighted by their
 indicator potential for the quadrat classification. You can extract the classification vector
@@ -183,59 +183,58 @@ with `cut(tw, "species")`.
 The data can be tabulated with:
 ```r
 > twintable(tw)
-                                         
                  000000000000011111111111
-                 000000000011100001111111
-                 0000111111       0011111
-                     011111         01111
-                      00111              
+                 000000000011100000001111
+                 0000001111   0000011    
+                 011111       01111      
+                  00111                  
                                          
-                   11   1  11121222221212
-                 292047586334179814535260
- 000000 Empenigr 324413143213143141341333
- 000000 Vaccviti 354413244233444354454424
- 000000 Pinusylv 11111-111-111-1111111111
- 000000 Polyjuni 11-111111-111-1111321-11
- 000000 Pohlnuta -11111-1-111111111-11111
- 000000 Cladcorn 111111111111111111111111
- 000000 Cladgrac 111-11111111111111111111
- 000000 Cladfimb 111111111111-1111-111111
- 000000 Cladcris 111111111111111111111111
- 000000 Claddefo 111111111111-11111111111
- 000001 Cladunci 111111112115211113112212
- 000001 Cetrisla -1111-----111--1111-1-1-
- 000001 Peltapht -------1--1-11----11----
- 00001  Vacculig ----13-1-1---1-1--1--2-1
- 00001  Polypili ------111---1-1----11--1
- 00001    Cladsp -1--1--11-1--1----1--111
- 0001   Cladarbu 112145455354313112334333
- 0001   Cladcocc -1-1111111111-11--111111
- 0001   Cetreric -1-111111111-----11-1111
- 0001   Cladcerv 1---1-------------1-----
- 001    Cladrang 524355555551532123233244
- 001    Cladchlo 11-1-1--111---1-11-1-1--
- 001    Nepharct -----1-1-1--------2----1
- 001      Stersp ---1114111111-11-1111-1-
- 010    Callvulg 1-112--111522----1--1221
- 010    Cladstel 555551124541525-41-11111
- 010    Icmaeric -----11----1----------1-
- 010    Cladphyl -1-1-------11-----------
- 011    Diphcomp -1---1-2-11-------1-----
- 011    Cladamau ------11-1--------------
- 011    Flavniva -1-1411111----1----1----
- 10     Dicrfusc 11111111112412111-424551
- 10     Dicrpoly -1-1-11-----1-1121-11-11
- 10     Ptilcili 11-----1111-11114111111-
- 110    Betupube ----------------1-1--1--
- 110      Dicrsp --1-------1----1154-1111
- 110    Cladbotr ----------1--11111-1---1
- 1110   Rhodtome ----------1--2-12----1--
- 1110   Vaccmyrt -1--------11-3244---132-
- 1110   Hylosple -------------3-3--1----1
- 1111   Descflex ----11-------2111-1--1--
- 1111   Pleuschr 123111121133455525545544
- 1111   Polycomm -----------1-11-1-1-----
- 1111   Barbhatc ----------1--11-2--1----
+                    1    1111121212222122
+                 475863292034135260457981
+ 000    Diphcomp -1-2-1-1--1--------1----
+ 000    Cladamau --11-1------------------
+ 000    Flavniva 411111-1-1---1-------1--
+ 001    Callvulg 2--1111-11522-12211-----
+ 001    Cladstel 5112455555415111111-25-4
+ 001    Icmaeric -11--------1----1-------
+ 001    Cladphyl -------1-1-11-----------
+ 010    Cladrang 555555524351533244323212
+ 010    Cladchlo -1--1111-11--1-1--1--1-1
+ 010    Nepharct -1-1-1-----------1-2----
+ 010      Stersp 114111---111111-1-11-11-
+ 0110   Cladarbu 454553112154334333231311
+ 0110   Cladcocc 111111-1-111111111-1-11-
+ 0110   Cetreric 111111-1-111--111111----
+ 0110   Cladcerv 1-----1------------1----
+ 011100 Empenigr 131432324413141333134314
+ 011100 Vaccviti 132442354433454424444435
+ 011100 Pinusylv 1-111-11111111111111-111
+ 011100 Polyjuni 11111-11-111121-1113-111
+ 011100 Pohlnuta 11-1-1-111111111111-1111
+ 011100 Cladcorn 111111111111111111111111
+ 011100 Cladgrac 111111111-11111111111111
+ 011100 Cladfimb 111111111111-11111-11111
+ 011100 Cladcris 111111111111111111111111
+ 011100 Claddefo 111111111111-11111111111
+ 011101 Cladunci 111121111115212212311111
+ 011101 Cetrisla 1------111111-1-1-11--11
+ 011101 Peltapht ---1------1-11-----11---
+ 01111  Vacculig 13-1-1---------2-1-11-1-
+ 01111  Polypili --111-------111--1---1--
+ 01111    Cladsp 1--11--1--1----111-11---
+ 10     Dicrfusc 111111111124124551-42111
+ 10     Dicrpoly -11----1-1--111-111--112
+ 10     Ptilcili ---11111--1-11111-111114
+ 1100   Descflex 11-------------1---12111
+ 1100   Pleuschr 111211123133445544555552
+ 1100   Polycomm -----------1-------111-1
+ 1100   Barbhatc ----------1--1------11-2
+ 1101   Rhodtome ----------1----1----2-12
+ 1101   Vaccmyrt -------1--11--132---3244
+ 1101   Hylosple -----------------1-13-3-
+ 111    Betupube ---------------1---1---1
+ 111      Dicrsp --------1-1---111154--11
+ 111    Cladbotr ----------1--1---11-1111
   sites species 
      24      44 
 ```
@@ -246,7 +245,7 @@ of the analysis.
 The `twinspan` classification can be extracted as a standard **R** `dendrogram`. The final
 units contain many branches (species, quadrats), and it is best to use fan-like trees:
 ```r
-plot(as.dendrogram(tw, "species"), type = "triangle")
+> plot(as.dendrogram(tw, "species"), type = "triangle")
 ```
 ![](twintree.png)
 
