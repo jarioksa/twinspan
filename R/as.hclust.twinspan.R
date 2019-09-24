@@ -3,28 +3,30 @@
 ### omitted. There already is as.dendrogram, but try to see if this
 ### can be developed into a decision tree.
 
-#' Extract Quadrat Grouping as Hierarchical Cluster Tree
+#' Extract twinspan Grouping as Hierarchical Cluster Tree
 #'
-#' Function extracts quadrat classification as an \code{\link{hclust}}
-#' object. The terminal items are the quadrat classes, but quadrats
-#' are not shown: \code{\link{hclust}} cannot handle polytomies that
-#' are needed to display individual quadrats.  Use
-#' \code{\link{as.dendrogram}} to show the single items or species
-#' classification.
+#' Function extracts classification as an \code{\link{hclust}}
+#' object. The terminal items are the final groups, but quadrats or
+#' species are not shown: \code{\link{hclust}} cannot handle
+#' polytomies that are needed to display group members.  Use
+#' \code{\link{as.dendrogram}} to show the single items.
 #'
 #' @param x \code{\link{twinspan}} result object.
+#' @param what Extract \code{"quadrat"} or \code{"species"}
+#'     classification tree.
 #' @param \dots Other parameters to the function (ignored).
 #'
 #' @importFrom stats as.hclust
 #'
 #' @export
 `as.hclust.twinspan` <-
-    function(x, ...)
+    function(x, what = c("quadrat","species"), ...)
 {
-    class <- cut(x)
+    what = match.arg(what)
+    class <- cut(x, what=what)
     n <- max(class)
     state <- character(n)
-    state[which(x$quadrat$eig > 0)] <- "div"
+    state[which(x[[what]]$eig > 0)] <- "div"
     state[unique(class)] <- "clust"
     nclus <- sum(state == "clust")
     line <- numeric(n)
@@ -52,7 +54,7 @@
     labels <- table(class)
     labels <- paste0(names(labels), " (N=", labels, ")")
     nodelabels <- rev(which(state=="div"))
-    ind <- x$quadrat$index
+    ind <- x[[what]]$index
     order <- order(tapply(order(ind), class, min))
     out <- list(merge = merge, labels = labels, height = height, order = order,
                 nodelabels = nodelabels, method = "twinspan")
