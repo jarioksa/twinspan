@@ -36,6 +36,8 @@
         ## combine with indicators if calculated
         if (what == "both")
             inds <- sort(unique(c(lead,inds)))
+        else
+            inds <- lead
     }
     attr(inds, "labels") <- object$species$labels
     inds
