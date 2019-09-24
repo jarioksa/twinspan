@@ -27,8 +27,10 @@ The function is based on \CRANpkg{vegan} function
 by colours which can be modified by the user (see
 \code{\link[vegan]{tabasco}}). The species groups are rows and
 quadrat groups are columns. These are labelled by their decimal
-group numbers with information of group sizes similarly as with
-\code{\link{as.hclust.twinspan}}. Function also adds quadrat
+group numbers with information of group sizes. These numbers and
+the order of the groups are similar as in hierarchic cluster trees
+produced by \code{\link{as.hclust.twinspan}} and
+\code{\link{summary.twinspan}}. Function also adds quadrat
 classification tree on the top and species classification tree on
 the left margin (see \code{\link{as.hclust.twinspan}}).
 }
