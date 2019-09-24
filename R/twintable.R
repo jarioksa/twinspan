@@ -9,13 +9,21 @@
 #' @param maxspp Maximum number of most abundant species
 #'     displayed. The abundance is estimated with pseudospecies cut
 #'     levels. The default is to show all species.
+#' @param goodspecies Select \dQuote{good species} for
+#'     tabulation. These are either species that were used as
+#'     indicator pseudospecies (\code{"indicator"}), or most abundant
+#'     species in each final species group breaking ties with
+#'     frequency (\code{"leading"}), or \code{"both"} (default). See
+#'     \code{\link{goodspec}}. The abundance is estimated after
+#'     pseudospecies transformation for all quadrats
+#'     and cannot be used together with \code{maxspp}.
 #' @param select Select a subset of quadrats.
 #'
 #' @importFrom vegan vegemite
 #'
 #' @export
 `twintable` <-
-    function(object, maxspp, select)
+    function(object, maxspp, goodspecies, select)
 {
     i <- object$quadrat$index
     j <- object$species$index
@@ -28,10 +36,17 @@
     if (!missing(select)) {
         i <- i[select[i]]
     }
+    ## First see if we want to have only the "good species"
+    if (!missing(goodspecies)) {
+        if (!missing(maxspp))
+            stop("maxspp and goospecies cannot be defined together")
+        gd <- goodspec(object, goodspecies)
+        j <- j[j %in% gd]
+    }
     ## take only maxspp most abundant species - but if there are ties,
     ## take all tied species, even if we go over maxspp
     if (!missing(maxspp) && ncol(mat) > maxspp) {
-        sptot <- colSums(mat[i,])
+        sptot <- colSums(mat[i,,drop=FALSE])
         maxlim <- sort(sptot, decreasing = TRUE)[maxspp]
         j <- j[sptot[j] >= maxlim]
     }
