@@ -2,20 +2,22 @@
 % Please edit documentation in R/as.hclust.twinspan.R
 \name{as.hclust.twinspan}
 \alias{as.hclust.twinspan}
-\title{Extract Quadrat Grouping as Hierarchical Cluster Tree}
+\title{Extract twinspan Grouping as Hierarchical Cluster Tree}
 \usage{
-\method{as.hclust}{twinspan}(x, ...)
+\method{as.hclust}{twinspan}(x, what = c("quadrat", "species"), ...)
 }
 \arguments{
 \item{x}{\code{\link{twinspan}} result object.}
 
+\item{what}{Extract \code{"quadrat"} or \code{"species"}
+classification tree.}
+
 \item{\dots}{Other parameters to the function (ignored).}
 }
 \description{
-Function extracts quadrat classification as an \code{\link{hclust}}
-object. The terminal items are the quadrat classes, but quadrats
-are not shown: \code{\link{hclust}} cannot handle polytomies that
-are needed to display individual quadrats.  Use
-\code{\link{as.dendrogram}} to show the single items or species
-classification.
+Function extracts classification as an \code{\link{hclust}}
+object. The terminal items are the final groups, but quadrats or
+species are not shown: \code{\link{hclust}} cannot handle
+polytomies that are needed to display group members.  Use
+\code{\link{as.dendrogram}} to show the single items.
 }
