@@ -2,13 +2,13 @@
 ### (1) species used as indicator species, or (2) most abundant and
 ### common species of final units of species classification, or (3) both.
 
-#' @param object \code{\link{twinspan}} result object.
-#' @param what Select either species that are used as
-#'     \code{"indicator"} pseudospecies or most abundant and common
-#'     species (or \code{"leading"}) each group species classification
-#'     or \code{"both"}.
-#'
-#' @export
+## @param object \code{\link{twinspan}} result object.
+## @param what Select either species that are used as
+##     \code{"indicator"} pseudospecies or most abundant and common
+##     species (or \code{"leading"}) each group species classification
+##     or \code{"both"}.
+##
+## @export
 `goodspec` <-
     function(object, what = c("both", "indicator", "leading"))
 {
