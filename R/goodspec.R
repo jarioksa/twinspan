@@ -27,19 +27,19 @@
         abu <- colSums(mat)
         cnt <- colSums(mat > 0)
         cl <- cut(object, what = "species")
-        id <- unique(cl)
+        id <- sort(unique(cl))
         lead <- numeric(length(id))
         for (k in seq_along(id)) {
             i <- which(cl==id[k])
             lead[k] <- i[order(abu[i], cnt[i], decreasing=TRUE)[1]]
         }
         ## combine with indicators if calculated
-        if (what == "both")
+        if (what == "both") {
             inds <- sort(unique(c(lead,inds)))
-        else
+        } else { # sorted by class number
             inds <- lead
+        }
     }
-    attr(inds, "labels") <- object$species$labels
     inds
 }
 
