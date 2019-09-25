@@ -5,6 +5,26 @@
 #' Prints a community table of pseudospecies ordered by
 #' \code{\link{twinspan}} classification.
 #'
+#' Function prints a compact community table of pseudospecies
+#' values. The table is ordered by clustering both species and
+#' quadrats similarly as in \code{\link{summary.twinspan}} or in plot
+#' of \code{\link{as.dendrogram.twinspan}}. The classification is
+#' shown by a sequence of \code{0} and \code{1} indicating division of
+#' each level. This string is binary presentation of the decimal class
+#' number without leading \code{1}.
+#'
+#' Only one character is used for each abundance, and the table is
+#' very compact. However, large tables can be divided over several
+#' pages or screen windows. The width of the displayed table is
+#' controlled by \R{} option \code{width} (see
+#' \code{\link{options}}). It is possible to \code{select} only a part
+#' of the quadrats for tabulation giving narrower tables. The number
+#' of species can be reduced by setting the maximum number of most
+#' abundant species, or alternatively, by restricting tabulation only
+#' to \dQuote{good species} which are the most abundant species of
+#' each species group (ties broken by species frequency), or species
+#' used as indicators, or both.
+#'
 #' @param object \code{\link{twinspan}} result object.
 #' @param maxspp Maximum number of most abundant species
 #'     displayed. The abundance is estimated with pseudospecies cut

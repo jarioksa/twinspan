@@ -13,12 +13,17 @@
 #' The function is based on \CRANpkg{vegan} function
 #' \code{\link[vegan]{tabasco}}.  Mean abundances in cells are shown
 #' by colours which can be modified by the user (see
-#' \code{\link[vegan]{tabasco}}). The species groups are rows and
-#' quadrat groups are columns. These are labelled by their decimal
-#' group numbers with information of group sizes. These numbers and
-#' the order of the groups are similar as in hierarchic cluster trees
-#' produced by \code{\link{as.hclust.twinspan}} and
-#' \code{\link{summary.twinspan}}. Function also adds quadrat
+#' \code{\link[vegan]{tabasco}}).  The mean abundances are either the
+#' average values of all species of the species group (default), or
+#' the average of the most abundant species of the species group (tied
+#' abundances broken by species frequency) if
+#' \code{leadingspecies=TRUE}. The species groups are rows and quadrat
+#' groups are columns. These are labelled by their decimal group
+#' numbers with information of group sizes, or species by their name
+#' if only leading species are shown. These numbers and the order of
+#' the groups are similar as in hierarchic cluster trees produced by
+#' \code{\link{as.hclust.twinspan}} and
+#' \code{\link{summary.twinspan}}.  Function also adds quadrat
 #' classification tree on the top and species classification tree on
 #' the left margin (see \code{\link{as.hclust.twinspan}}).
 #'
