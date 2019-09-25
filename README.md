@@ -18,33 +18,6 @@ program that runs through a process, and prints its results as
 it advances. In **R**, the function should work silently, and
 return the result for further analysis. The code needs a thorough
 re-design to be used in **R**.
-
-## Version History
-
-- **0.1:** Development version unsuitable for any work.
-- **0.2:** Marginally usable: performs SU (quadrat) classification and has 
-  support function `cut` to find SU class membership vector for any level
-  of hierarchy. No species classification, no diagnostics, no information
-  on indicator species.
-- **0.3:** Adds species classification. 
-- **0.4:** Returns eigenvalues and indicator species for each division.
-  However, most support functions are still missing, and the result object
-  must be inspected manually.
-- **0.5:** Basically done and usable: output contains all basic
-  objects that are needed. However, most support functions are
-  missing, and these elements must be accessed and handled
-  manually. The next section describes the structure of the result
-  object and its handling.
-- **0.6:** Has now most support functions: `summary` gives the division
-  history and lists the signed indicator species, `cut` returns quadrat
-  or species classification at any level, `twintable` prints the 
-  classified community table, `as.dendrogram` displays the divisions as
-  a denrogram that can be plotted and handled with standard dendrogram 
-  tools, `predict` uses indicator species to allocate quadrats to established
-  classes also with `newdata`. In addition, `twinsform` transforms data so that
-  its correspondence analysis is similar to the one in `twinspan`. However,
-  the function is not tested with all non-default options and documentation is
-  still rudimentary.
   
 ## What you can do with twinspan?
 
