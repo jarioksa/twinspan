@@ -26,6 +26,9 @@
 #'     used to produce the graph.
 #'
 #' @param x \code{\link{twinspan}} result object.
+#' @param leadingspecies Show averages of leading species (most
+#'     abundant, ties broken by frequency) of each cluster instead of
+#'     averages of all species of the group.
 #' @param \dots Other arguments passed to \code{\link[vegan]{tabasco}}
 #'     and further to \code{\link[stats]{heatmap}}.
 #'
@@ -35,18 +38,27 @@
 #'
 #' @export
 `image.twinspan` <-
-    function(x, ...)
+    function(x, leadingspecies = FALSE, ...)
 {
     mat <- twin2mat(x) # matrix of pseudospecies data
     spcl <- as.hclust(x, "species") # species tree
     qcl <- as.hclust(x) # quadrat tree
-    ## calculate means of species cluster x quadrat cluster cells
-    mat <- apply(mat, 1, function(z)
-        tapply(z, cut(x, what="species"), mean))
-    mat <- apply(mat, 1, function(z)
-        tapply(z, cut(x, what="quadrat"), mean))
+    ## calculate quadrat group means of leading species
+    if (leadingspecies) {
+        j <- goodspec(x, "leading")
+        spcl$labels <- colnames(mat)[j]
+        mat <- mat[,j]
+        mat <- apply(mat, 2, function(z)
+            tapply(z, cut(x, what="quadrat"), mean))
+    } else {
+        ## calculate means of species cluster x quadrat cluster cells
+        mat <- apply(mat, 1, function(z)
+            tapply(z, cut(x, what="species"), mean))
+        mat <- apply(mat, 1, function(z)
+            tapply(z, cut(x, what="quadrat"), mean))
+        colnames(mat) <- spcl$labels
+    }
     rownames(mat) <- qcl$labels
-    colnames(mat) <- spcl$labels
     tabasco(mat, use=qcl, sp.ind = spcl, Rowv = FALSE, Colv = FALSE, ...)
     invisible(mat)
 }
