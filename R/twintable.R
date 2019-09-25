@@ -5,17 +5,45 @@
 #' Prints a community table of pseudospecies ordered by
 #' \code{\link{twinspan}} classification.
 #'
+#' Function prints a compact community table of pseudospecies
+#' values. The table is ordered by clustering both species and
+#' quadrats similarly as in \code{\link{summary.twinspan}} or in plot
+#' of \code{\link{as.dendrogram.twinspan}}. The classification is
+#' shown by a sequence of \code{0} and \code{1} indicating division of
+#' each level. This string is binary presentation of the decimal class
+#' number without leading \code{1}.
+#'
+#' Only one character is used for each abundance, and the table is
+#' very compact. However, large tables can be divided over several
+#' pages or screen windows. The width of the displayed table is
+#' controlled by \R{} option \code{width} (see
+#' \code{\link{options}}). It is possible to \code{select} only a part
+#' of the quadrats for tabulation giving narrower tables. The number
+#' of species can be reduced by setting the maximum number of most
+#' abundant species, or alternatively, by restricting tabulation only
+#' to \dQuote{good species} which are the most abundant species of
+#' each species group (ties broken by species frequency), or species
+#' used as indicators, or both.
+#'
 #' @param object \code{\link{twinspan}} result object.
 #' @param maxspp Maximum number of most abundant species
 #'     displayed. The abundance is estimated with pseudospecies cut
 #'     levels. The default is to show all species.
+#' @param goodspecies Select \dQuote{good species} for
+#'     tabulation. These are either species that were used as
+#'     indicator pseudospecies (\code{"indicator"}), or most abundant
+#'     species in each final species group breaking ties with
+#'     frequency (\code{"leading"}), or \code{"both"} (default). See
+#'     \code{\link{goodspec}}. The abundance is estimated after
+#'     pseudospecies transformation for all quadrats
+#'     and cannot be used together with \code{maxspp}.
 #' @param select Select a subset of quadrats.
 #'
 #' @importFrom vegan vegemite
 #'
 #' @export
 `twintable` <-
-    function(object, maxspp, select)
+    function(object, maxspp, goodspecies, select)
 {
     i <- object$quadrat$index
     j <- object$species$index
@@ -28,10 +56,17 @@
     if (!missing(select)) {
         i <- i[select[i]]
     }
+    ## First see if we want to have only the "good species"
+    if (!missing(goodspecies)) {
+        if (!missing(maxspp))
+            stop("maxspp and goospecies cannot be defined together")
+        gd <- goodspec(object, goodspecies)
+        j <- j[j %in% gd]
+    }
     ## take only maxspp most abundant species - but if there are ties,
     ## take all tied species, even if we go over maxspp
     if (!missing(maxspp) && ncol(mat) > maxspp) {
-        sptot <- colSums(mat[i,])
+        sptot <- colSums(mat[i,,drop=FALSE])
         maxlim <- sort(sptot, decreasing = TRUE)[maxspp]
         j <- j[sptot[j] >= maxlim]
     }

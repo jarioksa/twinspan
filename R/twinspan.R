@@ -139,7 +139,8 @@
     dim(indics) <- c(indmax, 2^levmax-1)
     quadrat <- list(iclass = Z$iclass[seq_len(mm)], eig = Z$eig,
                     indicators = indics, positivelimit = Z$limpos,
-                    labels = rnames, indlabels = pnames)
+                    labels = rnames, indlabels = pnames,
+                    pseudo2species = jnflag[jnflag > 0])
     ## species classification
     Y <- .Fortran("makejdat", mm=as.integer(mm), nn=as.integer(Z$nn),
                   nspec=as.integer(n), ndat=as.integer(Z$ndat),
