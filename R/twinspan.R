@@ -77,8 +77,8 @@
     nmax <- max(nlev * max(n, mm), 3 * (2^(levmax+1)-1))
     ## R cannot pass character vectors to Fortran, but we pass integer
     ## indices of names
-    jname1 <- jname2 <- integer(nmax)
-    jname1[seq_len(n)] <- jname2[seq_len(n)] <- seq_len(n)
+    jname1 <- integer(nmax)
+    jname1[seq_len(n)] <- seq_len(n)
     jnflag <- integer(nmax)
     jnflag[seq_len(n)] <- seq_len(n)
     Z <- .Fortran("pseudo", mm = as.integer(mm), nn = as.integer(n),
@@ -86,7 +86,7 @@
                   ndat = as.integer(ndat), nspec = as.integer(nmax),
                   idat = as.integer(idat), lcut = as.integer(cut1000),
                   jnflag = as.integer(jnflag),
-                  jname1 = as.integer(jname1), jname2 = as.integer(jname2),
+                  jname1 = as.integer(jname1),
                   jnam = integer(nmax), indpot = integer(nmax),
                   iy = integer(nmax), PACKAGE = "twinspan")
     ## data & names
@@ -125,7 +125,7 @@
                   y=double(nmax), yy=double(nmax),
                   ctot=double(nmax),
                   ccwt=as.double(ccwt), colwgt=double(nmax),
-                  jname1=Z$jname1, jname2=Z$jname2, jnam=Z$jnam,
+                  jname1=Z$jname1, jnam=Z$jnam,
                   x3=double(mmax), x4=double(mmax), x5=double(mmax),
                   lind=as.integer(lind),
                   inlevmax=as.integer(levmax),
@@ -155,7 +155,7 @@
                   jdat=Y$jdat, indsig=Z$indsig, ipict=Z$ipict,
                   x=Z$x, xx=Z$xx, rtot=Z$rtot, rrwt=Y$rrwt, rowwgt=Z$rowwgt,
                   y=Y$y, yy=Z$yy, ctot=Z$ctot, ccwt=Y$ccwt, colwgt=Z$colwgt,
-                  jname1=Z$jname1, jname2=Z$jname2, inflag=as.integer(inflag),
+                  jname1=Z$jname1, inflag=as.integer(inflag),
                   x3=Z$x3, x4=Z$x4, x5=Z$x5, lind=Z$lind,
                   inlevmax = Z$inlevmax, inmmin=Z$inmmin,
                   eig=double(2^levmax-1), indics = integer(inddim),
