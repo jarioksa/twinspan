@@ -22,7 +22,7 @@ C---Variable PRECIS added P.Minchin  June 1997
       ROWWGT(I)=RR
       TOT=TOT+RR
    20 X(I)=1.0
-      CALL XYMULT(M,MM,N,NN,NDAT,X,Y,IIROW,IADDR,ROWWGT,
+      CALL XYMULT(M,MM,N,NDAT,X,Y,IIROW,IADDR,ROWWGT,
      1COLWGT,IDAT)
       DO 30 J=1,N
       JJ=JJCOL(J)

@@ -33,10 +33,9 @@
 #'     tabulation. These are either species that were used as
 #'     indicator pseudospecies (\code{"indicator"}), or most abundant
 #'     species in each final species group breaking ties with
-#'     frequency (\code{"leading"}), or \code{"both"} (default). See
-#'     \code{\link{goodspec}}. The abundance is estimated after
-#'     pseudospecies transformation for all quadrats
-#'     and cannot be used together with \code{maxspp}.
+#'     frequency (\code{"leading"}), or \code{"both"} (default). The
+#'     abundance is estimated after pseudospecies transformation for
+#'     all quadrats and cannot be used together with \code{maxspp}.
 #' @param select Select a subset of quadrats.
 #'
 #' @importFrom vegan vegemite
