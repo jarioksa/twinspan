@@ -1,5 +1,11 @@
 #' Eigenvalues of twinspan Divisions
 #'
+#' @examples
+#'
+#' data(ahti)
+#' tw <- twinspan(ahti)
+#' eigenvals(tw)
+#'
 #' @param x \code{\link{twinspan}} result object.
 #' @param what Return eigenvalues of \code{"quadrat"} or
 #'     \code{"species"} divisions.

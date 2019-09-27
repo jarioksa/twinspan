@@ -3,6 +3,14 @@
 #' Function returns a vector of \code{twinspan} classes at given level
 #' of hierarcy for quadrats.
 #'
+#' @examples
+#'
+#' data(ahti)
+#' tw <- twinspan(ahti)
+#' cut(tw)
+#' cut(tw, level=3)
+#' cut(tw, what = "species")
+#'
 #' @param x \code{twinspan} result.
 #' @param level Level of hierarchy for classification. If missing, the
 #'     highest lvel used in the object will be returned.

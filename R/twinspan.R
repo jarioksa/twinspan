@@ -12,6 +12,11 @@
 #' subset. The function is actually much more complicated: see
 #' Details.
 #'
+#' @examples
+#'
+#' data(ahti)
+#' twinspan(ahti)
+#'
 #' @param x Input data, usually a species community data set where
 #'     columns give the species and rows the sampling units.
 #' @param cutlevels Cut levels used to split quantitative data into

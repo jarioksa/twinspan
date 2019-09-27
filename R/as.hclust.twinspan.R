@@ -11,6 +11,13 @@
 #' polytomies that are needed to display group members.  Use
 #' \code{\link{as.dendrogram}} to show the single items.
 #'
+#' @examples
+#'
+#' data(ahti)
+#' tw <- twinspan(ahti)
+#' plot(as.hclust(tw))
+#' plot(as.hclust(tw, "species"))
+#'
 #' @param x \code{\link{twinspan}} result object.
 #' @param what Extract \code{"quadrat"} or \code{"species"}
 #'     classification tree.

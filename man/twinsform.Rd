@@ -48,3 +48,16 @@ functions. Moreover, \code{\link{twinspan}} adds a small value
 than 0.01 which can influence results when the number of quadrats
 is above 100.
 }
+\examples{
+
+data(ahti)
+tahti <- twinsform(ahti)
+colnames(tahti)
+## needs vegan for correspondence analysis
+if (require(vegan)) {
+## similar first eigenvalue
+decorana(tahti, ira=1)
+eigenvals(twinspan(ahti))
+}
+
+}

@@ -48,3 +48,11 @@ to \dQuote{good species} which are the most abundant species of
 each species group (ties broken by species frequency), or species
 used as indicators, or both.
 }
+\examples{
+
+data(ahti)
+tw <- twinspan(ahti)
+## complete table would be large, but we subset
+twintable(tw, select = cut(tw, 2) == 4, goodspecies = "both")
+
+}
