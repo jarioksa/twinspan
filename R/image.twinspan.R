@@ -27,6 +27,13 @@
 #' classification tree on the top and species classification tree on
 #' the left margin (see \code{\link{as.hclust.twinspan}}).
 #'
+#' @examples
+#'
+#' data(ahti)
+#' tw <- twinspan(ahti)
+#' image(tw)
+#' image(tw, leading = TRUE)
+#'
 #' @return Function returns invisibly the matrix of mean abundances
 #'     used to produce the graph.
 #'

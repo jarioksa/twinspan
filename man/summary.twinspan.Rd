@@ -35,3 +35,10 @@ higher. For division \eqn{k}, the next items are \eqn{2k}
 group). For terminal groups, the function gives the size of the
 group and lists its elements (quadrats or species).
 }
+\examples{
+data(ahti)
+tw <- twinspan(ahti)
+summary(tw)
+summary(tw, "species")
+
+}

@@ -43,3 +43,9 @@ two classes, and then recursively working with each split
 subset. The function is actually much more complicated: see
 Details.
 }
+\examples{
+
+data(ahti)
+twinspan(ahti)
+
+}

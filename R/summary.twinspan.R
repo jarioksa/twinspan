@@ -21,6 +21,12 @@
 #' group). For terminal groups, the function gives the size of the
 #' group and lists its elements (quadrats or species).
 #'
+#' @examples
+#' data(ahti)
+#' tw <- twinspan(ahti)
+#' summary(tw)
+#' summary(tw, "species")
+#'
 #' @return The function returns nothing. It only prints the result
 #'     object in a human-readable way.
 #'

@@ -32,3 +32,13 @@ necessarily found when giving the original data as
 \code{newdata}. In the original TWINSPAN this called
 misclassification.
 }
+\examples{
+
+data(ahti)
+tw <- twinspan(ahti)
+predict(tw)
+predict(tw, level=3)
+## misclassifications: predict and twinspan differ
+sum(predict(tw) != cut(tw))
+
+}

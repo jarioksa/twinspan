@@ -17,3 +17,10 @@
 \description{
 Eigenvalues of twinspan Divisions
 }
+\examples{
+
+data(ahti)
+tw <- twinspan(ahti)
+eigenvals(tw)
+
+}

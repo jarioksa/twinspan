@@ -14,6 +14,15 @@
 #' \code{newdata}. In the original TWINSPAN this called
 #' misclassification.
 #'
+#' @examples
+#'
+#' data(ahti)
+#' tw <- twinspan(ahti)
+#' predict(tw)
+#' predict(tw, level=3)
+#' ## misclassifications: predict and twinspan differ
+#' sum(predict(tw) != cut(tw))
+#'
 #' @param object \code{twinspan} result object.
 #' @param newdata Data used in prediction. The species will be matched
 #'     by their names, and the pseudospecies are based on the

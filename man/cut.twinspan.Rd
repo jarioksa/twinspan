@@ -26,3 +26,12 @@ A vector of class numbers for the given level of hierarchy
 Function returns a vector of \code{twinspan} classes at given level
 of hierarcy for quadrats.
 }
+\examples{
+
+data(ahti)
+tw <- twinspan(ahti)
+cut(tw)
+cut(tw, level=3)
+cut(tw, what = "species")
+
+}
