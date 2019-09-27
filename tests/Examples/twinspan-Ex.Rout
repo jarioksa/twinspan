@@ -1,0 +1,596 @@
+
+R version 3.6.1 (2019-07-05) -- "Action of the Toes"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "twinspan"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('twinspan')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("as.hclust.twinspan")
+> ### * as.hclust.twinspan
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.hclust.twinspan
+> ### Title: Extract twinspan Grouping as Hierarchical Cluster Tree
+> ### Aliases: as.hclust.twinspan
+> 
+> ### ** Examples
+> 
+> 
+> data(ahti)
+> tw <- twinspan(ahti)
+> plot(as.hclust(tw))
+> plot(as.hclust(tw, "species"))
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cut.twinspan")
+> ### * cut.twinspan
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cut.twinspan
+> ### Title: Return twinspan Classification at Given Level
+> ### Aliases: cut.twinspan
+> 
+> ### ** Examples
+> 
+> 
+> data(ahti)
+> tw <- twinspan(ahti)
+> cut(tw)
+  [1]  94  93  92  88  95  93  92  92  29  90  90  94  50  90  94  90 115  86
+ [19]  86  42  86  87  42  42  40  86  83  82  82  87  82  83  83  40  35  34
+ [37]  33  34  33  34  35  35  33  32  33  32  35  75  34  36  78  75  78  79
+ [55]  78  76  78  36  78  91  94  94  75  77  74  74  78  91  91  89  90  90
+ [73]  77  90  83  77  76  77  77  91  89  75  91  90  89  89  89 123 114 114
+ [91] 114  29 122  29 114 114 114 114 114 114 114 114 113 113 114 114 113 114
+[109] 114 102  99 102  60 123 123 123 123 115 113 114 115  60  29  60 113 113
+[127]  60 105 102 112 105 112 105 105 102 105  53 105 113 102 102 102 102  98
+[145]  74 103  74 103  50  50  53 104  53 102  74 105 102 105 105  98  98  98
+[163]  48  48  54  55  55  54  54  31
+> cut(tw, level=3)
+  [1] 11 11 11 11 11 11 11 11 14 11 11 11 12 11 11 11 14 10 10 10 10 10 10 10 10
+ [26] 10 10 10 10 10 10 10 10 10  8  8  8  8  8  8  8  8  8  8  8  8  8  9  8  9
+ [51]  9  9  9  9  9  9  9  9  9 11 11 11  9  9  9  9  9 11 11 11 11 11  9 11 10
+ [76]  9  9  9  9 11 11  9 11 11 11 11 11 15 14 14 14 14 15 14 14 14 14 14 14 14
+[101] 14 14 14 14 14 14 14 14 14 12 12 12 15 15 15 15 15 14 14 14 14 15 14 15 14
+[126] 14 15 13 12 14 13 14 13 13 12 13 13 13 14 12 12 12 12 12  9 12  9 12 12 12
+[151] 13 13 13 12  9 13 12 13 13 12 12 12 12 12 13 13 13 13 13 15
+> cut(tw, what = "species")
+  [1]  27  26  77  28  29  27  66  78  86  22  34  87  34  87  79  87  34  66
+ [19]  66  77  66  29  87  20  26  65  23  26  22  77  12 121  86  71  37  77
+ [37]  42  86  67  71  86  65  61  76  22  70  71  42  65  64  64  70  67  64
+ [55]  65  65  78  70  29  27  65  71  70  64  79  65  64  71  72  23  65  12
+ [73]  73  29  28  34  76  42  37  71  72  28  73 126  12  42  72  27  72  72
+ [91]  70  78  12  73  73  28  73 125 125 120 120  61 127 127 125 125 125 127
+[109] 124 124 124 125 121 127 120
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("eigenvals.twinspan")
+> ### * eigenvals.twinspan
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: eigenvals.twinspan
+> ### Title: Eigenvalues of twinspan Divisions
+> ### Aliases: eigenvals.twinspan
+> 
+> ### ** Examples
+> 
+> 
+> data(ahti)
+> tw <- twinspan(ahti)
+> eigenvals(tw)
+     Div1      Div2      Div3      Div4      Div5      Div6      Div7      Div8 
+0.2525265 0.1560232 0.1529237 0.1625344 0.1508754 0.1104298 0.1423171 0.1637091 
+     Div9     Div10     Div11     Div12     Div13     Div14     Div15     Div16 
+0.1376654 0.1771045 0.1252296 0.1452988 0.1529155 0.1109730 0.2303783 0.2539786 
+    Div17     Div18     Div19     Div20     Div21     Div22     Div23     Div24 
+0.1974310 0.1815680 0.1528833 0.1916441 0.2024584 0.1328393 0.2379858 0.2044021 
+    Div25     Div26     Div27     Div28     Div30     Div37     Div38     Div39 
+0.1408320 0.1609564 0.2828099 0.1019830 0.1768150 0.1689653 0.2228910 0.1612041 
+    Div41     Div43     Div44     Div45     Div46     Div47     Div49     Div51 
+0.2004944 0.2141732 0.2496952 0.1179370 0.3133090 0.3021625 0.2148194 0.1524088 
+    Div52     Div56     Div57     Div61 
+0.1728552 0.1609756 0.1213210 0.1804513 
+attr(,"sumev")
+[1] NA
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("image.twinspan")
+> ### * image.twinspan
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: image.twinspan
+> ### Title: Image of Quadrat and Species Classification and Average
+> ###   Abundances in Cells
+> ### Aliases: image.twinspan
+> 
+> ### ** Examples
+> 
+> 
+> data(ahti)
+> tw <- twinspan(ahti)
+> image(tw)
+> image(tw, leading = TRUE)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("predict.twinspan")
+> ### * predict.twinspan
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: predict.twinspan
+> ### Title: Predict Class Membership of Quadrats
+> ### Aliases: predict.twinspan
+> 
+> ### ** Examples
+> 
+> 
+> data(ahti)
+> tw <- twinspan(ahti)
+> predict(tw)
+  [1]  94  93  92  88  95  93  92  92  29  90  90  94 114  90  94  94 115  86
+ [19]  92  42  86  87  42  42  40  86  83  82  82  87  82  83  83  90  35  34
+ [37]  33  34  33  34  35  35  76  32  33  32  83  75  34  36  78  75  78  79
+ [55]  78  76  78  36  78  91  94  79  75  77  74  74  78  91  91  89  90  90
+ [73]  91  90  83  77  76  77  77  91  89  75  91  90  89  89  89 123 114 114
+ [91] 114  29 122  29 114 114 114 114 114 114 114 114 113 113 114 114 113 114
+[109] 114 102  99 114  60 123 123 123 123 115 113 114 115  60  54  60 113 113
+[127]  60 105 102 112 105 112 105 105 113 105  53 105 113 102 102 102 102  98
+[145]  74 103  74 103  50  50  53 104  53  36  74  36 102 105 105 105 105  98
+[163]  48  48  54  55  55  54  54  31
+> predict(tw, level=3)
+  [1] 11 11 11 11 11 11 11 11 14 11 11 11 14 11 11 11 14 10 11 10 10 10 10 10 10
+ [26] 10 10 10 10 10 10 10 10 11  8  8  8  8  8  8  8  8  9  8  8  8 10  9  8  9
+ [51]  9  9  9  9  9  9  9  9  9 11 11  9  9  9  9  9  9 11 11 11 11 11 11 11 10
+ [76]  9  9  9  9 11 11  9 11 11 11 11 11 15 14 14 14 14 15 14 14 14 14 14 14 14
+[101] 14 14 14 14 14 14 14 14 14 12 12 14 15 15 15 15 15 14 14 14 14 15 13 15 14
+[126] 14 15 13 12 14 13 14 13 13 14 13 13 13 14 12 12 12 12 12  9 12  9 12 12 12
+[151] 13 13 13  9  9  9 12 13 13 13 13 12 12 12 13 13 13 13 13 15
+> ## misclassifications: predict and twinspan differ
+> sum(predict(tw) != cut(tw))
+[1] 15
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("summary.twinspan")
+> ### * summary.twinspan
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: summary.twinspan
+> ### Title: Summary of Twinspan Classification
+> ### Aliases: summary.twinspan
+> 
+> ### ** Examples
+> 
+> data(ahti)
+> tw <- twinspan(ahti)
+> summary(tw)
+1) eig=0.253:  -Cladcocc1 -Cladnigr1 -Cladmiti3 +Dicrpoly1 < 0
+  2) eig=0.156:  +Cladstel5 -Cladvert1 -Polypili2 +Dicrfusc1 -Cladturb1 -Cetreric1 < 0
+    4) eig=0.163:  +Cladrang3 -Sterpasc4 +Cladmero1 -Empenigr2 +Cladmiti4 +Callvulg1 < 2
+      8) eig=0.164:  -Arctuvau2 +Diphcomp1 +Empenigr3 < 1
+        16) eig=0.254:  -Pleuschr1 < 0
+          32) N=2: Ster099 Ster097 
+          33) N=4: Ster095 Ster107 Ster092 Ster103 
+        17) eig=0.197:  -Pohlnuta1 -Cladceno1 -Descflex1 < 0
+          34) N=4: Ster105 Ster106 Ster109 Ster104 
+          35) N=4: Ster113 Ster110 Ster111 Ster108 
+      9) eig=0.138:  -Cladarbu3 < 0
+        18) eig=0.182:  +Cetreric1 < 1
+          36) N=2: Call044 Call045 
+          37) eig=0.169:  -Polypili2 < 0
+            74) N=5: Call049 Call050 Myng123 Myng030 Syng013 
+            75) N=4: Ster098 Call053 Call056 Empe057 
+        19) eig=0.153:  -Cladstel2 -Empenigr1 -Arctuvau1 +Cladturb1 -Sterpasc4 -Vaccmyrt1 < -1
+          38) eig=0.223:  +Vaccviti2 < 1
+            76) N=2: Call116 Empe047 
+            77) N=5: Call096 Empe090 Empe033 Empe089 Empe091 
+          39) eig=0.161:  +Vaccmyrt1 < 1
+            78) N=6: Call055 Call119 Call115 Call052 Call117 Call051 
+            79) N=1: Call118 
+    5) eig=0.151:  +Vaccmyrt1 -Sterpasc2 +Callvulg1 -Empenigr3 +Cladunci2 +Dicrdrum1 -Vacculig1 < 0
+      10) eig=0.177:  -Cladmero1 +Ptilcili1 +Pleuschr2 +Vaccviti5 -Lecigran1 -Cetreric1 < 1
+        20) eig=0.192:  +Cetrniva1 < 1
+          40) N=2: Vuli061 Vuli080 
+          41) eig=0.2:  +Polyjuni2 < 1
+            82) N=3: Vuli079 Vuli088 Vuli094 
+            83) N=4: Vuli076 Vuli078 Vuli077 Empe048 
+        21) eig=0.202:  +Cladarbu1 +Polyjuni1 < 1
+          42) N=3: Vuli084 Vuli083 Vuli085 
+          43) eig=0.214:  -Cladcocc1 < 0
+            86) N=4: Vmyr100 Vmyr102 Vuli081 Vuli082 
+            87) N=2: Vuli059 Vuli101 
+      11) eig=0.125:  +Pleuschr2 +Hepatica1 +Dicrscop1 +Ptilcili1 -Cladphyl1 -Empenigr1 < 1
+        22) eig=0.133:  -Empenigr2 +Empeherm1 +Cladunci3 +Cladrang3 +Pohlnuta1 -Cetrniva1 < 1
+          44) eig=0.25:  -Hepatica1 < 0
+            88) N=1: Vmyr071 
+            89) N=5: Empe073 Empe031 Empe067 Empe072 Empe074 
+          45) eig=0.118:  +Callvulg4 -Cladstel5 +Cladcarn1 -Polystri1 -Dicrfusc2 < 0
+            90) N=8: Vmyr036 Vmyr035 Vmyr075 Vmyr032 Empe065 Empe039 Empe093 Empe038 
+            91) N=5: Call114 Empe034 Empe062 Empe046 Empe043 
+        23) eig=0.238:  +Lecigran1 < 1
+          46) eig=0.313:  -Empeherm1 < 0
+            92) N=3: Vmyr060 Vmyr066 Vmyr087 
+            93) N=2: Vmyr040 Vmyr042 
+          47) eig=0.302:  -Claddefo1 < 0
+            94) N=5: Vmyr070 Vmyr069 Vmyr086 Call063 Call064 
+            95) N=1: Vmyr037 
+  3) eig=0.153:  -Cladarbu5 -Cladcris1 +Cladstel3 < 0
+    6) eig=0.11:  -Cladstel3 +Vaccviti4 +Pleuschr3 -Leciulig1 -Lecigran1 -Cetreric1 +Dicrpoly2 < 0
+      12) eig=0.145:  +Lecigran1 +Cladstel3 < 1
+        24) eig=0.204:  +Cladcris1 < 1
+          48) N=2: Hbor165 Hbor170 
+          49) eig=0.215:  +Cladcocc1 < 1
+            98) N=4: Myng150 Hbor168 Hbor167 Hbor166 
+            99) N=1: Mold160 
+        25) eig=0.141:  -Cladstel5 -Cladpleu1 < -1
+          50) N=3: Vmyr068 Syng135 Syng008 
+          51) eig=0.152:  +Empeherm1 < 1
+            102) N=10: Mold162 Mold134 Sold143 Sold164 Myng120 Myng126 Myng121 Myng124 Syng007 Syng142 
+            103) N=2: Myng028 Syng023 
+      13) eig=0.153:  -Cladcorn1 -Cladgray1 < 0
+        26) eig=0.161:  +Peltmala1 < 1
+          52) eig=0.173:  -Stergran1 < 0
+            104) N=1: Syng003 
+            105) N=9: Sold137 Sold144 Sold014 Sold027 Sold015 Sold025 Syng026 Hbor169 Hbor171 
+          53) N=3: Sold022 Syng021 Syng024 
+        27) eig=0.283:  -Dicrscop1 < 0
+          54) N=3: Thym004 Thym136 Thym139 
+          55) N=2: Thym163 Thym145 
+    7) eig=0.142:  +Dicrpoly3 +Vaccviti5 +Pleuschr4 -Cladgray1 +Cetrisla2 < 3
+      14) eig=0.111:  +Vaccmyrt1 +Pleuschr3 < 2
+        28) eig=0.102:  +Empenigr1 -Cladarbu4 -Pleuschr3 -Cladturb1 -Dicrpoly2 -Cetrisla2 < -1
+          56) eig=0.161:  -Dicrpoly3 < 0
+            112) N=2: Sold018 Sold016 
+            113) N=7: Mold161 Mold029 Mold152 Sold147 Sold146 Sold138 Sold012 
+          57) eig=0.121:  -Cladcorn1 < 0
+            114) N=16: Mold154 Mold155 Mold159 Mold151 Mold130 Mold158 Mold132 Mold128 Mold153 Mold157 Mold149 Mold148 Mold133 Mold129 Mold125 Sold009 
+            115) N=3: Vmyr041 Sold011 Sold010 
+        29) N=4: Vmyr058 Mold156 Mold054 Sold019 
+      15) eig=0.23:  +Cladceno1 < 1
+        30) eig=0.177:  -Callvulg3 -Cladmiti1 -Cladcris1 < -1
+          60) N=4: Mold127 Sold141 Sold020 Sold017 
+          61) eig=0.18:  -Cladunci1 < 0
+            122) N=1: Mold122 
+            123) N=5: Mold131 Sold001 Sold005 Sold006 Sold002 
+        31) N=1: Thym140 
+> summary(tw, "species")
+1) eig=0.697
+  2) eig=0.375
+    4) eig=0.214
+      8) eig=0.192
+        16) eig=0.277
+          32) eig=0.09
+            64) N=5: Polycomm Vacculig Peltscab Cladmaxi Dicrmaju 
+            65) N=8: Cladbell Cladsubf Arctalpi Barblyco Diphalpi Linnbore Lycoanno Ochrfrig 
+          33) eig=0.12
+            66) N=4: Dicrfusc Dicrundu Hepatica Dicrdrum 
+            67) N=2: Nepharct Peltapht 
+        17) eig=0.124
+          34) N=4: Cladnigr Cladcocc Empeherm Cladamau 
+          35) eig=0.084
+            70) N=5: Polystri Baeorufu Icmaeric Lecilimo Tonicumu 
+            71) N=6: Sterpasc Stergran Cetrniva Phylcoer Baeorose Peltleuc 
+      9) eig=0.183
+        18) eig=0.254
+          36) eig=0.113
+            72) N=5: Stercond Cladpyxi Cladsubu Ptilpulc Cladcyan 
+            73) N=5: Ochrgemi Solocroc Pycnpapi Cetrcucu Arthcitr 
+          37) N=2: Polypili Cladvert 
+        19) eig=0.155
+          38) eig=0.136
+            76) N=2: Cladmacr Calalapp 
+            77) N=4: Cladmiti Cladpleu Lecigran Descflex 
+          39) eig=0.111
+            78) N=3: Cladunci Stertome Baeoplac 
+            79) N=2: Polyjuni Peltmala 
+    5) eig=0.226
+      10) eig=0.24
+        20) N=1: Cladphyl 
+        21) eig=0.221
+          42) N=4: Cetreric Leciulig Festovin Careeric 
+          43) eig=0.096
+            86) N=4: Cladcris Cladceno Cladcarn Diphcomp 
+            87) N=4: Cladgray Claddefo Cladcorn Cladmero 
+      11) eig=0.398
+        22) N=3: Vaccmyrt Ptilcili Ledupalu 
+        23) N=2: Empenigr Solivirg 
+  3) eig=0.389
+    6) eig=0.364
+      12) N=4: Arctuvau Peltpoly Cerapurp Antedioi 
+      13) eig=0.268
+        26) N=3: Cladrang Callvulg Pohlnuta 
+        27) N=4: Cladstel Vaccviti Cladsqua Epilangu 
+    7) eig=0.201
+      14) eig=0.182
+        28) N=4: Cladarbu Cladbotr Cladturb Buxbaphy 
+        29) N=4: Pleuschr Dicrscop Hylosple Dicrspur 
+      15) eig=0.117
+        30) eig=0.064
+          60) eig=0.029
+            120) N=3: Calaepig Calaarun Hypomacu 
+            121) N=2: Dicrpoly Thymserp 
+          61) N=2: Cetrisla Monohypo 
+        31) eig=0.11
+          62) eig=0.088
+            124) N=3: Hierumbe Cladfurc Polyodor 
+            125) N=6: Cladbaci Cladfloe Cladbacf Cladgrac Cladconi Luzupilo 
+          63) eig=0.075
+            126) N=1: Melaprat 
+            127) N=4: Ptilcris Cladfimb Peltrufe Convmaja 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("twinsform")
+> ### * twinsform
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: twinsform
+> ### Title: Transform Data for Correspondence Analysis like twinspan
+> ### Aliases: twinsform
+> 
+> ### ** Examples
+> 
+> 
+> data(ahti)
+> tahti <- twinsform(ahti)
+> colnames(tahti)
+  [1] "Cladstel1" "Cladrang1" "Cladmiti1" "Cladarbu1" "Pleuschr1" "Vaccviti1"
+  [7] "Dicrfusc1" "Cladunci1" "Cladcris1" "Vaccmyrt1" "Cladnigr1" "Cladgray1"
+ [13] "Cladcocc1" "Claddefo1" "Polyjuni1" "Cladcorn1" "Empeherm1" "Dicrundu1"
+ [19] "Hepatica1" "Cladpleu1" "Dicrdrum1" "Dicrscop1" "Cladmero1" "Cladphyl1"
+ [25] "Callvulg1" "Cladbell1" "Empenigr1" "Pohlnuta1" "Ptilcili1" "Lecigran1"
+ [31] "Arctuvau1" "Dicrpoly1" "Cladceno1" "Sterpasc1" "Polypili1" "Descflex1"
+ [37] "Cetreric1" "Cladcarn1" "Nepharct1" "Stergran1" "Diphcomp1" "Cladsubf1"
+ [43] "Cetrisla1" "Cladmacr1" "Ledupalu1" "Polystri1" "Cetrniva1" "Leciulig1"
+ [49] "Arctalpi1" "Polycomm1" "Vacculig1" "Baeorufu1" "Peltapht1" "Peltscab1"
+ [55] "Barblyco1" "Diphalpi1" "Stertome1" "Icmaeric1" "Hylosple1" "Cladsqua1"
+ [61] "Linnbore1" "Phylcoer1" "Lecilimo1" "Cladmaxi1" "Peltmala1" "Lycoanno1"
+ [67] "Dicrmaju1" "Baeorose1" "Stercond1" "Solivirg1" "Ochrfrig1" "Peltpoly1"
+ [73] "Ochrgemi1" "Dicrspur1" "Cladbotr1" "Cladamau1" "Calalapp1" "Festovin1"
+ [79] "Cladvert1" "Peltleuc1" "Cladpyxi1" "Cladturb1" "Solocroc1" "Melaprat1"
+ [85] "Cerapurp1" "Careeric1" "Cladsubu1" "Epilangu1" "Ptilpulc1" "Cladcyan1"
+ [91] "Tonicumu1" "Baeoplac1" "Antedioi1" "Pycnpapi1" "Cetrcucu1" "Buxbaphy1"
+ [97] "Arthcitr1" "Cladbaci1" "Cladfloe1" "Calaepig1" "Calaarun1" "Monohypo1"
+[103] "Ptilcris1" "Cladfimb1" "Cladbacf1" "Cladgrac1" "Cladconi1" "Peltrufe1"
+[109] "Hierumbe1" "Cladfurc1" "Polyodor1" "Luzupilo1" "Thymserp1" "Convmaja1"
+[115] "Hypomacu1" "Cladstel2" "Cladrang2" "Cladmiti2" "Cladarbu2" "Pleuschr2"
+[121] "Vaccviti2" "Dicrfusc2" "Cladunci2" "Cladcris2" "Vaccmyrt2" "Cladnigr2"
+[127] "Cladgray2" "Cladcocc2" "Polyjuni2" "Cladcorn2" "Empeherm2" "Dicrundu2"
+[133] "Hepatica2" "Cladpleu2" "Dicrscop2" "Cladmero2" "Callvulg2" "Cladbell2"
+[139] "Empenigr2" "Pohlnuta2" "Ptilcili2" "Lecigran2" "Arctuvau2" "Dicrpoly2"
+[145] "Sterpasc2" "Polypili2" "Descflex2" "Cetreric2" "Nepharct2" "Stergran2"
+[151] "Diphcomp2" "Cladsubf2" "Cetrisla2" "Polystri2" "Cetrniva2" "Leciulig2"
+[157] "Arctalpi2" "Vacculig2" "Peltapht2" "Phylcoer2" "Peltmala2" "Ochrgemi2"
+[163] "Dicrspur2" "Festovin2" "Cladvert2" "Cladturb2" "Cladstel3" "Cladrang3"
+[169] "Cladmiti3" "Cladarbu3" "Pleuschr3" "Vaccviti3" "Dicrfusc3" "Cladunci3"
+[175] "Cladcris3" "Vaccmyrt3" "Cladnigr3" "Cladgray3" "Cladcocc3" "Polyjuni3"
+[181] "Empeherm3" "Hepatica3" "Cladpleu3" "Callvulg3" "Cladbell3" "Empenigr3"
+[187] "Ptilcili3" "Arctuvau3" "Dicrpoly3" "Sterpasc3" "Polypili3" "Cetreric3"
+[193] "Stergran3" "Cetrisla3" "Polystri3" "Arctalpi3" "Vacculig3" "Peltapht3"
+[199] "Cladturb3" "Cladstel4" "Cladrang4" "Cladmiti4" "Cladarbu4" "Pleuschr4"
+[205] "Vaccviti4" "Dicrfusc4" "Cladunci4" "Cladcris4" "Vaccmyrt4" "Cladnigr4"
+[211] "Polyjuni4" "Empeherm4" "Hepatica4" "Callvulg4" "Empenigr4" "Arctuvau4"
+[217] "Dicrpoly4" "Sterpasc4" "Polypili4" "Stergran4" "Cetrisla4" "Vacculig4"
+[223] "Cladturb4" "Cladstel5" "Cladrang5" "Cladmiti5" "Cladarbu5" "Pleuschr5"
+[229] "Vaccviti5" "Dicrfusc5" "Cladunci5" "Cladcris5" "Vaccmyrt5" "Empeherm5"
+[235] "Hepatica5" "Callvulg5" "Empenigr5" "Arctuvau5" "Dicrpoly5" "Sterpasc5"
+[241] "Polypili5" "Stergran5" "Vacculig5"
+> ## needs vegan for correspondence analysis
+> if (require(vegan)) {
++ ## similar first eigenvalue
++ decorana(tahti, ira=1)
++ eigenvals(twinspan(ahti))
++ }
+Loading required package: vegan
+Loading required package: permute
+Loading required package: lattice
+This is vegan 2.5-6
+     Div1      Div2      Div3      Div4      Div5      Div6      Div7      Div8 
+0.2525265 0.1560232 0.1529237 0.1625344 0.1508754 0.1104298 0.1423171 0.1637091 
+     Div9     Div10     Div11     Div12     Div13     Div14     Div15     Div16 
+0.1376654 0.1771045 0.1252296 0.1452988 0.1529155 0.1109730 0.2303783 0.2539786 
+    Div17     Div18     Div19     Div20     Div21     Div22     Div23     Div24 
+0.1974310 0.1815680 0.1528833 0.1916441 0.2024584 0.1328393 0.2379858 0.2044021 
+    Div25     Div26     Div27     Div28     Div30     Div37     Div38     Div39 
+0.1408320 0.1609564 0.2828099 0.1019830 0.1768150 0.1689653 0.2228910 0.1612041 
+    Div41     Div43     Div44     Div45     Div46     Div47     Div49     Div51 
+0.2004944 0.2141732 0.2496952 0.1179370 0.3133090 0.3021625 0.2148194 0.1524088 
+    Div52     Div56     Div57     Div61 
+0.1728552 0.1609756 0.1213210 0.1804513 
+attr(,"sumev")
+[1] NA
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:vegan’, ‘package:lattice’, ‘package:permute’
+
+> nameEx("twinspan")
+> ### * twinspan
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: twinspan
+> ### Title: Two-Way Indicator Species Analysis
+> ### Aliases: twinspan
+> 
+> ### ** Examples
+> 
+> 
+> data(ahti)
+> twinspan(ahti)
+List of 7
+ $ call     : language twinspan(x = ahti)
+ $ cutlevels: num [1:5] 0 2 5 10 20
+ $ nspecies : int 115
+ $ nquadrat : int 170
+ $ idat     : int [1:7526] 1 116 167 200 224 2 117 168 3 118 ...
+ $ quadrat  :List of 8
+  ..$ iclass        : int [1:170] 94 93 92 88 95 93 92 92 29 90 ...
+  ..$ eig           : num [1:63] 0.253 0.156 0.153 0.163 0.151 ...
+  ..$ indicators    : int [1:7, 1:63] -13 -11 -169 32 0 0 0 224 -79 -146 ...
+  ..$ positivelimit : int [1:63] 0 0 0 2 0 0 3 1 0 1 ...
+  ..$ labels        : chr [1:170] "Vmyr070" "Vmyr040" "Vmyr060" "Vmyr071" ...
+  ..$ indlabels     : chr [1:243] "Cladstel1" "Cladrang1" "Cladmiti1" "Cladarbu1" ...
+  ..$ pseudo2species: int [1:243] 1 2 3 4 5 6 7 8 9 10 ...
+  ..$ index         : int [1:170] 44 46 37 39 43 45 36 38 40 49 ...
+ $ species  :List of 4
+  ..$ iclass: int [1:115] 27 26 77 28 29 27 66 78 86 22 ...
+  ..$ eig   : num [1:63] 0.697 0.375 0.389 0.214 0.226 ...
+  ..$ labels: chr [1:115] "Cladstel" "Cladrang" "Cladmiti" "Cladarbu" ...
+  ..$ index : int [1:115] 50 51 54 64 67 26 42 49 55 56 ...
+ - attr(*, "class")= chr "twinspan"
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("twintable")
+> ### * twintable
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: twintable
+> ### Title: Community Table Ordered by Twinspan Classification
+> ### Aliases: twintable
+> 
+> ### ** Examples
+> 
+> 
+> data(ahti)
+> tw <- twinspan(ahti)
+> ## complete table would be large, but we subset
+> twintable(tw, select = cut(tw, 2) == 4, goodspecies = "both")
+                                                        
+                 000000000000000000000000000000000000000
+                 000000000000000000000000000000000000000
+                 000000000000001111111111111111111111111
+                 000000111111110000000000011111111111111
+                 001111000011110011111111100000001111111
+                                 00000111100111110000001
+                                                        
+                 SSSSSSSSSSSSSSCCCCMMSSCCECECEEEECCCCCCC
+                 ttttttttttttttaaaayyytaamamammmmaaaaaaa
+                 eeeeeeeeeeeeeellllnnnellplplpppplllllll
+                 rrrrrrrrrrrrrrllllgggrlleleleeeelllllll
+                 000101111111110000100000010000000110101
+                 999090000011104445231955514993895115151
+                 975723569430184590303836767603915952718
+ 000000 Vacculig ----1-----1---------------1---11-------
+ 000001 Cladbell ----1-------------------11---11-------1
+ 000010 Dicrfusc ---1---------11----------1--2111-21-113
+ 000010 Hepatica -------------------------1---1-1-1-1---
+ 000010 Dicrdrum -----------------1----11-------1-------
+ 000011 Nepharct --------------1-----------1-----------1
+ 00010  Cladnigr --11111112-111--1------11111-221--1112-
+ 00010  Cladcocc 111111111111112111---111111132111111111
+ 00010  Empeherm 1---2----1------------1---11223-1231121
+ 000110 Polystri ----2---1-------------1---3----1--1----
+ 000110 Baeorufu 11---------11-1----------1--1-1111111-1
+ 000111 Sterpasc 55555555555555--12-2-5112-2551553131111
+ 000111 Stergran --1--1--1--1----11----21-11521--2-11-1-
+ 000111 Cetrniva --121--11---11--1--------1-1--11--1-11-
+ 001000 Cladpyxi 11-111111---1------------1------111----
+ 001001 Solocroc ----------11--1-11----------1-11--1-1--
+ 00101  Polypili 553445224132314243233-1-112114213122151
+ 00101  Cladvert 11-112-11-111-11-1111-1-11---1-11-1-1--
+ 001100 Cladmacr 11-1--------1-111-11-----1-1---1---111-
+ 001101 Cladmiti 334353233314355533544435555445455555555
+ 001101 Cladpleu 1111111111-11121-1-1--11-11111111111-1-
+ 001101 Lecigran 11--1-1111-11-1---1------21-1111-111-11
+ 001101 Descflex 1-----11-2--------------1---1-----1--1-
+ 001110 Cladunci 443151233322434422132334244244345445454
+ 001111 Polyjuni 14-331213211-3223411-214341321221221222
+ 001111 Peltmala ------1--11--11-1-------------------1--
+ 0100   Cladphyl 111111111111111111111111111111111111111
+ 01010  Cetreric 12111111111121--11112121131111112311111
+ 01010  Leciulig -1----112---------1------111-11111111-1
+ 010110 Cladcris 1-1122111111111111211111121112311111111
+ 010110 Cladceno -------111----1-1--1--1---1--1---------
+ 010110 Cladcarn --1-1----1----1----11-----1-11-1-1111-1
+ 010110 Diphcomp 1------121-22--------------11--1-------
+ 010111 Cladgray 1-11111111-111111111----111-1111111-1--
+ 010111 Claddefo 11111-1111-1111111111111111111111111111
+ 010111 Cladcorn --112211211111111111--11111111111111111
+ 010111 Cladmero -11-1---------11111111111111-1111111111
+ 0110   Vaccmyrt ---------1-------------2--1-4-21------1
+ 0110   Ptilcili --------------1----------1-------------
+ 0111   Empenigr 12321-424353451-1-1--12--141-1142------
+ 100    Arctuvau 22333-11111--122---11----33--211--1----
+ 1010   Cladrang 115131111112113455544553515344433435445
+ 1010   Callvulg 3---2----1-43-2431525-542543132452555-4
+ 1010   Pohlnuta -------111---------1--1--11-11-111111-1
+ 1011   Cladstel 1-4121112214221-42141111145515441-1111-
+ 1011   Vaccviti 2--112312324144352412-33511333234322344
+ 1100   Cladarbu 11111-11-1411144545553534-12112121-111-
+ 1100   Cladturb --1-11----11--421111-11-1--1----11--111
+ 1101   Pleuschr 11----1--2-1--1-3111-1221-1111111121213
+ 1101   Dicrscop -------------------1--11----1--1--1----
+ 111001 Dicrpoly -------------1-------11-1---------1---1
+ 11101  Cetrisla -1--------------1-1-11--1-11------1----
+ 111110 Melaprat -----1---------------------------------
+  sites species 
+     39      53 
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  1.552 0.138 1.697 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')
