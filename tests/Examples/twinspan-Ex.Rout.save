@@ -361,6 +361,102 @@ attr(,"sumev")
 > 
 > 
 > cleanEx()
+> nameEx("twin2mat")
+> ### * twin2mat
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: twin2stack
+> ### Title: Extract Transformed Input Data from TWINSPAN result
+> ### Aliases: twin2stack twin2mat
+> 
+> ### ** Examples
+> 
+> 
+> data(ahti)
+> dim(ahti)
+[1] 170 115
+> range(ahti)
+[1]  0 95
+> tw <- twinspan(ahti)
+> x <- twin2mat(tw)
+> dim(x)
+[1] 170 115
+> range(x)
+[1] 0 5
+> colnames(x)
+  [1] "Cladstel" "Cladrang" "Cladmiti" "Cladarbu" "Pleuschr" "Vaccviti"
+  [7] "Dicrfusc" "Cladunci" "Cladcris" "Vaccmyrt" "Cladnigr" "Cladgray"
+ [13] "Cladcocc" "Claddefo" "Polyjuni" "Cladcorn" "Empeherm" "Dicrundu"
+ [19] "Hepatica" "Cladpleu" "Dicrdrum" "Dicrscop" "Cladmero" "Cladphyl"
+ [25] "Callvulg" "Cladbell" "Empenigr" "Pohlnuta" "Ptilcili" "Lecigran"
+ [31] "Arctuvau" "Dicrpoly" "Cladceno" "Sterpasc" "Polypili" "Descflex"
+ [37] "Cetreric" "Cladcarn" "Nepharct" "Stergran" "Diphcomp" "Cladsubf"
+ [43] "Cetrisla" "Cladmacr" "Ledupalu" "Polystri" "Cetrniva" "Leciulig"
+ [49] "Arctalpi" "Polycomm" "Vacculig" "Baeorufu" "Peltapht" "Peltscab"
+ [55] "Barblyco" "Diphalpi" "Stertome" "Icmaeric" "Hylosple" "Cladsqua"
+ [61] "Linnbore" "Phylcoer" "Lecilimo" "Cladmaxi" "Peltmala" "Lycoanno"
+ [67] "Dicrmaju" "Baeorose" "Stercond" "Solivirg" "Ochrfrig" "Peltpoly"
+ [73] "Ochrgemi" "Dicrspur" "Cladbotr" "Cladamau" "Calalapp" "Festovin"
+ [79] "Cladvert" "Peltleuc" "Cladpyxi" "Cladturb" "Solocroc" "Melaprat"
+ [85] "Cerapurp" "Careeric" "Cladsubu" "Epilangu" "Ptilpulc" "Cladcyan"
+ [91] "Tonicumu" "Baeoplac" "Antedioi" "Pycnpapi" "Cetrcucu" "Buxbaphy"
+ [97] "Arthcitr" "Cladbaci" "Cladfloe" "Calaepig" "Calaarun" "Monohypo"
+[103] "Ptilcris" "Cladfimb" "Cladbacf" "Cladgrac" "Cladconi" "Peltrufe"
+[109] "Hierumbe" "Cladfurc" "Polyodor" "Luzupilo" "Thymserp" "Convmaja"
+[115] "Hypomacu"
+> x <- twin2stack(tw)
+> dim(x)
+[1] 170 243
+> range(x)
+[1] 0 1
+> colnames(x)
+  [1] "Cladstel1" "Cladrang1" "Cladmiti1" "Cladarbu1" "Pleuschr1" "Vaccviti1"
+  [7] "Dicrfusc1" "Cladunci1" "Cladcris1" "Vaccmyrt1" "Cladnigr1" "Cladgray1"
+ [13] "Cladcocc1" "Claddefo1" "Polyjuni1" "Cladcorn1" "Empeherm1" "Dicrundu1"
+ [19] "Hepatica1" "Cladpleu1" "Dicrdrum1" "Dicrscop1" "Cladmero1" "Cladphyl1"
+ [25] "Callvulg1" "Cladbell1" "Empenigr1" "Pohlnuta1" "Ptilcili1" "Lecigran1"
+ [31] "Arctuvau1" "Dicrpoly1" "Cladceno1" "Sterpasc1" "Polypili1" "Descflex1"
+ [37] "Cetreric1" "Cladcarn1" "Nepharct1" "Stergran1" "Diphcomp1" "Cladsubf1"
+ [43] "Cetrisla1" "Cladmacr1" "Ledupalu1" "Polystri1" "Cetrniva1" "Leciulig1"
+ [49] "Arctalpi1" "Polycomm1" "Vacculig1" "Baeorufu1" "Peltapht1" "Peltscab1"
+ [55] "Barblyco1" "Diphalpi1" "Stertome1" "Icmaeric1" "Hylosple1" "Cladsqua1"
+ [61] "Linnbore1" "Phylcoer1" "Lecilimo1" "Cladmaxi1" "Peltmala1" "Lycoanno1"
+ [67] "Dicrmaju1" "Baeorose1" "Stercond1" "Solivirg1" "Ochrfrig1" "Peltpoly1"
+ [73] "Ochrgemi1" "Dicrspur1" "Cladbotr1" "Cladamau1" "Calalapp1" "Festovin1"
+ [79] "Cladvert1" "Peltleuc1" "Cladpyxi1" "Cladturb1" "Solocroc1" "Melaprat1"
+ [85] "Cerapurp1" "Careeric1" "Cladsubu1" "Epilangu1" "Ptilpulc1" "Cladcyan1"
+ [91] "Tonicumu1" "Baeoplac1" "Antedioi1" "Pycnpapi1" "Cetrcucu1" "Buxbaphy1"
+ [97] "Arthcitr1" "Cladbaci1" "Cladfloe1" "Calaepig1" "Calaarun1" "Monohypo1"
+[103] "Ptilcris1" "Cladfimb1" "Cladbacf1" "Cladgrac1" "Cladconi1" "Peltrufe1"
+[109] "Hierumbe1" "Cladfurc1" "Polyodor1" "Luzupilo1" "Thymserp1" "Convmaja1"
+[115] "Hypomacu1" "Cladstel2" "Cladrang2" "Cladmiti2" "Cladarbu2" "Pleuschr2"
+[121] "Vaccviti2" "Dicrfusc2" "Cladunci2" "Cladcris2" "Vaccmyrt2" "Cladnigr2"
+[127] "Cladgray2" "Cladcocc2" "Polyjuni2" "Cladcorn2" "Empeherm2" "Dicrundu2"
+[133] "Hepatica2" "Cladpleu2" "Dicrscop2" "Cladmero2" "Callvulg2" "Cladbell2"
+[139] "Empenigr2" "Pohlnuta2" "Ptilcili2" "Lecigran2" "Arctuvau2" "Dicrpoly2"
+[145] "Sterpasc2" "Polypili2" "Descflex2" "Cetreric2" "Nepharct2" "Stergran2"
+[151] "Diphcomp2" "Cladsubf2" "Cetrisla2" "Polystri2" "Cetrniva2" "Leciulig2"
+[157] "Arctalpi2" "Vacculig2" "Peltapht2" "Phylcoer2" "Peltmala2" "Ochrgemi2"
+[163] "Dicrspur2" "Festovin2" "Cladvert2" "Cladturb2" "Cladstel3" "Cladrang3"
+[169] "Cladmiti3" "Cladarbu3" "Pleuschr3" "Vaccviti3" "Dicrfusc3" "Cladunci3"
+[175] "Cladcris3" "Vaccmyrt3" "Cladnigr3" "Cladgray3" "Cladcocc3" "Polyjuni3"
+[181] "Empeherm3" "Hepatica3" "Cladpleu3" "Callvulg3" "Cladbell3" "Empenigr3"
+[187] "Ptilcili3" "Arctuvau3" "Dicrpoly3" "Sterpasc3" "Polypili3" "Cetreric3"
+[193] "Stergran3" "Cetrisla3" "Polystri3" "Arctalpi3" "Vacculig3" "Peltapht3"
+[199] "Cladturb3" "Cladstel4" "Cladrang4" "Cladmiti4" "Cladarbu4" "Pleuschr4"
+[205] "Vaccviti4" "Dicrfusc4" "Cladunci4" "Cladcris4" "Vaccmyrt4" "Cladnigr4"
+[211] "Polyjuni4" "Empeherm4" "Hepatica4" "Callvulg4" "Empenigr4" "Arctuvau4"
+[217] "Dicrpoly4" "Sterpasc4" "Polypili4" "Stergran4" "Cetrisla4" "Vacculig4"
+[223] "Cladturb4" "Cladstel5" "Cladrang5" "Cladmiti5" "Cladarbu5" "Pleuschr5"
+[229] "Vaccviti5" "Dicrfusc5" "Cladunci5" "Cladcris5" "Vaccmyrt5" "Empeherm5"
+[235] "Hepatica5" "Callvulg5" "Empenigr5" "Arctuvau5" "Dicrpoly5" "Sterpasc5"
+[241] "Polypili5" "Stergran5" "Vacculig5"
+> 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("twinsform")
 > ### * twinsform
 > 
@@ -624,7 +720,7 @@ List of 7
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.626 0.152 1.797 0 0 
+Time elapsed:  1.73 0.176 1.941 0 0 
 > grDevices::dev.off()
 null device 
           1 
