@@ -15,7 +15,16 @@
 #' @examples
 #'
 #' data(ahti)
-#' twinspan(ahti)
+#' ## default cut levels
+#' (tw <- twinspan(ahti))
+#' ## visual look at the divisions and group numbers
+#' plot(tw)
+#' ## Braun-Blanquet scale
+#' (twb <- twinspan(ahti, cutlevels = c(0, 0.1, 1, 5, 25, 50, 75)))
+#' plot(twb)
+#' ## compare confusion
+#' table(cut(tw, level=3), cut(twb, level=3))
+#'
 #'
 #' @param x Input data, usually a species community data set where
 #'     columns give the species and rows the sampling units.

@@ -78,6 +78,41 @@
 ### matrix from internal data returned by twinspan. The output is
 ### similar as with twinsform(x, downweight = FALSE).
 
+#' @rdname twin2mat
+#'
+#' @title Extract Transformed Input Data from TWINSPAN result
+#'
+#' @description
+#'
+#' Function \code{twin2stack} extracts the binary pseudospecies file,
+#' where columns are pseudospecies with their cutlevels, and entries
+#' are either \code{0} or \code{1}. This is similar to the file
+#' generated with \code{\link{twinsform}} with argument
+#' \code{downweight=FALSE}. Function \code{twin2mat} extracts data
+#' file with pseudospecies transformation. Columns are original
+#' species, and entries are abundances after pseudospecies
+#' transformation. This is similar as the output from \CRANpkg{vegan}
+#' function \code{\link[vegan]{coverscale}} with similar cut levels
+#' and argument \code{character=FALSE}.
+#'
+#' @examples
+#'
+#' data(ahti)
+#' dim(ahti)
+#' range(ahti)
+#' tw <- twinspan(ahti)
+#' x <- twin2mat(tw)
+#' dim(x)
+#' range(x)
+#' colnames(x)
+#' x <- twin2stack(tw)
+#' dim(x)
+#' range(x)
+#' colnames(x)
+#'
+#' @param x \code{\link{twinspan}} result object.
+#'
+#' @export
 `twin2stack` <-
     function(x)
 {
@@ -109,6 +144,8 @@
 ### character=FALSE). The function uses the same internal data as
 ### twin2stack(), but adds binary pseudospecies to transformed values.
 
+#' @rdname twin2mat
+#' @export
 `twin2mat` <-
     function(x)
 {
