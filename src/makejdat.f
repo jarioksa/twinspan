@@ -9,7 +9,7 @@ c classification.
       integer mm, nn, nspec, ndat, nmax
       integer iaddr(mm), indpot(nn), iclass(mm)
       integer idat(ndat), jdat(ndat/2)
-      real(8) y(nn), ccwt(nn), rrwt(mm), tot(511), totj(511)
+      real(8) y(nn), ccwt(nn), rrwt(mm), tot(2047), totj(2047)
 c     Arbitrary constants
       SPE1 = 0.8
       SPE2 = 2.0
@@ -47,7 +47,7 @@ c of hierarchy so long that all class values IC are below 512 which
 c corresponds 8 to levels of division. Original 427 commented out.
 
 c     427     IF(IC*3.LE.NMAX) GOTO 428
- 427     if (ic .le. min(nmax, 511)) goto 428
+ 427     if (ic .le. min(nmax, 2047)) goto 428
 c ic/2 is a mother class at higher level
          IC=IC/2
          GOTO 427
