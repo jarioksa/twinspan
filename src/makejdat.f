@@ -47,7 +47,7 @@ c of hierarchy so long that all class values IC are below 512 which
 c corresponds 8 to levels of division. Original 427 commented out.
 
 c     427     IF(IC*3.LE.NMAX) GOTO 428
- 427     if (ic .le. 511) goto 428
+ 427     if (ic .le. min(nmax, 511)) goto 428
 c ic/2 is a mother class at higher level
          IC=IC/2
          GOTO 427
