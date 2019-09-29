@@ -41,8 +41,14 @@ c     end 425 loop
       ICMAX=0
       DO 431 II=1,MM
          IC=ICLASS(II)
-c     ic/2 is a mother class
- 427     IF(IC*3.LE.NMAX) GOTO 428
+c TOT is hardcoded do length 511, but the following can give ICMAX that
+c is higher, and then segfaults in loop 432. Here we go to upper level
+c of hierarchy so long that all class values IC are below 512 which
+c corresponds 8 to levels of division. Original 427 commented out.
+
+c     427     IF(IC*3.LE.NMAX) GOTO 428
+ 427     if (ic .le. 511) goto 428
+c ic/2 is a mother class at higher level
          IC=IC/2
          GOTO 427
  428     ICLASS(II)=IC
