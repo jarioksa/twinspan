@@ -27,7 +27,7 @@
 {
     what <- match.arg(what)
     if (missing(level))
-        level <- 31L
+        level <- x$levelmax
     clmax <- 2^(level+1) - 1
     cl <- x[[what]]$iclass
     big <- cl > clmax
