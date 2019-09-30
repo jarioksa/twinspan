@@ -39,7 +39,7 @@
     line <- numeric(n)
     merge <- matrix(0, nclus-1, 2)
     height <- numeric(nclus-1)
-    pow2 <- 2^(1:15)
+    pow2 <- 2^(seq_len(x$levelmax+1))
     maxh <- sum(max(class) >= pow2) + 1
     nro <- nclus
     now <- 0
