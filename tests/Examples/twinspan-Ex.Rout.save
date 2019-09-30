@@ -148,6 +148,45 @@ attr(,"sumev")
 > 
 > 
 > cleanEx()
+> nameEx("misclassified")
+> ### * misclassified
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: misclassified
+> ### Title: Report Misclassified Quadrats
+> ### Aliases: misclassified
+> 
+> ### ** Examples
+> 
+> 
+> data(ahti)
+> tw <- twinspan(ahti)
+> misclassified(tw)
+
+ 15 misclassified quadrats:
+
+     Quadrat Class Predicted Division
+  13 Vmyr068    50       114        3
+  16 Vmyr032    90        94       11
+  19 Vmyr102    86        92        5
+  34 Vuli080    40        90        5
+  43 Ster092    33        76        4
+  47 Ster108    35        83        2
+  62 Call064    94        79        2
+  73 Empe090    77        91        2
+ 112 Mold134   102       114        3
+ 123 Sold019    29        54        3
+ 135 Sold164   102       113        3
+ 154 Syng007   102        36        1
+ 156 Syng026   105        36        1
+ 160 Hbor168    98       105        6
+ 161 Hbor167    98       105        6
+> 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("predict.twinspan")
 > ### * predict.twinspan
 > 
@@ -722,7 +761,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.644 0.145 1.817 0 0 
+Time elapsed:  1.992 0.195 2.227 0 0 
 > grDevices::dev.off()
 null device 
           1 
