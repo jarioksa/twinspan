@@ -560,9 +560,10 @@ detaching ‘package:vegan’, ‘package:lattice’, ‘package:permute’
 > data(ahti)
 > ## default cut levels
 > (tw <- twinspan(ahti))
-List of 7
+List of 8
  $ call     : language twinspan(x = ahti)
  $ cutlevels: num [1:5] 0 2 5 10 20
+ $ levelmax : num 6
  $ nspecies : int 115
  $ nquadrat : int 170
  $ idat     : int [1:7526] 1 116 167 200 224 2 117 168 3 118 ...
@@ -585,9 +586,10 @@ List of 7
 > plot(tw)
 > ## Braun-Blanquet scale
 > (twb <- twinspan(ahti, cutlevels = c(0, 0.1, 1, 5, 25, 50, 75)))
-List of 7
+List of 8
  $ call     : language twinspan(x = ahti, cutlevels = c(0, 0.1, 1, 5, 25, 50, 75))
  $ cutlevels: num [1:7] 0 0.1 1 5 25 50 75
+ $ levelmax : num 6
  $ nspecies : int 115
  $ nquadrat : int 170
  $ idat     : int [1:9640] 1 116 193 253 286 303 2 117 194 254 ...
@@ -720,7 +722,7 @@ List of 7
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.73 0.176 1.941 0 0 
+Time elapsed:  1.644 0.145 1.817 0 0 
 > grDevices::dev.off()
 null device 
           1 

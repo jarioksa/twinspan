@@ -45,7 +45,8 @@
         eig <- obj$eig
         hmax <- 1
     } else {
-        hmax <- sum(max(which(nchar(state) >0 )) >= 2^(0:10)) + 1
+        pow2 <- 2^(0:(object$levelmax+1))
+        hmax <- sum(max(which(nchar(state) >0 )) >= pow2) + 1
     }
     z <- list()
     for(k in rev(seq_along(state))) {
@@ -59,7 +60,7 @@
             if (eigenheight) {
                 height <- 0
             } else {
-                height <- hmax - sum(k >= 2^(0:10)) - 1
+                height <- hmax - sum(k >= pow2) - 1
             }
             for (i in seq_len(length(zk))) {
                 attr(zk[[i]], "label") <- labs[i]
@@ -83,7 +84,7 @@
             attr(zk, "height") <- if(k==1) 1 else eig[k %/% 2]
         }
         else
-            attr(zk, "height") <- hmax - sum(k >= 2^(0:10))
+            attr(zk, "height") <- hmax - sum(k >= pow2)
         z[[as.character(k)]] <- zk
     }
     structure(z[[as.character(k)]], class="dendrogram")

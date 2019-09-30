@@ -196,6 +196,7 @@
     species$index <- sindex
     ## out
     out <- list(call = match.call(), cutlevels = cutlevels,
+                levelmax = levmax,
                 nspecies = n, nquadrat = mm, idat = idat,
                 quadrat = quadrat, species = species)
     class(out) <- "twinspan"

@@ -62,7 +62,7 @@
 `twinreport` <-
     function(k, state, obj)
 {
-    level <- sum(2^(1:10) <= k)
+    level <- sum(2^(seq_len(15)) <= k)
     cat(rep("  ", level), sep="")
     cat(k, ") ", sep="")
     if (state[k] == "division") {
