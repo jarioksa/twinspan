@@ -20,7 +20,7 @@ If \code{verbose=TRUE}, the function returns an object of class
 \item{labels}{Labels (names) of quadrats.}
 \item{class}{Final classification from \code{\link{twinspan}}.}
 \item{predicted}{Final classification from \code{\link{predict.twinspan}}.}
-\item{diverged}{The division level at which the misclassification occurred.}
+\item{division}{The division where the misclassification occurred.}
 }
 }
 \description{
@@ -33,12 +33,14 @@ identifies these cases.
 The function compares the final \code{\link{twinspan}}
 classification (from \code{\link{cut.twinspan}}) and the
 classification predicted from indicator pseudospecies (from
-\code{\link{predict.twinspan}}). If these two differ, the quadrat is
-\dQuote{misclassified}. With \code{verbose=FALSE}, the function
+\code{\link{predict.twinspan}}). If these two differ, the quadrat
+is \dQuote{misclassified}. With \code{verbose=FALSE}, the function
 returns only the index of misclassified quadrats. In default, it
 also returns the names, twinspan classes and predicted classes of
-misclassified quadrats, and the division level where the
-misclassification ocurred and classifications diverged.
+misclassified quadrats, and the division where the
+misclassification occurred and classifications diverged. The
+divisions and their numbers can be seen in
+\code{\link{summary.twinspan}} and \code{\link{plot.twinspan}}.
 }
 \examples{
 
@@ -48,5 +50,7 @@ misclassified(tw)
 
 }
 \seealso{
-\code{\link{cut.twinspan}}, \code{\link{predict.twinspan}}.
+\code{\link{cut.twinspan}},
+    \code{\link{predict.twinspan}}, \code{\link{summary.twinspan}},
+    \code{\link{plot.twinspan}}.
 }

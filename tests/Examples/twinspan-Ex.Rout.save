@@ -166,22 +166,22 @@ attr(,"sumev")
 
  15 misclassified quadrats and their level of divergence:
 
-     Quadrat Class Predicted Divergence
-  13 Vmyr068    50       114          2
-  16 Vmyr032    90        94          4
-  19 Vmyr102    86        92          3
-  34 Vuli080    40        90          3
-  43 Ster092    33        76          3
-  47 Ster108    35        83          2
-  62 Call064    94        79          2
-  73 Empe090    77        91          2
- 112 Mold134   102       114          2
- 123 Sold019    29        54          2
- 135 Sold164   102       113          2
- 154 Syng007   102        36          1
- 156 Syng026   105        36          1
- 160 Hbor168    98       105          3
- 161 Hbor167    98       105          3
+     Quadrat Class Predicted Division
+  13 Vmyr068    50       114        3
+  16 Vmyr032    90        94       11
+  19 Vmyr102    86        92        5
+  34 Vuli080    40        90        5
+  43 Ster092    33        76        4
+  47 Ster108    35        83        2
+  62 Call064    94        79        2
+  73 Empe090    77        91        2
+ 112 Mold134   102       114        3
+ 123 Sold019    29        54        3
+ 135 Sold164   102       113        3
+ 154 Syng007   102        36        1
+ 156 Syng026   105        36        1
+ 160 Hbor168    98       105        6
+ 161 Hbor167    98       105        6
 > 
 > 
 > 
@@ -761,7 +761,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.649 0.14 1.804 0 0 
+Time elapsed:  3.175 0.279 3.481 0 0 
 > grDevices::dev.off()
 null device 
           1 
