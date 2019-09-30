@@ -164,7 +164,7 @@ attr(,"sumev")
 > tw <- twinspan(ahti)
 > misclassified(tw)
 
- 15 misclassified quadrats and their level of divergence:
+ 15 misclassified quadrats:
 
      Quadrat Class Predicted Division
   13 Vmyr068    50       114        3
@@ -761,7 +761,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  3.175 0.279 3.481 0 0 
+Time elapsed:  1.992 0.195 2.227 0 0 
 > grDevices::dev.off()
 null device 
           1 

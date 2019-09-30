@@ -91,7 +91,7 @@
         cat("\nNo misclassified quadrats\n\n")
     else {
         cat("\n", nmiss,
-            "misclassified quadrats and their level of divergence:\n\n")
+            "misclassified quadrats:\n\n")
         out <- data.frame("ind"=x$index, "Quadrat" = x$labels,
                           "Class" = x$class, "Predicted" = x$predicted,
                           "Division" = x$division)
