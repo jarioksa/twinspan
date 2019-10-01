@@ -12,13 +12,13 @@ twinspan(x, cutlevels = c(0, 2, 5, 10, 20), indmax = 7, groupmin = 5,
 columns give the species and rows the sampling units.}
 
 \item{cutlevels}{Cut levels used to split quantitative data into
-binary pseudospecies.}
+binary pseudospecies. Max of 9 cutlevels can be used.}
 
-\item{indmax}{Maximum number of indicators for division.}
+\item{indmax}{Maximum number of indicators for division (15 or less).}
 
-\item{groupmin}{Minimum group size for division.}
+\item{groupmin}{Minimum group size for division (2 or larger).}
 
-\item{levmax}{Maximum level of divisions.}
+\item{levmax}{Maximum depth of levels of divisions (15 or less).}
 
 \item{lind}{Weights for levels of pseudospecies. For example
 indicator potentials \code{c(1, 0, 0,1, 0)} signify that
