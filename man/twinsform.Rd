@@ -54,10 +54,10 @@ data(ahti)
 tahti <- twinsform(ahti)
 colnames(tahti)
 ## needs vegan for correspondence analysis
-if (require(vegan)) {
-## similar first eigenvalue
+if (suppressPackageStartupMessages(require("vegan"))) {
 decorana(tahti, ira=1)
-eigenvals(twinspan(ahti))
 }
+## similar first eigenvalue
+eigenvals(twinspan(ahti))
 
 }
