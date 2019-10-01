@@ -29,15 +29,15 @@
 #' @param x Input data, usually a species community data set where
 #'     columns give the species and rows the sampling units.
 #' @param cutlevels Cut levels used to split quantitative data into
-#'     binary pseudospecies.
-#' @param indmax Maximum number of indicators for division.
-#' @param groupmin Minimum group size for division.
+#'     binary pseudospecies. Max of 9 cutlevels can be used.
+#' @param indmax Maximum number of indicators for division (15 or less).
+#' @param groupmin Minimum group size for division (2 or larger).
 #' @param lind Weights for levels of pseudospecies. For example
 #'     indicator potentials \code{c(1, 0, 0,1, 0)} signify that
 #'     pseudospecies at levels 1 and 4 can be used as indicators, but
 #'     that those at other levels cannot. In the default case, all
 #'     species are available.
-#' @param levmax Maximum level of divisions.
+#' @param levmax Maximum depth of levels of divisions (15 or less).
 #' @param lwgt Weights for the levels of pseudospecies. For example
 #'     weights \code{c(1, 2, 2, 2)} signify that pseudospecies
 #'     corresponding to 3 higher cut levels are to be given twice the
@@ -56,10 +56,24 @@
              lind, lwgt, noind)
 {
     ## handle arguments
+    if (length(cutlevels) > 9)
+        stop("max 9 cutlevels accepted")
+    if (groupmin < 2)
+        stop("groupmin must be at least 2")
+    if (indmax > 15)
+        stop("indmax must be 15 or less")
+    if (levmax > 15)
+        stop("levmax must be 15 or less")
     if (missing(lind))
         lind <- rep(1, length(cutlevels))
+    else
+        if (length(lind) != length(cutlevels))
+            stop("lind must have same length as cutlevels")
     if (missing(lwgt))
         lwgt <- rep(1, length(cutlevels))
+    else
+        if (length(lwgt) != length(cutlevels))
+            stop("lwgt must have same length as cutlevels")
     ipunch = 0L ## never write to a file
     ## set internal constants and their derived quantities
     MZCRIT <- 8L
