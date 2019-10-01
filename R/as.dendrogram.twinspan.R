@@ -8,24 +8,36 @@
 #' description. There is even stronger support in packages (for
 #' instance, \CRANpkg{dendextend}).
 #'
-#' The \code{twinspan} dendrogram is not a completely binary tree, but
-#' there are several final units (quadrats, species). In
+#' The terminal groups of \code{\link{twinspan}} trees are not binary,
+#' but may have several elements (quadrats, species).  In
 #' \code{\link[stats]{dendrogram}} plots, it is best to set
-#' \code{type="triangle"} for nicer looking plots. This is even more
-#' important if the dendrogram heights are based on division
-#' eigenvalues, because then the groups heights are regularly
-#' reversed.
+#' \code{type="triangle"} for nicer looking trees.
 #'
 #' @return A \code{\link[stats]{dendrogram}} object.
+#'
+#' @examples
+#'
+#' ## Large datasets are difficult to show in dendrograms: take only
+#' ## Northen Boreal quadrats (from 1 to 87).
+#'
+#' data(ahti)
+#' tw <- twinspan(ahti[1:87,])
+#' den <- as.dendrogram(tw)
+#' str(den, max.level = 4)
+#' plot(den, type = "triangle", nodePar = list(lab.cex=0.6, pch=NA))
 #'
 #' @param object \code{\link{twinspan}} result object.
 #' @param what Return either a \code{"quadrat"} or \code{"species"}
 #'     dendrogram.
 #' @param eigenheight Use eigenvalues of division as dendrogram
-#'     heights. The default is to use division level as heights. NB.,
-#'     there is no guarantee that eigenvalues decrease in divisions,
-#'     and there may be reversals where lower levels are higher than
-#'     lower levels.
+#'     heights. Terminal groups have no eigenvalues, because they were
+#'     not considered for division. For them use arbitrary value that
+#'     for a group of \eqn{n} units is proportion \eqn{n/(n-1)} of the
+#'     height of mother division.  There is no guarantee that
+#'     eigenvalues decrease in divisions, and there may be reversals
+#'     where lower levels are higher than their mother groups, and the
+#'     plotted trees can be messy and unreadable.
+#'
 #' @param \dots Other parameters to functions.
 #'
 #' @importFrom stats as.dendrogram
@@ -43,7 +55,7 @@
     state[unique(clid)] <- "leaf"
     if (eigenheight) {
         eig <- obj$eig
-        hmax <- 1
+        hmax <- max(eig)
     } else {
         pow2 <- 2^(0:(object$levelmax+1))
         hmax <- sum(max(which(nchar(state) >0 )) >= pow2) + 1
@@ -80,8 +92,15 @@
                                      attr(z[[x[2]]], "midpoint"))/2
             z[[x[1]]] <- z[[x[2]]] <- NULL
         }
+        ## Divisions have eigenvalue, but ev is never evaluated for
+        ## terminal groups ("leaf"). We use an arbitrary value: for
+        ## group of size n proportion (n-1)/n of the eigenvalue of
+        ## mother division.
         if (eigenheight) {
-            attr(zk, "height") <- if(k==1) 1 else eig[k %/% 2]
+            attr(zk, "height") <- if(state[k] == "leaf")
+                                      (1-1/length(zk)) * eig[k %/% 2]
+                                  else
+                                      eig[k]
         }
         else
             attr(zk, "height") <- hmax - sum(k >= pow2)

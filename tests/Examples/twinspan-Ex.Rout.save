@@ -25,6 +25,62 @@ Type 'q()' to quit R.
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
 > cleanEx()
+> nameEx("as.dendrogram.twinspan")
+> ### * as.dendrogram.twinspan
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: as.dendrogram.twinspan
+> ### Title: Extract Species or Quadrat Dendrograms
+> ### Aliases: as.dendrogram.twinspan
+> 
+> ### ** Examples
+> 
+> 
+> ## Large datasets are difficult to show in dendrograms: take only
+> ## Northen Boreal quadrats (from 1 to 87).
+> 
+> data(ahti)
+> tw <- twinspan(ahti[1:87,])
+> den <- as.dendrogram(tw)
+> str(den, max.level = 4)
+--[dendrogram w/ 2 branches and 87 members at h = 7]
+  |--[dendrogram w/ 2 branches and 58 members at h = 6]
+  |  |--[dendrogram w/ 2 branches and 17 members at h = 5]
+  |  |  |--[dendrogram w/ 2 branches and 9 members at h = 4]
+  |  |  |  |--[dendrogram w/ 3 branches and 3 members at h = 3] ..
+  |  |  |  `--[dendrogram w/ 2 branches and 6 members at h = 3] ..
+  |  |  `--[dendrogram w/ 2 branches and 8 members at h = 4]
+  |  |     |--[dendrogram w/ 4 branches and 4 members at h = 3] ..
+  |  |     `--[dendrogram w/ 4 branches and 4 members at h = 3] ..
+  |  `--[dendrogram w/ 2 branches and 41 members at h = 5]
+  |     |--[dendrogram w/ 2 branches and 11 members at h = 4]
+  |     |  |--[dendrogram w/ 4 branches and 4 members at h = 3] ..
+  |     |  `--[dendrogram w/ 2 branches and 7 members at h = 3] ..
+  |     `--[dendrogram w/ 2 branches and 30 members at h = 4]
+  |        |--[dendrogram w/ 2 branches and 23 members at h = 3] ..
+  |        `--[dendrogram w/ 2 branches and 7 members at h = 3] ..
+  `--[dendrogram w/ 2 branches and 29 members at h = 6]
+     |--[dendrogram w/ 2 branches and 15 members at h = 5]
+     |  |--[dendrogram w/ 2 branches and 6 members at h = 4]
+     |  |  |--[dendrogram w/ 1 branches and 1 members at h = 3] ..
+     |  |  `--[dendrogram w/ 2 branches and 5 members at h = 3] ..
+     |  `--[dendrogram w/ 2 branches and 9 members at h = 4]
+     |     |--[dendrogram w/ 2 branches and 2 members at h = 3] ..
+     |     `--[dendrogram w/ 2 branches and 7 members at h = 3] ..
+     `--[dendrogram w/ 2 branches and 14 members at h = 5]
+        |--[dendrogram w/ 2 branches and 8 members at h = 4]
+        |  |--[dendrogram w/ 4 branches and 4 members at h = 3] ..
+        |  `--[dendrogram w/ 4 branches and 4 members at h = 3] ..
+        `--[dendrogram w/ 2 branches and 6 members at h = 4]
+           |--[dendrogram w/ 4 branches and 4 members at h = 3] ..
+           `--[dendrogram w/ 2 branches and 2 members at h = 3] ..
+> plot(den, type = "triangle", nodePar = list(lab.cex=0.6, pch=NA))
+> 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("as.hclust.twinspan")
 > ### * as.hclust.twinspan
 > 
@@ -767,7 +823,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.661 0.154 1.829 0 0 
+Time elapsed:  1.728 0.155 1.899 0 0 
 > grDevices::dev.off()
 null device 
           1 
