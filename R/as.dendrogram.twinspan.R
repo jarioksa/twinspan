@@ -13,8 +13,18 @@
 #' \code{\link[stats]{dendrogram}} plots, it is best to set
 #' \code{type="triangle"} for nicer looking trees.
 #'
-#'
 #' @return A \code{\link[stats]{dendrogram}} object.
+#'
+#' @examples
+#'
+#' ## Large datasets are difficult to show in dendrograms: take only
+#' ## Northen Boreal quadrats (from 1 to 87).
+#'
+#' data(ahti)
+#' tw <- twinspan(ahti[1:87,])
+#' den <- as.dendrogram(tw)
+#' str(den, max.level = 4)
+#' plot(den, type = "triangle", nodePar = list(lab.cex=0.6, pch=NA))
 #'
 #' @param object \code{\link{twinspan}} result object.
 #' @param what Return either a \code{"quadrat"} or \code{"species"}
