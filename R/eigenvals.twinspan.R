@@ -12,6 +12,7 @@
 #' @param \dots Other arguments (ignored).
 #' @importFrom vegan eigenvals
 #' @export eigenvals
+#' @aliases eigenvals
 #' @export
 `eigenvals.twinspan` <-
     function(x, what = c("quadrat", "species"), ...)

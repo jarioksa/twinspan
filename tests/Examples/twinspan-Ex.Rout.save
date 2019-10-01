@@ -99,7 +99,7 @@ Type 'q()' to quit R.
 > 
 > ### Name: eigenvals.twinspan
 > ### Title: Eigenvalues of twinspan Divisions
-> ### Aliases: eigenvals.twinspan
+> ### Aliases: eigenvals.twinspan eigenvals
 > 
 > ### ** Examples
 > 
@@ -553,15 +553,21 @@ attr(,"sumev")
 [235] "Hepatica5" "Callvulg5" "Empenigr5" "Arctuvau5" "Dicrpoly5" "Sterpasc5"
 [241] "Polypili5" "Stergran5" "Vacculig5"
 > ## needs vegan for correspondence analysis
-> if (require(vegan)) {
-+ ## similar first eigenvalue
+> if (suppressPackageStartupMessages(require("vegan"))) {
 + decorana(tahti, ira=1)
-+ eigenvals(twinspan(ahti))
 + }
-Loading required package: vegan
-Loading required package: permute
-Loading required package: lattice
-This is vegan 2.5-6
+
+Call:
+decorana(veg = tahti, ira = 1) 
+
+Orthogonal correspondence analysis.
+Downweighting of rare species from fraction 1/5.
+
+               RA1    RA2     RA3     RA4
+Eigenvalues 0.2523 0.1253 0.09211 0.06297
+
+> ## similar first eigenvalue
+> eigenvals(twinspan(ahti))
      Div1      Div2      Div3      Div4      Div5      Div6      Div7      Div8 
 0.2525265 0.1560232 0.1529237 0.1625344 0.1508754 0.1104298 0.1423171 0.1637091 
      Div9     Div10     Div11     Div12     Div13     Div14     Div15     Div16 
@@ -761,7 +767,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.992 0.195 2.227 0 0 
+Time elapsed:  1.661 0.154 1.829 0 0 
 > grDevices::dev.off()
 null device 
           1 
