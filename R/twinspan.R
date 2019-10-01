@@ -71,6 +71,12 @@
     ##
     nlev <- length(cutlevels)
     x <- as.matrix(x)
+    ## remove empty species (if any)
+    csum <- colSums(x)
+    if (any(csum == 0)) {
+        warning("some empty species were removed")
+        x <- x[, csum>0, drop=FALSE]
+    }
     n <- ncol(x) # no. of species
     mm <- nrow(x) # no. of SUs
     nid <- 2 * sum(x > 0) + mm # length of idat
