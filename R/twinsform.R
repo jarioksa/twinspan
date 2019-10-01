@@ -14,14 +14,13 @@
 #' \code{ira=1}), this will give the same eigenvalue and ordination as
 #' used in \code{\link{twinspan}}. When a \code{subset} of a
 #' \code{\link{twinspan}} class is used, correspondence analysis of
-#' subdivision of the class can be obtained. The results are not
-#' absolutely similar, mainly because correspondence analysis is more
-#' approximate in \code{\link{twinspan}} than in dedicated
-#' functions. Moreover, \code{\link{twinspan}} adds a small value
-#' (0.01) to all abundance classes, and does not use weights smaller
-#' than 0.01 which can influence results when the number of quadrats
-#' is above 100.
+#' subdivision of the class can be obtained.
 #'
+#' @seealso \code{\link[vegan]{downweight}} in \CRANpkg{vegan}: this
+#'     function is often used with Detrended Correspondence Analysis
+#'     (\code{\link[vegan]{decorana}}). However, the implementation is
+#'     slightly different in TWINSPAN, and weights differ slightly.
+#' 
 #' @examples
 #'
 #' data(ahti)
@@ -47,8 +46,6 @@
 #'     out when we only want to have a stacked data set for other
 #'     uses.
 #'
-#' @importFrom vegan downweight
-#'
 #' @export
 `twinsform` <-
     function(x, cutlevels = c(0,2,5,10,20), subset, downweight = TRUE)
@@ -69,8 +66,18 @@
         ax <- cbind(ax, x >= cutlevels[k])
     colnames(ax) <- paste0(nm, rep(seq_len(nlev), each=length(nm)))
     ax <- ax[, colSums(ax) > 0]
-    if (downweight)
-        ax <- downweight(ax)
+    ## vegan::downweight implements decorana downweighting, but
+    ## TWINSPAN uses slightly different (and more approximate form).
+    if (downweight) {
+        cs <- colSums(ax)
+        v <- rep(1, ncol(ax))
+        lim <- nrow(x)/5
+        down <- cs < lim
+        v[down] <- (cs/lim)[down] * 0.99 + 0.01
+        ax <- sweep(ax, 2, v, "*")
+        attr(ax, "v") <- v
+        attr(ax, "fraction") <- 5 # for vegan::downweight compatibility
+    }
     ax
 }
 

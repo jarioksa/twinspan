@@ -40,13 +40,7 @@ analysed with correspondence analysis (e.g.,
 \code{ira=1}), this will give the same eigenvalue and ordination as
 used in \code{\link{twinspan}}. When a \code{subset} of a
 \code{\link{twinspan}} class is used, correspondence analysis of
-subdivision of the class can be obtained. The results are not
-absolutely similar, mainly because correspondence analysis is more
-approximate in \code{\link{twinspan}} than in dedicated
-functions. Moreover, \code{\link{twinspan}} adds a small value
-(0.01) to all abundance classes, and does not use weights smaller
-than 0.01 which can influence results when the number of quadrats
-is above 100.
+subdivision of the class can be obtained.
 }
 \examples{
 
@@ -60,4 +54,10 @@ decorana(tahti, ira=1)
 ## similar first eigenvalue
 eigenvals(twinspan(ahti))
 
+}
+\seealso{
+\code{\link[vegan]{downweight}} in \CRANpkg{vegan}: this
+    function is often used with Detrended Correspondence Analysis
+    (\code{\link[vegan]{decorana}}). However, the implementation is
+    slightly different in TWINSPAN, and weights differ slightly.
 }
