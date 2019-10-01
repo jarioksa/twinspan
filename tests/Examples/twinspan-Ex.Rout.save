@@ -99,7 +99,7 @@ Type 'q()' to quit R.
 > 
 > ### Name: eigenvals.twinspan
 > ### Title: Eigenvalues of twinspan Divisions
-> ### Aliases: eigenvals.twinspan
+> ### Aliases: eigenvals.twinspan eigenvals
 > 
 > ### ** Examples
 > 
@@ -767,7 +767,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.648 0.154 1.812 0 0 
+Time elapsed:  1.661 0.154 1.829 0 0 
 > grDevices::dev.off()
 null device 
           1 

@@ -2,6 +2,7 @@
 % Please edit documentation in R/eigenvals.twinspan.R
 \name{eigenvals.twinspan}
 \alias{eigenvals.twinspan}
+\alias{eigenvals}
 \title{Eigenvalues of twinspan Divisions}
 \usage{
 \method{eigenvals}{twinspan}(x, what = c("quadrat", "species"), ...)
