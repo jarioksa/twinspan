@@ -43,7 +43,7 @@
     state[unique(clid)] <- "leaf"
     if (eigenheight) {
         eig <- obj$eig
-        hmax <- 1
+        hmax <- max(eig)
     } else {
         pow2 <- 2^(0:(object$levelmax+1))
         hmax <- sum(max(which(nchar(state) >0 )) >= pow2) + 1
@@ -80,8 +80,15 @@
                                      attr(z[[x[2]]], "midpoint"))/2
             z[[x[1]]] <- z[[x[2]]] <- NULL
         }
+        ## Divisions have eigenvalue, but ev is never evaluated for
+        ## terminal groups ("leaf"). We use an arbitrary value: for
+        ## group of size n proportion (n-1)/n of the eigenvalue of
+        ## mother division.
         if (eigenheight) {
-            attr(zk, "height") <- if(k==1) 1 else eig[k %/% 2]
+            attr(zk, "height") <- if(state[k] == "leaf")
+                                      (1-1/length(zk)) * eig[k %/% 2]
+                                  else
+                                      eig[k]
         }
         else
             attr(zk, "height") <- hmax - sum(k >= pow2)
