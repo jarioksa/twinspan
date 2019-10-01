@@ -14,10 +14,13 @@
 dendrogram.}
 
 \item{eigenheight}{Use eigenvalues of division as dendrogram
-heights. The default is to use division level as heights. NB.,
-there is no guarantee that eigenvalues decrease in divisions,
-and there may be reversals where lower levels are higher than
-lower levels.}
+heights. Terminal groups have no eigenvalues, because they were
+not considered for division. For them use arbitrary value that
+for a group of \eqn{n} units is proportion \eqn{n/(n-1)} of the
+height of mother division.  There is no guarantee that
+eigenvalues decrease in divisions, and there may be reversals
+where lower levels are higher than their mother groups, and the
+plotted trees can be messy and unreadable.}
 
 \item{\dots}{Other parameters to functions.}
 }
@@ -34,11 +37,8 @@ dendrograms. See \code{\link[stats]{dendrogram}} for general
 description. There is even stronger support in packages (for
 instance, \CRANpkg{dendextend}).
 
-The \code{twinspan} dendrogram is not a completely binary tree, but
-there are several final units (quadrats, species). In
+The terminal groups of \code{\link{twinspan}} trees are not binary,
+but may have several elements (quadrats, species).  In
 \code{\link[stats]{dendrogram}} plots, it is best to set
-\code{type="triangle"} for nicer looking plots. This is even more
-important if the dendrogram heights are based on division
-eigenvalues, because then the groups heights are regularly
-reversed.
+\code{type="triangle"} for nicer looking trees.
 }
