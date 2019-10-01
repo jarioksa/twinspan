@@ -42,6 +42,7 @@ Type 'q()' to quit R.
 > 
 > data(ahti)
 > tw <- twinspan(ahti[1:87,])
+Warning in twinspan(ahti[1:87, ]) : some empty species were removed
 > den <- as.dendrogram(tw)
 > str(den, max.level = 4)
 --[dendrogram w/ 2 branches and 87 members at h = 7]
@@ -620,7 +621,7 @@ Orthogonal correspondence analysis.
 Downweighting of rare species from fraction 1/5.
 
                RA1    RA2     RA3     RA4
-Eigenvalues 0.2523 0.1253 0.09211 0.06297
+Eigenvalues 0.2525 0.1257 0.09236 0.06319
 
 > ## similar first eigenvalue
 > eigenvals(twinspan(ahti))
@@ -823,7 +824,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.728 0.155 1.899 0 0 
+Time elapsed:  1.773 0.165 1.976 0 0 
 > grDevices::dev.off()
 null device 
           1 
