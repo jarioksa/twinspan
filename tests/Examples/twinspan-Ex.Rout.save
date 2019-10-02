@@ -203,7 +203,44 @@ attr(,"sumev")
 > data(ahti)
 > tw <- twinspan(ahti)
 > image(tw)
-> image(tw, leading = TRUE)
+> im <- image(tw, leading = TRUE)
+> ## image returns invisibly data
+> head(im)
+         Arctuvau Cladphyl Vaccmyrt Empenigr Cladrang Cladstel Cladarbu
+29 (N=4)     0.50     0.25     2.50     3.00     5.00     2.50     4.25
+31 (N=1)     5.00     0.00     1.00     0.00     5.00     1.00     3.00
+32 (N=2)     2.00     1.00     0.00     1.50     1.00     0.50     1.00
+33 (N=4)     2.25     1.00     0.00     1.50     2.50     2.00     0.75
+34 (N=4)     1.00     1.00     0.25     3.25     1.00     1.50     0.75
+35 (N=4)     0.50     1.00     0.00     4.25     1.25     2.25     1.75
+         Pleuschr Empeherm Polypili Cetreric Cetrisla Vacculig Cladbell
+29 (N=4)     3.50     0.00     0.00     0.50     0.25     0.00     0.00
+31 (N=1)     4.00     0.00     0.00     0.00     4.00     0.00     0.00
+32 (N=2)     1.00     0.50     5.00     1.50     0.50     0.00     0.00
+33 (N=4)     0.00     0.50     4.00     1.00     0.00     0.25     0.25
+34 (N=4)     0.75     0.25     2.25     1.00     0.00     0.00     0.00
+35 (N=4)     0.25     0.00     2.25     1.25     0.00     0.25     0.00
+         Dicrfusc Nepharct Baeorufu Sterpasc Cladpyxi Solocroc Cladmacr
+29 (N=4)     0.75     0.25      0.0     0.25     0.00      0.0     0.00
+31 (N=1)     0.00     0.00      0.0     0.00     0.00      0.0     0.00
+32 (N=2)     0.00     0.00      1.0     5.00     1.00      0.0     1.00
+33 (N=4)     0.25     0.00      0.0     5.00     0.75      0.0     0.25
+34 (N=4)     0.00     0.00      0.0     5.00     0.75      0.0     0.00
+35 (N=4)     0.25     0.00      0.5     5.00     0.25      0.5     0.25
+         Cladmiti Cladunci Polyjuni Cladcris Cladcorn Calaepig Dicrpoly
+29 (N=4)     1.00     0.75     0.50      0.5     0.50        0     1.00
+31 (N=1)     1.00     0.00     0.00      0.0     0.00        0     4.00
+32 (N=2)     3.00     4.00     2.50      0.5     0.00        0     0.00
+33 (N=4)     3.75     2.50     1.75      1.5     1.50        0     0.00
+34 (N=4)     2.75     2.75     2.00      1.0     1.25        0     0.00
+35 (N=4)     3.25     2.75     1.25      1.0     1.00        0     0.25
+         Hierumbe Cladgrac Melaprat Ptilcris
+29 (N=4)        0        0     0.00        0
+31 (N=1)        1        0     0.00        0
+32 (N=2)        0        0     0.00        0
+33 (N=4)        0        0     0.25        0
+34 (N=4)        0        0     0.00        0
+35 (N=4)        0        0     0.00        0
 > 
 > 
 > 
@@ -853,7 +890,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.782 0.164 1.992 0 0 
+Time elapsed:  1.724 0.158 1.895 0 0 
 > grDevices::dev.off()
 null device 
           1 

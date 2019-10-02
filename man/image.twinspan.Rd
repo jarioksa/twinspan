@@ -48,7 +48,9 @@ the left margin (see \code{\link{as.hclust.twinspan}}).
 data(ahti)
 tw <- twinspan(ahti)
 image(tw)
-image(tw, leading = TRUE)
+im <- image(tw, leading = TRUE)
+## image returns invisibly data
+head(im)
 
 }
 \seealso{

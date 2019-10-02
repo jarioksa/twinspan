@@ -40,7 +40,9 @@
 #' data(ahti)
 #' tw <- twinspan(ahti)
 #' image(tw)
-#' image(tw, leading = TRUE)
+#' im <- image(tw, leading = TRUE)
+#' ## image returns invisibly data
+#' head(im)
 #'
 #' @return Function returns invisibly the matrix of mean abundances
 #'     used to produce the graph.
