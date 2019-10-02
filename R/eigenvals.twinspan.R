@@ -55,7 +55,6 @@
     what <- match.arg(what)
     out <- x[[what]]$eig
     names(out) <- paste0("Div", seq_along(out))
-    out <- out[out > 0]
     attr(out, "sumev") <- NA
     class(out) <- "eigenvals"
     out
