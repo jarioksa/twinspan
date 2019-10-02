@@ -20,7 +20,7 @@
 #'     function is often used with Detrended Correspondence Analysis
 #'     (\code{\link[vegan]{decorana}}). However, the implementation is
 #'     slightly different in TWINSPAN, and weights differ slightly.
-#' 
+#'
 #' @examples
 #'
 #' data(ahti)
@@ -65,22 +65,32 @@
     for (k in 2L:nlev)
         ax <- cbind(ax, x >= cutlevels[k])
     colnames(ax) <- paste0(nm, rep(seq_len(nlev), each=length(nm)))
-    ax <- ax[, colSums(ax) > 0]
+    ax <- ax[, colSums(ax) > 0, drop = FALSE]
     ## vegan::downweight implements decorana downweighting, but
     ## TWINSPAN uses slightly different (and more approximate form).
     if (downweight) {
-        cs <- colSums(ax)
-        v <- rep(1, ncol(ax))
-        lim <- nrow(x)/5
-        down <- cs < lim
-        v[down] <- (cs/lim)[down] * 0.99 + 0.01
-        ax <- sweep(ax, 2, v, "*")
-        attr(ax, "v") <- v
-        attr(ax, "fraction") <- 5 # for vegan::downweight compatibility
+        ax <- downweight(ax)
     }
     ax
 }
 
+### internal support function for downweighting the TWINSPAN way
+### (which is different than in DECORANA, and pretty crude way of
+### doing things).
+
+`downweight` <-
+    function(x)
+{
+    cs <- colSums(x)
+    v <- rep(1, ncol(x))
+    lim <- nrow(x)/5
+    down <- cs < lim
+    v[down] <- (cs/lim)[down] * 0.99 + 0.01
+    x <- sweep(x, 2, v, "*")
+    attr(x, "v") <- v
+    attr(x, "fraction") <- 5 # for vegan::downweight compatibility
+    x
+}
 ### A non-exported internal function to construct stacked community
 ### matrix from internal data returned by twinspan. The output is
 ### similar as with twinsform(x, downweight = FALSE).
