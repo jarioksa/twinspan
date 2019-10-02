@@ -9,7 +9,15 @@
 #' object. The terminal items are the final groups, but quadrats or
 #' species are not shown: \code{\link{hclust}} cannot handle
 #' polytomies that are needed to display group members.  Use
-#' \code{\link{as.dendrogram}} to show the single items.
+#' \code{\link{as.dendrogram}} to show the single items. The group ID
+#' number and number of items in the terminal group are used as group
+#' names and are displayed in plots.
+#'
+#' @seealso \code{\link{as.dendrogram.twinspan}},
+#'     \code{\link{hclust}}, \code{\link{plot.twinspan}},
+#'     \code{\link{image.twinspan}}.
+#'
+#' @return an \code{\link{hclust}} object.
 #'
 #' @examples
 #'
