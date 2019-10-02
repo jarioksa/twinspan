@@ -197,14 +197,9 @@
                   PACKAGE="twinspan")
     species <- list(iclass = Z$jnam[seq_len(n)], eig = Z$eig,
                     labels = cnames)
-    ## ordered index for quadrats and species
-    quadrat$index <-
-        .Fortran("clord", as.integer(mm), as.integer(levmax),
-                       as.integer(quadrat$iclass), ix = integer(mm),
-                       PACKAGE = "twinspan")$ix
-    sindex <- .Fortran("clord", as.integer(n), as.integer(levmax),
-                       as.integer(species$iclass), ix = integer(n),
-                       PACKAGE = "twinspan")$ix
+    ## ordered index for quadrats and species: classorder() below
+    quadrat$index <- classorder(quadrat$iclass, levmax)
+    sindex <- classorder(species$iclass, levmax)
     irev <- 0
     rev <- .Fortran("revspec", nspec=as.integer(n), mm=as.integer(mm),
                     ndat=Z$ndat, ix=as.integer(quadrat$index),
@@ -221,4 +216,20 @@
                 quadrat = quadrat, species = species)
     class(out) <- "twinspan"
     out
+}
+
+### Internal function to sort items by their class number. For
+### sorting, the class numbers must be elevated to the same level.
+
+`classorder` <-
+    function(class, levmax)
+{
+    ## all classes to the uppermost level numbers
+    up <- 2^levmax
+    small <- class < up
+    while(any(small)) {
+        class[small] <- class[small] * 2
+        small <- class < up
+    }
+    order(class)
 }
