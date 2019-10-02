@@ -30,11 +30,9 @@
         level <- x$levelmax
     clmax <- 2^(level+1) - 1
     cl <- x[[what]]$iclass
-    big <- cl > clmax
-    while(any(big)) {
+    while(any(big <- cl > clmax)) {
         ## mother class by integer division
         cl[big] <- cl[big] %/% 2
-        big <- cl > clmax
     }
     cl
 }
