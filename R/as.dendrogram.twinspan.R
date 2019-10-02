@@ -26,13 +26,15 @@
 #' str(den, max.level = 4)
 #' plot(den, type = "triangle", nodePar = list(lab.cex=0.6, pch=NA))
 #'
+#' @seealso \code{\link{as.hclust.twinspan}}, \code{\link{dendrogram}}.
+#'
 #' @param object \code{\link{twinspan}} result object.
 #' @param what Return either a \code{"quadrat"} or \code{"species"}
 #'     dendrogram.
 #' @param eigenheight Use eigenvalues of division as dendrogram
 #'     heights. Terminal groups have no eigenvalues, because they were
 #'     not considered for division. For them use arbitrary value that
-#'     for a group of \eqn{n} units is proportion \eqn{n/(n-1)} of the
+#'     for a group of \eqn{n} units is proportion \eqn{(n-1)/n} of the
 #'     height of mother division.  There is no guarantee that
 #'     eigenvalues decrease in divisions, and there may be reversals
 #'     where lower levels are higher than their mother groups, and the
