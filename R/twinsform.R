@@ -101,16 +101,22 @@
 #'
 #' @description
 #'
-#' Function \code{twin2stack} extracts the binary pseudospecies file,
-#' where columns are pseudospecies with their cutlevels, and entries
-#' are either \code{0} or \code{1}. This is similar to the file
-#' generated with \code{\link{twinsform}} with argument
-#' \code{downweight=FALSE}. Function \code{twin2mat} extracts data
-#' file with pseudospecies transformation. Columns are original
-#' species, and entries are abundances after pseudospecies
-#' transformation. This is similar as the output from \CRANpkg{vegan}
-#' function \code{\link[vegan]{coverscale}} with similar cut levels
-#' and argument \code{character=FALSE}.
+#' Function \code{twin2stack} extracts the pseudospecies matrix, where
+#' columns are pseudospecies with their cutlevels. This is similar to
+#' the file generated with \code{\link{twinsform}}. The default is to
+#' return a binary matrix, where data entries are eiter \eqn{0} or
+#' \eqn{1}. However, it is also possible to extract a subset of data
+#' with downweighting allowing scrutiny of \code{\link{twinspan}}
+#' divisions.
+#'
+#' Function \code{twin2mat} extracts data file with pseudospecies
+#' transformation. Columns are original species, and entries are
+#' abundances after pseudospecies transformation. This is similar as
+#' the output from \CRANpkg{vegan} function
+#' \code{\link[vegan]{coverscale}} with similar cut levels and
+#' argument \code{character=FALSE}.
+#'
+#' @seealso \code{\link{twinsform}}, \code{\link[vegan]{coverscale}}.
 #'
 #' @examples
 #'
@@ -126,12 +132,20 @@
 #' dim(x)
 #' range(x)
 #' colnames(x)
+#' ## Inspect division 4
+#' x <- twin2stack(tw, select = cut(tw, 2) == 4, downweight = TRUE)
+#' ## need vegan for correspondence analysis
+#' if (suppressPackageStartupMessages(require("vegan"))) {
+#' cca(x)
+#' }
 #'
 #' @param x \code{\link{twinspan}} result object.
+#' @param select Select a subset of quadrats.
+#' @param downweight Downweight infrequent pseudospecies.
 #'
 #' @export
 `twin2stack` <-
-    function(x)
+    function(x, select, downweight = FALSE)
 {
     nc <- length(x$quadrat$indlabels)
     nr <- x$nquadrat
@@ -151,6 +165,14 @@
         ## pseudospecies is present with abundance 1
         out[i, idat[j]] <- 1L
     }
+    if (!missing(select)) {
+        out <- out[select,, drop = FALSE]
+        cs <- colSums(out)
+        if (any(cs==0))
+            out <- out[, cs > 0, drop = FALSE]
+    }
+    if (downweight)
+        out <- downweight(out)
     out
 }
 
