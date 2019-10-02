@@ -548,11 +548,32 @@ attr(,"sumev")
 [229] "Vaccviti5" "Dicrfusc5" "Cladunci5" "Cladcris5" "Vaccmyrt5" "Empeherm5"
 [235] "Hepatica5" "Callvulg5" "Empenigr5" "Arctuvau5" "Dicrpoly5" "Sterpasc5"
 [241] "Polypili5" "Stergran5" "Vacculig5"
+> ## Inspect division 4
+> x <- twin2stack(tw, select = cut(tw, 2) == 4, downweight = TRUE)
+> ## need vegan for correspondence analysis
+> if (suppressPackageStartupMessages(require("vegan"))) {
++ cca(x)
++ }
+Call: cca(X = x)
+
+              Inertia Rank
+Total           1.288     
+Unconstrained   1.288   38
+Inertia is scaled Chi-square 
+
+Eigenvalues for unconstrained axes:
+    CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8 
+0.16253 0.11032 0.08296 0.07138 0.06582 0.05495 0.05180 0.04419 
+(Showing 8 of 38 unconstrained eigenvalues)
+
 > 
 > 
 > 
 > 
 > cleanEx()
+
+detaching ‘package:vegan’, ‘package:lattice’, ‘package:permute’
+
 > nameEx("twinsform")
 > ### * twinsform
 > 
@@ -824,7 +845,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.773 0.165 1.976 0 0 
+Time elapsed:  1.738 0.157 1.907 0 0 
 > grDevices::dev.off()
 null device 
           1 
