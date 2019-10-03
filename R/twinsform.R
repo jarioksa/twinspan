@@ -1,25 +1,31 @@
 #' Transform Data for Correspondence Analysis like twinspan
 #'
 #' Function transforms data so that Correspondence Analysis gives the
-#' same result as in \code{\link{twinspan}}.
+#' same result as in \code{\link{twinspan}} divisions.
 #'
 #' In \code{\link{twinspan}}, quantitative species data are split into
 #' binary (0/1) pseudospecies by \code{cutlevels}. All these
 #' pseudospecies are stacked as columns in a new data set. Rare
 #' pseudospecies that occur at lower frequency than 0.2 are
-#' \code{\link[vegan]{downweight}}ed to reduce the importance of rare
-#' species or rare abundance levels in correspondence analysis. When
-#' analysed with correspondence analysis (e.g.,
-#' \code{\link[vegan]{cca}}, \code{\link[vegan]{decorana}} with option
-#' \code{ira=1}), this will give the same eigenvalue and ordination as
-#' used in \code{\link{twinspan}}. When a \code{subset} of a
+#' \code{\link[vegan]{downweight}}ed within \code{twinspan}. This
+#' reduces the weight of rare species or rare abundance levels in
+#' correspondence analysis, but downweighting is optional in this
+#' function.
+#'
+#' When the downweighted data are analysed with correspondence
+#' analysis (e.g., \code{\link[vegan]{cca}},
+#' \code{\link[vegan]{decorana}} with option \code{ira=1}), these will
+#' give the same first eigenvalue and ordination as in
+#' \code{\link{twinspan}}. When a \code{subset} of a
 #' \code{\link{twinspan}} class is used, correspondence analysis of
 #' subdivision of the class can be obtained.
 #'
 #' @seealso \code{\link[vegan]{downweight}} in \CRANpkg{vegan}: this
 #'     function is often used with Detrended Correspondence Analysis
 #'     (\code{\link[vegan]{decorana}}). However, the implementation is
-#'     slightly different in TWINSPAN, and weights differ slightly.
+#'     slightly different in TWINSPAN, and weights differ
+#'     slightly. Function \code{\link{twin2stack}} extracts similar
+#'     data from a \code{\link{twinspan}} result object.
 #'
 #' @examples
 #'
@@ -33,7 +39,7 @@
 #' ## similar first eigenvalue
 #' eigenvals(twinspan(ahti))
 #'
-#' @return A stacked matrix of downweighted pseudospecies.
+#' @return A stacked matrix of optionally downweighted pseudospecies.
 #'
 #' @param x Input (community) data.
 #' @param cutlevels Cut levels used to split quantitative data into
@@ -97,7 +103,7 @@
 
 #' @rdname twin2mat
 #'
-#' @title Extract Transformed Input Data from twinspan result
+#' @title Extract Transformed Input Data from twinspan Result
 #'
 #' @description
 #'

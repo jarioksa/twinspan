@@ -3,7 +3,7 @@
 \name{twin2stack}
 \alias{twin2stack}
 \alias{twin2mat}
-\title{Extract Transformed Input Data from twinspan result}
+\title{Extract Transformed Input Data from twinspan Result}
 \usage{
 twin2stack(x, subset, downweight = FALSE)
 
