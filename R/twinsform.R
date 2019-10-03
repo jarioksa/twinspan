@@ -97,15 +97,21 @@
 
 #' @rdname twin2mat
 #'
-#' @title Extract Transformed Input Data from TWINSPAN result
+#' @title Extract Transformed Input Data from twinspan result
 #'
 #' @description
+#'
+#' Functions extract the data \code{\link{twinspan}} used in its
+#' analysis, and allow reproducing the internal ordination and
+#' inspecting the \code{twinspan} divisions.
+#'
+#' @details
 #'
 #' Function \code{twin2stack} extracts the pseudospecies matrix, where
 #' columns are pseudospecies with their cutlevels. This is similar to
 #' the file generated with \code{\link{twinsform}}. The default is to
 #' return a binary matrix, where data entries are eiter \eqn{0} or
-#' \eqn{1}. However, it is also possible to extract a subset of data
+#' \eqn{1}. Alternatively, it is possible to extract a subset of data
 #' with downweighting allowing scrutiny of \code{\link{twinspan}}
 #' divisions.
 #'
@@ -114,9 +120,14 @@
 #' abundances after pseudospecies transformation. This is similar as
 #' the output from \CRANpkg{vegan} function
 #' \code{\link[vegan]{coverscale}} with similar cut levels and
-#' argument \code{character=FALSE}.
+#' argument \code{character=FALSE}. These data were not analysed in
+#' \code{\link{twinspan}}, but these are the data tabulated with
+#' \code{\link{twintable}}.
 #'
-#' @seealso \code{\link{twinsform}}, \code{\link[vegan]{coverscale}}.
+#' @seealso For original data set instead of \code{\link{twinspan}}
+#'     result, functions \code{\link{twinsform}} and
+#'     \code{\link[vegan]{coverscale}} are analogous to
+#'     \code{twin2stack} and \code{twin2mat}.
 #'
 #' @examples
 #'

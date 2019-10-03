@@ -549,7 +549,7 @@ Warning in twinspan(ahti[i != 1, ]) : some empty species were removed
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: twin2stack
-> ### Title: Extract Transformed Input Data from TWINSPAN result
+> ### Title: Extract Transformed Input Data from twinspan result
 > ### Aliases: twin2stack twin2mat
 > 
 > ### ** Examples
@@ -935,7 +935,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.906 0.195 2.146 0 0 
+Time elapsed:  1.939 0.197 2.204 0 0 
 > grDevices::dev.off()
 null device 
           1 
