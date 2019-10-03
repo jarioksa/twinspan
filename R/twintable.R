@@ -8,10 +8,11 @@
 #' Function prints a compact community table of pseudospecies
 #' values. The table is ordered by clustering both species and
 #' quadrats similarly as in \code{\link{summary.twinspan}} or in plot
-#' of \code{\link{as.dendrogram.twinspan}}. The classification is
-#' shown by a sequence of \code{0} and \code{1} indicating division of
-#' each level. This string is binary presentation of the decimal class
-#' number without leading \code{1}.
+#' of \code{\link{as.dendrogram.twinspan}}. The classification of each
+#' quadrat and species is shown by a sequence of \code{0} and \code{1}
+#' indicating division of each level. This string is binary
+#' presentation of the decimal class number without the leading
+#' \code{1}.
 #'
 #' Only one character is used for each abundance, and the table is
 #' very compact. However, large tables can be divided over several
