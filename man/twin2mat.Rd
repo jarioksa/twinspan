@@ -5,14 +5,14 @@
 \alias{twin2mat}
 \title{Extract Transformed Input Data from TWINSPAN result}
 \usage{
-twin2stack(x, select, downweight = FALSE)
+twin2stack(x, subset, downweight = FALSE)
 
 twin2mat(x)
 }
 \arguments{
 \item{x}{\code{\link{twinspan}} result object.}
 
-\item{select}{Select a subset of quadrats.}
+\item{subset}{Select a subset of quadrats.}
 
 \item{downweight}{Downweight infrequent pseudospecies.}
 }
@@ -47,7 +47,7 @@ dim(x)
 range(x)
 colnames(x)
 ## Inspect division 4
-x <- twin2stack(tw, select = cut(tw, 2) == 4, downweight = TRUE)
+x <- twin2stack(tw, subset = cut(tw, 2) == 4, downweight = TRUE)
 ## need vegan for correspondence analysis
 if (suppressPackageStartupMessages(require("vegan"))) {
 cca(x)

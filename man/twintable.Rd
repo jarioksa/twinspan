@@ -4,7 +4,7 @@
 \alias{twintable}
 \title{Community Table Ordered by Twinspan Classification}
 \usage{
-twintable(object, maxspp, goodspecies, select)
+twintable(object, maxspp, goodspecies, subset)
 }
 \arguments{
 \item{object}{\code{\link{twinspan}} result object.}
@@ -21,7 +21,7 @@ frequency (\code{"leading"}), or \code{"both"} (default). The
 abundance is estimated after pseudospecies transformation for
 all quadrats and cannot be used together with \code{maxspp}.}
 
-\item{select}{Select a subset of quadrats.}
+\item{subset}{Select a subset of quadrats.}
 }
 \description{
 Prints a community table of pseudospecies ordered by
@@ -40,19 +40,19 @@ Only one character is used for each abundance, and the table is
 very compact. However, large tables can be divided over several
 pages or screen windows. The width of the displayed table is
 controlled by \R{} option \code{width} (see
-\code{\link{options}}). It is possible to \code{select} only a part
-of the quadrats for tabulation giving narrower tables. The number
-of species can be reduced by setting the maximum number of most
-abundant species, or alternatively, by restricting tabulation only
-to \dQuote{good species} which are the most abundant species of
-each species group (ties broken by species frequency), or species
-used as indicators, or both.
+\code{\link{options}}). It is possible to select only a
+\code{subset} of the quadrats for tabulation giving narrower
+tables. The number of species can be reduced by setting the maximum
+number of most abundant species, or alternatively, by restricting
+tabulation only to \dQuote{good species} which are the most
+abundant species of each species group (ties broken by species
+frequency), or species used as indicators, or both.
 }
 \examples{
 
 data(ahti)
 tw <- twinspan(ahti)
 ## complete table would be large, but we subset
-twintable(tw, select = cut(tw, 2) == 4, goodspecies = "both")
+twintable(tw, subset = cut(tw, 2) == 4, goodspecies = "both")
 
 }

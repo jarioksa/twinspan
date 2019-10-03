@@ -133,19 +133,19 @@
 #' range(x)
 #' colnames(x)
 #' ## Inspect division 4
-#' x <- twin2stack(tw, select = cut(tw, 2) == 4, downweight = TRUE)
+#' x <- twin2stack(tw, subset = cut(tw, 2) == 4, downweight = TRUE)
 #' ## need vegan for correspondence analysis
 #' if (suppressPackageStartupMessages(require("vegan"))) {
 #' cca(x)
 #' }
 #'
 #' @param x \code{\link{twinspan}} result object.
-#' @param select Select a subset of quadrats.
+#' @param subset Select a subset of quadrats.
 #' @param downweight Downweight infrequent pseudospecies.
 #'
 #' @export
 `twin2stack` <-
-    function(x, select, downweight = FALSE)
+    function(x, subset, downweight = FALSE)
 {
     nc <- length(x$quadrat$indlabels)
     nr <- x$nquadrat
@@ -165,8 +165,8 @@
         ## pseudospecies is present with abundance 1
         out[i, idat[j]] <- 1L
     }
-    if (!missing(select)) {
-        out <- out[select,, drop = FALSE]
+    if (!missing(subset)) {
+        out <- out[subset,, drop = FALSE]
         cs <- colSums(out)
         if (any(cs==0))
             out <- out[, cs > 0, drop = FALSE]
