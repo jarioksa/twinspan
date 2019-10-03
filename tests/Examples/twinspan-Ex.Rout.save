@@ -358,6 +358,14 @@ attr(,"sumev")
 > ## misclassifications: predict and twinspan differ
 > sum(predict(tw) != cut(tw))
 [1] 15
+> ## build model for 4/5 of data and predict for the removed 1/5
+> i <- rep(1:5, length = nrow(ahti))
+> i <- sample(i) # shuffle in random order
+> tw <- twinspan(ahti[i != 1,]) # remove i==1
+Warning in twinspan(ahti[i != 1, ]) : some empty species were removed
+> predict(tw, newdata = ahti[i==1,])
+ [1]  87  83  46  83  84  83  70  40  76  37 121 119 118  31 118 119 118 118  58
+[20]  45 118 119 123  55  57  56  55  57  76  26  51  26 118 109
 > 
 > 
 > 
@@ -927,7 +935,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.797 0.169 1.986 0 0 
+Time elapsed:  2.175 0.249 2.501 0 0 
 > grDevices::dev.off()
 null device 
           1 
