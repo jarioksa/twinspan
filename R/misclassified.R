@@ -31,26 +31,34 @@
 #' \item{division}{The division where the misclassification occurred.}
 #' }
 #'
-#' @seealso \code{\link{cut.twinspan}},
-#'     \code{\link{predict.twinspan}}, \code{\link{summary.twinspan}},
-#'     \code{\link{plot.twinspan}}.
+#' @seealso The basic functions are \code{\link{cut.twinspan}} and
+#'     \code{\link{predict.twinspan}}. You can see the division
+#'     numbers with \code{\link{summary.twinspan}} (with indicator
+#'     pseudospecies) and in \code{\link{plot.twinspan}}.
 #'
 #' @examples
 #'
 #' data(ahti)
 #' tw <- twinspan(ahti)
 #' misclassified(tw)
+#' ## see the ID numbers of divisions
+#' plot(tw)
+#' ## only look at misclassifications at first two levels
+#' misclassified(tw, level = 2)
 #'
 #' @param x \code{\link{twinspan}} result object.
+#' @param level Only consider misclassification down to this level.
 #' @param verbose If \code{FALSE}, returns only the index of
 #'     misclassified quadrats.
 #'
 #' @export
 `misclassified` <-
-    function(x, verbose = TRUE)
+    function(x, level, verbose = TRUE)
 {
-    class <- cut(x)
-    pred <- predict(x)
+    if (missing(level))
+        level <- x$levelmax
+    class <- cut(x, level = level)
+    pred <- predict(x, level = level)
     # misclassified cases
     ind <- which(class != pred)
     if (!verbose)

@@ -280,6 +280,23 @@ attr(,"sumev")
  156 Syng026   105        36        1
  160 Hbor168    98       105        6
  161 Hbor167    98       105        6
+> ## see the ID numbers of divisions
+> plot(tw)
+> ## only look at misclassifications at first two levels
+> misclassified(tw, level = 2)
+
+ 9 misclassified quadrats:
+
+     Quadrat Class Predicted Division
+  13 Vmyr068     6         7        3
+  47 Ster108     4         5        2
+  62 Call064     5         4        2
+  73 Empe090     4         5        2
+ 112 Mold134     6         7        3
+ 123 Sold019     7         6        3
+ 135 Sold164     6         7        3
+ 154 Syng007     6         4        1
+ 156 Syng026     6         4        1
 > 
 > 
 > 
@@ -890,7 +907,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.724 0.158 1.895 0 0 
+Time elapsed:  1.885 0.189 2.171 0 0 
 > grDevices::dev.off()
 null device 
           1 
