@@ -302,6 +302,26 @@ attr(,"sumev")
 > 
 > 
 > cleanEx()
+> nameEx("plot.twinspan")
+> ### * plot.twinspan
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot.twinspan
+> ### Title: Plot Classification Tree
+> ### Aliases: plot.twinspan
+> 
+> ### ** Examples
+> 
+> 
+> data(ahti)
+> tw <- twinspan(ahti)
+> plot(tw, "species")
+> 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("predict.twinspan")
 > ### * predict.twinspan
 > 
@@ -907,7 +927,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.885 0.189 2.171 0 0 
+Time elapsed:  1.797 0.169 1.986 0 0 
 > grDevices::dev.off()
 null device 
           1 
