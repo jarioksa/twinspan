@@ -377,7 +377,7 @@ Warning in twinspan(ahti[i != 1, ]) : some empty species were removed
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: summary.twinspan
-> ### Title: Summary of Twinspan Classification
+> ### Title: Summary of twinspan Classification
 > ### Aliases: summary.twinspan
 > 
 > ### ** Examples
@@ -935,7 +935,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  2.175 0.249 2.501 0 0 
+Time elapsed:  2.275 0.267 2.63 0 0 
 > grDevices::dev.off()
 null device 
           1 
