@@ -36,13 +36,168 @@ from list of potential indicators. Species omitted from this
 list are used in the calculation, but cannot appear as
 indicators.}
 }
+\value{
+Function returns an object of class \code{"twinspan"}, with
+following items: \describe{
+
+\item{call}{Function call.}
+
+\item{cutlevels}{Defined cutlevels. These will be used in
+  \code{\link{predict.twinspan}}.}
+
+\item{levelmax}{Maximum level depth of divisions. The divisions
+will end when this depth is achieved.}
+
+\item{nspecies}{Number of species.}
+
+\item{nquadrat}{Number of quadrats.}
+
+\item{idat}{Pseudospecies data in the internal format used in
+\code{twinspan}.  Functions \code{\link{twin2mat}} and
+\code{\link{twin2stack}} can change this into more usable format.}
+
+\item{quadrat}{Results for quadrats (described below).}
+\item{species}{Results for species (described below).}
+}
+
+The results of the analysis are stored in items \code{quadrat} and
+\code{species} with similar structure, but \code{species} has only
+items \code{iclass}, \code{eig}, \code{labels} and \code{index} of
+the following:
+
+\describe{
+
+\item{iclass}{ID numbers of final classes at the lowest level of
+hierarchy. These can be extracted with \code{\link{cut.twinspan}}
+which also can transform these to any higher level of hierarchy.}
+
+\item{eig}{Eigenvalues of divisions.}
+
+\item{labels}{Name labels of units (species, quadrats).}
+
+\item{index}{An index to order the units in \code{twinspan}
+displays, e.g., in \code{\link{twintable}}.}
+
+\item{indicators}{A matrix of dimensions maximum number of
+indicators \eqn{\times}{times} maximum number of divisions giving the
+signed indices of indicator species for the division. These are
+shown in labels in \code{\link{summary.twinspan}} and used by
+\code{\link{predict.twinspan}}.}
+
+\item{positivelimit}{Lowest value of indicator score for positive
+group in a division.}
+
+\item{indlabels}{Labels of pseudospecies.}
+
+\item{pseudo2species}{Index from pseudospecies to the corresponding
+species.}
+}
+}
 \description{
 Two-Way Indicator Analysis (TWINSPAN) is a divisive classification
 method that works by splitting first Correspondence Analysis into
 two classes, and then recursively working with each split
-subset. The function is actually much more complicated: see
-Details.
+subset. The current function is based on and uses much of the
+original FORTRAN code of the original TWINSPAN (Hill
+1979). \code{twinspan} is the main function of this package, but it
+works silently and prints very little information: you must use
+separate support functions to extract various aspects of the
+result.
 }
+\details{
+\code{twinspan} may not print anything when it runs, but it will
+return its result that you should save for later use. The functions
+that reproduce most of the traditional printout are
+\code{\link{summary.twinspan}} and \code{\link{twintable}}. The
+\code{summary} prints the history of divisions with eigenvalues,
+signed indicator pseudospecies and the threshold of indicator
+scores for division, and for terminal groups it prints the group
+size and group members (quadrats, species). Function
+\code{twintable} prints the classified community table. In
+addition, \code{plot.twinspan} shows the dendrogram corresponding
+to the \code{summary} with division numbers and sizes and id number
+of terminal groups. Function \code{\link{image.twinspan}} provides
+a graphical overview of major structure of classification as a
+prelude to \code{twintable}. With function
+\code{\link{as.dendrogram.twinspan}} it is possible to construct a
+\code{\link{dendrogram}} of complete classification down to final
+units (quadrats, species), and \code{\link{as.hclust.dendrogram}}
+constructs an \code{\link{hclust}} tree down to final groups.
+
+The classification at any level of division can be extracted with
+\code{\link{cut.twinspan}}. Function \code{\link{predict.twinspan}}
+provides a similar classification vector, but based on indicator
+pseudospecies, and can be used also with new data that was not used
+in \code{twinspan}. These two classifications are often in
+conflict, and \code{\link{misclassified}} will detect those cases
+and the divisions where the two classifications diverged. Function
+\code{\link{eigenvals}} extracts the eigenvalues of divisions.
+
+Function \code{\link{twinsform}} transforms the data similarly as
+\code{twinspan} and can be used to reproduce the results of any
+single division. Functions \code{\link{twin2mat}} and
+\code{\link{twin2stack}} extract the internal data matrices in
+standard \R{} format from the \code{twinspan} result.
+}
+\section{Method}{
+
+
+TWINSPAN is very complicated and has several obscure details, and
+it will not be explained in details in this manual, but you should
+consult the source code or literature sources. Hill (1979) is the
+most authorative source, but may be difficult to find. Kent & Coker
+(1991) do a great work in explaining the method, including many
+obscure details.
+
+A strong simplification (but often sufficient to understand the
+basic principles) is that TWINSPAN is a divisive clustering based
+on splitting first correspondence analysis axis, and applying the
+same method recursively for resulting classes. The same method is
+used first for quadrats and then for species. In addition, it finds
+the species abundance levels (called \sQuote{pseudospecies}) that
+best indicate these divisions facilitating ecologist's
+understanding of classes. Species classification is performed so
+that it best corresponds to the previous quadrat classification
+also with species composition.
+
+The following details are more technical. The analysis starts with
+splitting species abundance data into discrete abundance levels
+called pseudospecies. With these the function constructs a stacked
+binary matrix with values of 0 and 1, where value 1 means that
+species occurs at given threshold (called \sQuote{cut level}) in a
+quadrat. Then the pseudospecies (abundance levels) that occur in
+fewer than 1/5 of quadrats are downweighted so that their presences
+(values 1) are reduced linearly towards minimimum value of 0.01
+according to their frequencies. This will reduce their impact in
+correspondence analysis which is regarded as being sensitive to
+rare species. A species may be downweighted only for its higher
+pseudospecies levels. The first axis of correspondence analysis is
+found for the downweighted data. This initial step can be reduced
+with the help of functions \code{\link{twinsform}} or
+\code{\link{twin2stack}}.  However, the division is not based on
+this step only. Next the method finds the best indicator
+pseudospecies for this division. Further, it polarizes the
+ordination by using indicator scores for all species to find the
+final classes for quadrats. Further, it does not mechanically just
+split the axis in the middle, but it finds the cutpoint so that
+indicator scores from the indicator pseudospecies and final split
+are as concordant as possible. Then the analysis is repeated for
+both resulting groups, including downweighting within the subset of
+quadrats. These latter steps cannot be reproduced within this
+package (yet).
+
+After quadrat classification, TWINSPAN constructs species data
+which is different from the data used in quadrat classification.
+Species are given different weights depending on their ability to
+discriminate between quadrat classes. Then species are classified
+in the same way and with the same code as the quadrats, but no
+indicators (quadrats) are found for species classes. In this way
+species classification is concordant with quadrat classification,
+and good indicators of quadrat classes are grouped together. The
+species classification cannot be reproduced with functions in this
+package (yet).
+}
+
 \examples{
 
 data(ahti)
@@ -57,4 +212,13 @@ plot(twb)
 table(cut(tw, level=3), cut(twb, level=3))
 
 
+}
+\references{
+Hill, M.O. (1979). \emph{TWINSPAN - a FORTRAN program for arranging
+multivariate data in an ordered two-way table by classification of
+individuals and attributes.} Cornell Univ., Dept of Ecology and
+Systematics.
+
+Kent, M. & Coker, P. (1992) \emph{Vegetation description and
+analysis: A practical approach.} John Wiley & Sons.
 }
