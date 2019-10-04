@@ -21,7 +21,7 @@ prediction is made to the highest level of classification.}
 \description{
 Function predicts the class membership for each quadrat using the
 reported indicator pseudospecies and limit for the indicator score
-for the \dQuote{positive} (left) group.
+for the \dQuote{positive} (right) group.
 }
 \details{
 The \code{twinspan} classification is based on splicing polarized
@@ -29,7 +29,7 @@ ordination axis, and the reported indicator pseudospecies only
 indicate the decisions in each division, and do not necessarily
 give the same classification: The original classification cannot be
 necessarily found when giving the original data as
-\code{newdata}. In the original TWINSPAN this called
+\code{newdata}. In the original TWINSPAN this is called
 misclassification.
 }
 \examples{
@@ -40,5 +40,15 @@ predict(tw)
 predict(tw, level=3)
 ## misclassifications: predict and twinspan differ
 sum(predict(tw) != cut(tw))
+## build model for 4/5 of data and predict for the removed 1/5
+i <- rep(1:5, length = nrow(ahti))
+i <- sample(i) # shuffle in random order
+tw <- twinspan(ahti[i != 1,]) # remove i==1
+predict(tw, newdata = ahti[i==1,])
 
+}
+\seealso{
+\code{\link{cut.twinspan}} gives the original
+    classification, and \code{\link{misclassified}} analyses the
+    differences of this and \code{predict}.
 }

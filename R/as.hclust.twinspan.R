@@ -9,7 +9,15 @@
 #' object. The terminal items are the final groups, but quadrats or
 #' species are not shown: \code{\link{hclust}} cannot handle
 #' polytomies that are needed to display group members.  Use
-#' \code{\link{as.dendrogram}} to show the single items.
+#' \code{\link{as.dendrogram}} to show the single items. The group ID
+#' number and number of items in the terminal group are used as group
+#' names and are displayed in plots.
+#'
+#' @seealso \code{\link{as.dendrogram.twinspan}},
+#'     \code{\link{hclust}}, \code{\link{plot.twinspan}},
+#'     \code{\link{image.twinspan}}.
+#'
+#' @return an \code{\link{hclust}} object.
 #'
 #' @examples
 #'
@@ -71,9 +79,38 @@
 
 ### plot.twinspan as plot of hclust tree
 
-#' Plot Classificaton Tree of Quadrats
+#' Plot Classification Tree
+#'
+#' Function displays the classification tree.
+#'
+#' The internal nodes are labelled by the numbers of division. These
+#' are the same numbers as used in \code{\link{summary.twinspan}} and
+#' returned by \code{\link{cut.twinspan}} or
+#' \code{\link{predict.twinspan}} for the same classification
+#' level. For terminal groups the plot shows the number of the group
+#' and the number of items (quadrats or species) in the group. For
+#' division number \eqn{k}, its daughter divisions or groups are
+#' \eqn{2k}{2*k} and \eqn{2k+1}{2*k+1}. The tree is similar as a plot
+#' of \code{\link{as.hclust.twinspan}}, but adds numbers of internal
+#' nodes.
+#'
+#' @seealso \code{\link{summary.twinspan}} for similar textual
+#'     presentation also showing the items (quadrats, species) in
+#'     terminal groups. \CRANpkg{vegan} function
+#'     \code{\link[vegan]{scores.hclust}} can extract the coordinates
+#'     of internal (or terminal nodes), and
+#'     \code{\link[vegan]{ordilabel}} is used add the labels on
+#'     internal nodes.
+#'
+#' @examples
+#'
+#' data(ahti)
+#' tw <- twinspan(ahti)
+#' plot(tw, "species")
 #'
 #' @param x \code{\link{twinspan}} result object.
+#' @param what Plot \code{"quadrat"} or \code{"species"}
+#'     classification tree.
 #' @param main Main title of the plot.
 #' @param \dots Other parameters passed to \code{\link{plot}} and
 #'     \code{\link[vegan]{ordilabel}}.
@@ -83,9 +120,11 @@
 #'
 #' @export
 `plot.twinspan` <-
-    function(x, main = "Twinspan Dendrogram", ...)
+    function(x, what = c("quadrat", "species"), main = "Twinspan Dendrogram",
+             ...)
 {
-    x <- as.hclust(x)
+    what <- match.arg(what)
+    x <- as.hclust(x, what = what)
     plot(x, main = main, ...)
     ordilabel(x, "internal", labels = x$nodelabels, ...)
 }

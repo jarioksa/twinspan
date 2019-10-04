@@ -1,25 +1,31 @@
 #' Transform Data for Correspondence Analysis like twinspan
 #'
 #' Function transforms data so that Correspondence Analysis gives the
-#' same result as in \code{\link{twinspan}}.
+#' same result as in \code{\link{twinspan}} divisions.
 #'
 #' In \code{\link{twinspan}}, quantitative species data are split into
 #' binary (0/1) pseudospecies by \code{cutlevels}. All these
 #' pseudospecies are stacked as columns in a new data set. Rare
 #' pseudospecies that occur at lower frequency than 0.2 are
-#' \code{\link[vegan]{downweight}}ed to reduce the importance of rare
-#' species or rare abundance levels in correspondence analysis. When
-#' analysed with correspondence analysis (e.g.,
-#' \code{\link[vegan]{cca}}, \code{\link[vegan]{decorana}} with option
-#' \code{ira=1}), this will give the same eigenvalue and ordination as
-#' used in \code{\link{twinspan}}. When a \code{subset} of a
+#' \code{\link[vegan]{downweight}}ed within \code{twinspan}. This
+#' reduces the weight of rare species or rare abundance levels in
+#' correspondence analysis, but downweighting is optional in this
+#' function.
+#'
+#' When the downweighted data are analysed with correspondence
+#' analysis (e.g., \code{\link[vegan]{cca}},
+#' \code{\link[vegan]{decorana}} with option \code{ira=1}), these will
+#' give the same first eigenvalue and ordination as in
+#' \code{\link{twinspan}}. When a \code{subset} of a
 #' \code{\link{twinspan}} class is used, correspondence analysis of
 #' subdivision of the class can be obtained.
 #'
 #' @seealso \code{\link[vegan]{downweight}} in \CRANpkg{vegan}: this
 #'     function is often used with Detrended Correspondence Analysis
 #'     (\code{\link[vegan]{decorana}}). However, the implementation is
-#'     slightly different in TWINSPAN, and weights differ slightly.
+#'     slightly different in TWINSPAN, and weights differ
+#'     slightly. Function \code{\link{twin2stack}} extracts similar
+#'     data from a \code{\link{twinspan}} result object.
 #'
 #' @examples
 #'
@@ -33,7 +39,7 @@
 #' ## similar first eigenvalue
 #' eigenvals(twinspan(ahti))
 #'
-#' @return A stacked matrix of downweighted pseudospecies.
+#' @return A stacked matrix of optionally downweighted pseudospecies.
 #'
 #' @param x Input (community) data.
 #' @param cutlevels Cut levels used to split quantitative data into
@@ -97,15 +103,21 @@
 
 #' @rdname twin2mat
 #'
-#' @title Extract Transformed Input Data from TWINSPAN result
+#' @title Extract Transformed Input Data from twinspan Result
 #'
 #' @description
+#'
+#' Functions extract the data \code{\link{twinspan}} used in its
+#' analysis, and allow reproducing the internal ordination and
+#' inspecting the \code{twinspan} divisions.
+#'
+#' @details
 #'
 #' Function \code{twin2stack} extracts the pseudospecies matrix, where
 #' columns are pseudospecies with their cutlevels. This is similar to
 #' the file generated with \code{\link{twinsform}}. The default is to
 #' return a binary matrix, where data entries are eiter \eqn{0} or
-#' \eqn{1}. However, it is also possible to extract a subset of data
+#' \eqn{1}. Alternatively, it is possible to extract a subset of data
 #' with downweighting allowing scrutiny of \code{\link{twinspan}}
 #' divisions.
 #'
@@ -114,9 +126,14 @@
 #' abundances after pseudospecies transformation. This is similar as
 #' the output from \CRANpkg{vegan} function
 #' \code{\link[vegan]{coverscale}} with similar cut levels and
-#' argument \code{character=FALSE}.
+#' argument \code{character=FALSE}. These data were not analysed in
+#' \code{\link{twinspan}}, but these are the data tabulated with
+#' \code{\link{twintable}}.
 #'
-#' @seealso \code{\link{twinsform}}, \code{\link[vegan]{coverscale}}.
+#' @seealso For original data set instead of \code{\link{twinspan}}
+#'     result, functions \code{\link{twinsform}} and
+#'     \code{\link[vegan]{coverscale}} are analogous to
+#'     \code{twin2stack} and \code{twin2mat}.
 #'
 #' @examples
 #'
@@ -133,19 +150,19 @@
 #' range(x)
 #' colnames(x)
 #' ## Inspect division 4
-#' x <- twin2stack(tw, select = cut(tw, 2) == 4, downweight = TRUE)
+#' x <- twin2stack(tw, subset = cut(tw, 2) == 4, downweight = TRUE)
 #' ## need vegan for correspondence analysis
 #' if (suppressPackageStartupMessages(require("vegan"))) {
 #' cca(x)
 #' }
 #'
 #' @param x \code{\link{twinspan}} result object.
-#' @param select Select a subset of quadrats.
+#' @param subset Select a subset of quadrats.
 #' @param downweight Downweight infrequent pseudospecies.
 #'
 #' @export
 `twin2stack` <-
-    function(x, select, downweight = FALSE)
+    function(x, subset, downweight = FALSE)
 {
     nc <- length(x$quadrat$indlabels)
     nr <- x$nquadrat
@@ -165,8 +182,8 @@
         ## pseudospecies is present with abundance 1
         out[i, idat[j]] <- 1L
     }
-    if (!missing(select)) {
-        out <- out[select,, drop = FALSE]
+    if (!missing(subset)) {
+        out <- out[subset,, drop = FALSE]
         cs <- colSums(out)
         if (any(cs==0))
             out <- out[, cs > 0, drop = FALSE]

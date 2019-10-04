@@ -4,10 +4,12 @@
 \alias{misclassified}
 \title{Report Misclassified Quadrats}
 \usage{
-misclassified(x, verbose = TRUE)
+misclassified(x, level, verbose = TRUE)
 }
 \arguments{
 \item{x}{\code{\link{twinspan}} result object.}
+
+\item{level}{Only consider misclassification down to this level.}
 
 \item{verbose}{If \code{FALSE}, returns only the index of
 misclassified quadrats.}
@@ -47,10 +49,15 @@ divisions and their numbers can be seen in
 data(ahti)
 tw <- twinspan(ahti)
 misclassified(tw)
+## see the ID numbers of divisions
+plot(tw)
+## only look at misclassifications at first two levels
+misclassified(tw, level = 2)
 
 }
 \seealso{
-\code{\link{cut.twinspan}},
-    \code{\link{predict.twinspan}}, \code{\link{summary.twinspan}},
-    \code{\link{plot.twinspan}}.
+The basic functions are \code{\link{cut.twinspan}} and
+    \code{\link{predict.twinspan}}. You can see the division
+    numbers with \code{\link{summary.twinspan}} (with indicator
+    pseudospecies) and in \code{\link{plot.twinspan}}.
 }

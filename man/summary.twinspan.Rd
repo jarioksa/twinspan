@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.twinspan.R
 \name{summary.twinspan}
 \alias{summary.twinspan}
-\title{Summary of Twinspan Classification}
+\title{Summary of twinspan Classification}
 \usage{
 \method{summary}{twinspan}(object, what = c("quadrat", "species"), ...)
 }
@@ -24,16 +24,20 @@ same essential information as the printed output of TWINSPAN batch
 program, but in more compact form.
 }
 \details{
-For each division, \code{summary} prints the eigenvalue, and for
-quadrat divisions the indicator pseudospecies with their signs,
-followed by \code{<} and the lowest score for the \dQuote{positive}
-group. If the indicator score is below this value, follow the list
-to the next item at the lower level, and to the second alternative
-at the same level if the indicator score is at the limit or
-higher. For division \eqn{k}, the next items are \eqn{2k}
-(\dQuote{negative} group) or \eqn{2k+1} (\dQuote{positive}
-group). For terminal groups, the function gives the size of the
-group and lists its elements (quadrats or species).
+For each division, \code{summary} prints the eigenvalue. For
+quadrat divisions, it also prints the indicator pseudospecies with
+their signs, followed by \code{<} and the lowest indicator score
+for the \sQuote{positive} (right) group. If the indicator score is
+below this value, follow the summary to the next item at the lower
+level, and if the indicator score is at the limit or higher, follow
+to the second alternative.  For division number \eqn{k}, the next
+items are either \eqn{2k}{2*k} (\sQuote{negative} group) or
+\eqn{2k+1}{2*k+1} (\sQuote{positive} group). Function
+\code{\link{plot.twinspan}} displays the division numbers in a
+classification tree.
+
+For terminal groups, the function gives the size of the group and
+lists its elements (quadrats or species).
 }
 \examples{
 data(ahti)
@@ -41,4 +45,10 @@ tw <- twinspan(ahti)
 summary(tw)
 summary(tw, "species")
 
+}
+\seealso{
+\code{\link{plot.twinspan}} displays the same structure
+    visually.  Function \code{\link{predict.twinspan}} follows the
+    summary strcture to predict the classification with indicator
+    pseudospecies.
 }

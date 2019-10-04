@@ -3,23 +3,32 @@
 ### information). The function traverses the classification tree
 ### recursively (depth-first).
 
-#' Summary of Twinspan Classification
+#' Summary of twinspan Classification
 #'
 #' The function gives a compact summary of divisions with indicator
 #' species and items in final classification. The output gives the
 #' same essential information as the printed output of TWINSPAN batch
 #' program, but in more compact form.
 #'
-#' For each division, \code{summary} prints the eigenvalue, and for
-#' quadrat divisions the indicator pseudospecies with their signs,
-#' followed by \code{<} and the lowest score for the \dQuote{positive}
-#' group. If the indicator score is below this value, follow the list
-#' to the next item at the lower level, and to the second alternative
-#' at the same level if the indicator score is at the limit or
-#' higher. For division \eqn{k}, the next items are \eqn{2k}
-#' (\dQuote{negative} group) or \eqn{2k+1} (\dQuote{positive}
-#' group). For terminal groups, the function gives the size of the
-#' group and lists its elements (quadrats or species).
+#' For each division, \code{summary} prints the eigenvalue. For
+#' quadrat divisions, it also prints the indicator pseudospecies with
+#' their signs, followed by \code{<} and the lowest indicator score
+#' for the \sQuote{positive} (right) group. If the indicator score is
+#' below this value, follow the summary to the next item at the lower
+#' level, and if the indicator score is at the limit or higher, follow
+#' to the second alternative.  For division number \eqn{k}, the next
+#' items are either \eqn{2k}{2*k} (\sQuote{negative} group) or
+#' \eqn{2k+1}{2*k+1} (\sQuote{positive} group). Function
+#' \code{\link{plot.twinspan}} displays the division numbers in a
+#' classification tree.
+#'
+#' For terminal groups, the function gives the size of the group and
+#' lists its elements (quadrats or species).
+#'
+#' @seealso \code{\link{plot.twinspan}} displays the same structure
+#'     visually.  Function \code{\link{predict.twinspan}} follows the
+#'     summary strcture to predict the classification with indicator
+#'     pseudospecies.
 #'
 #' @examples
 #' data(ahti)
