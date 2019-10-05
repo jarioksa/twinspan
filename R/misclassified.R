@@ -12,11 +12,11 @@
 #' classification predicted from indicator pseudospecies (from
 #' \code{\link{predict.twinspan}}). If these two differ, the quadrat
 #' is \dQuote{misclassified}. With \code{verbose=FALSE}, the function
-#' returns only the index of misclassified quadrats. In default, it
-#' also returns the names, twinspan classes and predicted classes of
-#' misclassified quadrats, and the division where the
-#' misclassification occurred and classifications diverged. The
-#' divisions and their numbers can be seen in
+#' returns a logical vector that is \code{TRUE} for misclassified
+#' quadrats. In default, it also returns the names, twinspan classes
+#' and predicted classes of misclassified quadrats, and the division
+#' where the misclassification occurred and classifications
+#' diverged. The divisions and their numbers can be seen in
 #' \code{\link{summary.twinspan}} and \code{\link{plot.twinspan}}.
 #'
 #' @return
@@ -30,6 +30,9 @@
 #' \item{predicted}{Final classification from \code{\link{predict.twinspan}}.}
 #' \item{division}{The division where the misclassification occurred.}
 #' }
+#'
+#' With \code{verbose=FALSE}, the function returns a logical vector
+#' that is \code{TRUE} for misclassified quadrats.
 #'
 #' @seealso The basic functions are \code{\link{cut.twinspan}} and
 #'     \code{\link{predict.twinspan}}. You can see the division
@@ -60,9 +63,10 @@
     class <- cut(x, level = level)
     pred <- predict(x, level = level)
     # misclassified cases
-    ind <- which(class != pred)
+    ind <- class != pred
     if (!verbose)
         return(ind)
+    ind <- which(ind)
     ## take only misclassified cases
     labs <- x$quadrat$labels[ind]
     class <- class[ind]
