@@ -210,7 +210,7 @@
 #'     list are used in the calculation, but cannot appear as
 #'     indicators.
 #'
-#' @useDynLib twinspan
+#' @useDynLib twinspan, .registration=TRUE
 #'
 #' @export
 `twinspan` <-
@@ -261,8 +261,7 @@
     ## translate data to the internal sparse format
     Z <- .C("data2hill", as.double(x), mm = as.integer(mm),
             n = as.integer(n), nid = as.integer(nid),
-            ibegin = integer(max(mm, n)), idat = integer(ndat),
-            PACKAGE = "twinspan")
+            ibegin = integer(max(mm, n)), idat = integer(ndat))
     ibegin <- Z$ibegin
     idat <- Z$idat
     ## inflag: zero for species omitted as potential indicators
@@ -285,7 +284,7 @@
                   jnflag = as.integer(jnflag),
                   jname1 = as.integer(jname1),
                   jnam = integer(nmax), indpot = integer(nmax),
-                  iy = integer(nmax), PACKAGE = "twinspan")
+                  iy = integer(nmax))
     ## data & names
     idat <- Z$idat[1:which(Z$idat==-1)[mm]]
     rnames <- rownames(x, do.NULL = FALSE, prefix = "q")
@@ -328,7 +327,7 @@
                   inlevmax=as.integer(levmax),
                   inmmin=as.integer(groupmin), eig = double(2^levmax-1),
                   indics = integer(inddim), limpos = integer(2^levmax-1),
-                  isec = 1L, PACKAGE="twinspan")
+                  isec = 1L)
     indics <- Z$indics
     dim(indics) <- c(indmax, 2^levmax-1)
     quadrat <- list(iclass = Z$iclass[seq_len(mm)], eig = Z$eig,
@@ -342,8 +341,7 @@
                   idat=as.integer(Z$idat), indpot=as.integer(Z$indpot),
                   iclass=as.integer(Z$iclass), y=as.double(Z$y),
                   ccwt=as.double(Z$ccwt), rrwt=as.double(Z$rrwt),
-                  jdat=integer(ndat),
-                  PACKAGE="twinspan")
+                  jdat=integer(ndat))
     Z <- .Fortran("class", nspec=as.integer(Y$nspec),
                   icmax=as.integer(3*max(Y$iclass)), ndat=as.integer(Y$ndat),
                   0L, mmz=as.integer(MMZ), mms=as.integer(MMS),  ix=Z$ix,
@@ -356,8 +354,7 @@
                   x3=Z$x3, x4=Z$x4, x5=Z$x5, lind=Z$lind,
                   inlevmax = Z$inlevmax, inmmin=Z$inmmin,
                   eig=double(2^levmax-1), indics = integer(inddim),
-                  limpos = integer(2^levmax-1), isec=2L,
-                  PACKAGE="twinspan")
+                  limpos = integer(2^levmax-1), isec=2L)
     species <- list(iclass = Z$jnam[seq_len(n)], eig = Z$eig,
                     labels = cnames)
     ## ordered index for quadrats and species: classorder() below
@@ -368,7 +365,7 @@
                     ndat=Z$ndat, ix=as.integer(quadrat$index),
                     iy=as.integer(sindex),
                     x=Z$x, y=Z$y, idat=Y$idat,
-                    irev=as.integer(irev), PACKAGE="twinspan")$irev
+                    irev=as.integer(irev))$irev
     if (rev)
         sindex <- rev(sindex)
     species$index <- sindex
