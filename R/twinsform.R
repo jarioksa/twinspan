@@ -84,12 +84,15 @@
 ### (which is different than in DECORANA, and pretty crude way of
 ### doing things).
 
+## @param x input data matrix
+## @param rw prior row weights
+
 `downweight` <-
-    function(x)
+    function(x, rw = rep(1, NROW(x)))
 {
-    cs <- colSums(x)
+    cs <- colSums(rw * x)
     v <- rep(1, ncol(x))
-    lim <- nrow(x)/5
+    lim <- sum(rw)/5
     down <- cs < lim
     v[down] <- (cs/lim)[down] * 0.99 + 0.01
     x <- sweep(x, 2, v, "*")
