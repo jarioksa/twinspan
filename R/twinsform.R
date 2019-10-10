@@ -122,7 +122,12 @@
 #' return a binary matrix, where data entries are eiter \eqn{0} or
 #' \eqn{1}. Alternatively, it is possible to extract a subset of data
 #' with downweighting allowing scrutiny of \code{\link{twinspan}}
-#' divisions.
+#' divisions. When downweighted data are ordinated with correspondence
+#' analysis (such as \CRANpkg{vegan} functions
+#' \code{\link[vegan]{cca}}, \code{\link[vegan]{decorana}} with
+#' \code{ira=1}) the first eigenvalue will match the eigenvalue in
+#' \code{\link{twinspan}}, and when a division is used as a
+#' \code{subset}, its eigenvalue will match with \code{twinspan}.
 #'
 #' Function \code{twin2mat} extracts data file with pseudospecies
 #' transformation. Columns are original species, and entries are
@@ -132,6 +137,29 @@
 #' argument \code{character=FALSE}. These data were not analysed in
 #' \code{\link{twinspan}}, but these are the data tabulated with
 #' \code{\link{twintable}}.
+#'
+#' Function \code{twin2specstack} returns similar data as used in
+#' species classification in \code{\link{twinspan}}. In this matrix,
+#' species are rows and columns are \dQuote{pseudocluster}
+#' preferences. The preference of each species in each terminal group
+#' and internal division is estimated as proportion of its abundance
+#' (in pseudospecies scale, see \code{twin2mat}) in the group and all
+#' data. If this proportion is 0.8 or higher, species is regarded as
+#' present at pseudocluster value 1, if it is 2 or higher at value 2,
+#' and if it is 6 or higher at value 3. With \code{downweight=FALSE}
+#' these data are returned. The columns are named by their division or
+#' cluster number followed \code{a}, \code{b} and \code{c} for
+#' pseudocluster levels (and including zero columns). In default, the
+#' pseudocluster values are still downweighted using species
+#' frequencies as weights, and then rows are weighted by species
+#' frequencies and columns by their totals extended to the same lowest
+#' level of classification, giving two times higher weight to higher
+#' \dQuote{pseudocluster} levels \code{b} and \code{c}.  When
+#' ordinated with correspondence analysis (\code{\link[vegan]{cca}},
+#' \code{\link[vegan]{decorana}} with \code{ira=1}) this gives similar
+#' eigenvalue for the first axis as in \code{\link{twinspan}}, and
+#' when a division is used as a \code{subset}, similar eigenvalue as
+#' in that division.
 #'
 #' @seealso For original data set instead of \code{\link{twinspan}}
 #'     result, functions \code{\link{twinsform}} and
@@ -160,7 +188,8 @@
 #' }
 #'
 #' @param x \code{\link{twinspan}} result object.
-#' @param subset Select a subset of quadrats.
+#' @param subset Select a subset of quadrats (\code{twin2stack}) or
+#'     species (\code{twin2specstack}).
 #' @param downweight Downweight infrequent pseudospecies.
 #'
 #' @export
@@ -231,4 +260,91 @@
         out[i,j] <- out[i,j] + 1L
     }
     out
+}
+
+### Reconstruct data for getting species clustering in TWINSPAN. In
+### these data, species are the observations (rows), and clusters &
+### divisions (internal nodes) are "pseudoquadrats". For each division
+### & cluster, we evaluate the preference of species for that
+### cluster. If it occurs at >= 0.8 frequency to the average (little
+### less than usually), it is regarded as present at
+### "pseudoquadrat1". If it is 2x times more frequent, it is also
+### "pseudoquadrat2", and 6x preferentials are "pseudoquadrat3". So
+### each cluster/division is divided into three pseudoquadrats for
+### each species, solely spaced on species frequencies. Then these
+### data are downweighted with row weights of species frequency, and
+### for CA both the species (rows) and the pseudoquadrats are weighted
+### by the cluster total occurrences of species, and the
+### "pseudoquadrat2" and "pseudoquadrat3" get double weight to
+### "pseudoquadrat1".
+
+#' @rdname twin2mat
+#' @export
+`twin2specstack` <-
+    function(x, subset, downweight = TRUE)
+{
+    cl <- x$quadrat$iclass
+    nsp <- x$nspecies
+    mat <- twin2mat(x)  # pseudospecies data
+    ## collect counts for all groups and their mother divisions
+    clmax <- max(cl)
+    tot <- numeric(clmax)
+    ## terminal groups
+    rs <- rowSums(mat)
+    for (k in seq_along(cl)) {
+        tot[cl[k]] <- tot[cl[k]] + rs[k]
+    }
+    ## mother divisions
+    for (k in clmax:2) {
+        tot[k %/% 2] <- tot[k %/% 2] + tot[k]
+    }
+    ## same for all species: first terminal groups
+    totj <- matrix(0, clmax, nsp)
+    dimnames(totj) <- list(seq_len(clmax),x$species$labels)
+    for (k in seq_along(cl)) {
+        totj[cl[k],] <- totj[cl[k],] + mat[k,]
+    }
+    ## mother divisions
+    for (k in clmax:2) {
+        totj[k %/% 2,] <- totj[k %/% 2,] + totj[k,]
+    }
+    ## ratio of preference for a class
+    rat <- totj * (tot[1] - tot) /
+        (tot * sweep(-totj, 2, totj[1,], "+") + 1e-7)
+    ## we transpose: groups as rows nicer for vector * matrix
+    ## calculations, but now we get species as rows
+    rat <- t(rat)
+    ## binary species matrix: TWINSPAN uses arbitrary constants 0.8, 2
+    ## and 6 for pseudovalues
+    smat <- cbind(rat >= 0.8, rat >= 2, rat >= 6) + 0
+    ## rename pseudoquadrat levels as a, b, c
+    colnames(smat) <- paste0(colnames(smat), rep(letters[1:3], each=clmax))
+    ## get out if downweight = FALSE
+    if (!downweight)
+        return(smat)
+    ## row (species) species weights are species frequencies and
+    ## column (cluster) weights are cluster totals elevated to the
+    ## same level of division
+    rwt <- colSums(mat > 0)
+    cwt <- tot
+    icl <- seq_len(clmax)
+    lev <- 2^(x$levelmax)
+    while(any(up <- icl < lev)) {
+       cwt[up] <- sqrt(2) * cwt[up] # TWINSPAN multiplier is 1.414
+       icl[up] <- 2 * icl[up]
+    }
+    ## First (a) pseudoquadrat level gets this weight, upper levels
+    ## (b, c) twice the weight
+    cwt <- c(cwt, 2*cwt, 2*cwt)
+    ## subset of species
+    if (!missing(subset)) {
+        smat <- smat[subset,, drop=FALSE]
+        rwt <- rwt[subset]
+    }
+    ## weighted downweighting
+    smat <- downweight(smat, rw = rwt)
+    ## row and column weighting for CA
+    smat <- rwt * sweep(smat, 2, cwt, "*")
+    smat <- smat[, colSums(smat) > 0, drop = FALSE]
+    smat
 }
