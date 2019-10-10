@@ -186,6 +186,11 @@
 #' if (suppressPackageStartupMessages(require("vegan"))) {
 #' cca(x)
 #' }
+#' ## species classification
+#' x <- twin2specstack(tw)
+#' if (suppressPackageStartupMessages(require("vegan"))) {
+#' cca(x)
+#' }
 #'
 #' @param x \code{\link{twinspan}} result object.
 #' @param subset Select a subset of quadrats (\code{twin2stack}) or

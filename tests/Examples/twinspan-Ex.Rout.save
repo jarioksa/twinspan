@@ -550,7 +550,7 @@ Warning in twinspan(ahti[i != 1, ]) : some empty species were removed
 > 
 > ### Name: twin2stack
 > ### Title: Extract Transformed Input Data from twinspan Result
-> ### Aliases: twin2stack twin2mat
+> ### Aliases: twin2stack twin2mat twin2specstack
 > 
 > ### ** Examples
 > 
@@ -651,6 +651,23 @@ Eigenvalues for unconstrained axes:
     CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8 
 0.16253 0.11032 0.08296 0.07138 0.06582 0.05495 0.05180 0.04419 
 (Showing 8 of 38 unconstrained eigenvalues)
+
+> ## species classification
+> x <- twin2specstack(tw)
+> if (suppressPackageStartupMessages(require("vegan"))) {
++ cca(x)
++ }
+Call: cca(X = x)
+
+              Inertia Rank
+Total           2.028     
+Unconstrained   2.028  110
+Inertia is scaled Chi-square 
+
+Eigenvalues for unconstrained axes:
+   CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8 
+0.6972 0.2757 0.1798 0.1224 0.0913 0.0790 0.0601 0.0586 
+(Showing 8 of 110 unconstrained eigenvalues)
 
 > 
 > 
@@ -935,7 +952,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.93 0.194 2.159 0 0 
+Time elapsed:  1.83 0.172 2.022 0 0 
 > grDevices::dev.off()
 null device 
           1 

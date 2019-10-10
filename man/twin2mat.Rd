@@ -91,6 +91,11 @@ x <- twin2stack(tw, subset = cut(tw, 2) == 4, downweight = TRUE)
 if (suppressPackageStartupMessages(require("vegan"))) {
 cca(x)
 }
+## species classification
+x <- twin2specstack(tw)
+if (suppressPackageStartupMessages(require("vegan"))) {
+cca(x)
+}
 
 }
 \seealso{
