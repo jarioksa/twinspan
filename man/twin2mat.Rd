@@ -3,16 +3,20 @@
 \name{twin2stack}
 \alias{twin2stack}
 \alias{twin2mat}
+\alias{twin2specstack}
 \title{Extract Transformed Input Data from twinspan Result}
 \usage{
 twin2stack(x, subset, downweight = FALSE)
 
 twin2mat(x)
+
+twin2specstack(x, subset, downweight = TRUE)
 }
 \arguments{
 \item{x}{\code{\link{twinspan}} result object.}
 
-\item{subset}{Select a subset of quadrats.}
+\item{subset}{Select a subset of quadrats (\code{twin2stack}) or
+species (\code{twin2specstack}).}
 
 \item{downweight}{Downweight infrequent pseudospecies.}
 }
@@ -28,7 +32,12 @@ the file generated with \code{\link{twinsform}}. The default is to
 return a binary matrix, where data entries are eiter \eqn{0} or
 \eqn{1}. Alternatively, it is possible to extract a subset of data
 with downweighting allowing scrutiny of \code{\link{twinspan}}
-divisions.
+divisions. When downweighted data are ordinated with correspondence
+analysis (such as \CRANpkg{vegan} functions
+\code{\link[vegan]{cca}}, \code{\link[vegan]{decorana}} with
+\code{ira=1}) the first eigenvalue will match the eigenvalue in
+\code{\link{twinspan}}, and when a division is used as a
+\code{subset}, its eigenvalue will match with \code{twinspan}.
 
 Function \code{twin2mat} extracts data file with pseudospecies
 transformation. Columns are original species, and entries are
@@ -38,6 +47,29 @@ the output from \CRANpkg{vegan} function
 argument \code{character=FALSE}. These data were not analysed in
 \code{\link{twinspan}}, but these are the data tabulated with
 \code{\link{twintable}}.
+
+Function \code{twin2specstack} returns similar data as used in
+species classification in \code{\link{twinspan}}. In this matrix,
+species are rows and columns are \dQuote{pseudocluster}
+preferences. The preference of each species in each terminal group
+and internal division is estimated as proportion of its abundance
+(in pseudospecies scale, see \code{twin2mat}) in the group and all
+data. If this proportion is 0.8 or higher, species is regarded as
+present at pseudocluster value 1, if it is 2 or higher at value 2,
+and if it is 6 or higher at value 3. With \code{downweight=FALSE}
+these data are returned. The columns are named by their division or
+cluster number followed \code{a}, \code{b} and \code{c} for
+pseudocluster levels (and including zero columns). In default, the
+pseudocluster values are still downweighted using species
+frequencies as weights, and then rows are weighted by species
+frequencies and columns by their totals extended to the same lowest
+level of classification, giving two times higher weight to higher
+\dQuote{pseudocluster} levels \code{b} and \code{c}.  When
+ordinated with correspondence analysis (\code{\link[vegan]{cca}},
+\code{\link[vegan]{decorana}} with \code{ira=1}) this gives similar
+eigenvalue for the first axis as in \code{\link{twinspan}}, and
+when a division is used as a \code{subset}, similar eigenvalue as
+in that division.
 }
 \examples{
 
@@ -56,6 +88,11 @@ colnames(x)
 ## Inspect division 4
 x <- twin2stack(tw, subset = cut(tw, 2) == 4, downweight = TRUE)
 ## need vegan for correspondence analysis
+if (suppressPackageStartupMessages(require("vegan"))) {
+cca(x)
+}
+## species classification
+x <- twin2specstack(tw)
 if (suppressPackageStartupMessages(require("vegan"))) {
 cca(x)
 }
