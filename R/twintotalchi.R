@@ -14,7 +14,7 @@
 ### evaluated the first eigenvalue of divisions
 
 `twintotalchi` <-
-    function(x)
+    function(x, what = c("quadrat", "species"))
 {
     what <- match.arg(what)
     chi <- numeric(2^(x$levelmax+1) - 1)
