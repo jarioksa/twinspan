@@ -19,12 +19,17 @@
     what <- match.arg(what)
     chi <- numeric(2^(x$levelmax+1) - 1)
     for(lev in 0:x$levelmax) {
-        ids <- cut(x, level = lev)
+        ids <- cut(x, level = lev, what = what)
         tab <- table(ids)
         for (k in unique(ids))
-            if(sum(ids==k) > 1)
-                chi[k] <- totalchi(
-                    twin2stack(x, subset = ids==k, downweight = TRUE))
+            if(sum(ids==k) > 1) {
+                z <- switch(what,
+                    "quadrat" =
+                        twin2stack(x, subset = ids==k, downweight = TRUE),
+                    "species" =
+                        twin2specstack(x, subset = ids==k, downweight = TRUE))
+                chi[k] <- totalchi(z)
+            }
     }
     chi
 }
