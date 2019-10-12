@@ -187,15 +187,15 @@ quadrats. These latter steps cannot be reproduced within this
 package (yet).
 
 After quadrat classification, TWINSPAN constructs species data
-which is different from the data used in quadrat classification.
-Species are given different weights depending on their ability to
-discriminate between quadrat classes. Then species are classified
-in the same way and with the same code as the quadrats, but no
-indicators (quadrats) are found for species classes. In this way
-species classification is concordant with quadrat classification,
-and good indicators of quadrat classes are grouped together. The
-species classification cannot be reproduced with functions in this
-package (yet).
+which are completely different from the data used in quadrat
+classification.  Species values depend on their ability to
+discriminate quadrat classes at any level of classification. Then
+species are classified in the same way and with the same code as
+the quadrats. In this way species classification is concordant with
+quadrat classification, and good indicators of quadrat classes are
+grouped together. The species classification can be reproduced with
+function \code{\link{twin2specstack}} which also provides a more
+detailed description of the data structure used at this stage.
 }
 
 \examples{

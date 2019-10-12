@@ -18,6 +18,26 @@ program that runs through a process, and prints its results as
 it advances. In **R**, the function should work silently, and
 return the result for further analysis. The code needs a thorough
 re-design to be used in **R**.
+
+## Installation
+
+You can install the current development version from GitHub using
+**devtools** package:
+```r
+devtools::install_github("jarioksa/twinspan")
+```
+You need development tools to install a source package. In particular,
+you need **C** and **Fortran** compilers.
+
+If you cannot install a source package, you may try to install from
+my **R** repository in GitHub:
+```r
+install.packages("twinspan", repos="https://jarioksa.github.io/drat/")
+```
+This repository offers binary packages for Windows and MacOS in addition
+to source package. It is not updated to all development in GitHub, but
+only contains some snapshots of development. I have no tools to test if
+these binary versions are virus free.
   
 ## What you can do with twinspan?
 
