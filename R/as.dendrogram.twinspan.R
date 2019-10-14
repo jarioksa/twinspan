@@ -56,13 +56,19 @@
     height <- match.arg(height)
     obj <- object[[what]]
     clid <- cut(object, what=what)
-    len <- length(obj$eig) * 2
+    len <- length(obj$eig) * 2 + 1
     state <- character(len)
     state[which(obj$eig > 0)] <- "branch"
     state[unique(clid)] <- "leaf"
+    ## eigen: divisions have eigenvalue, for terminal group of size n
+    ## use proportion (n-1)/n of mother division
     if (height == "eigen") {
-        eig <- obj$eig
-        hmax <- max(eig)
+        eig <- numeric(len)
+        eig[seq_along(obj$eig)] <- obj$eig
+        for(k in which(state == "leaf")) {
+            nk <- sum(clid == k)
+            eig[k] <- (1 - 1/nk) * eig[k %/% 2]
+        }
     } else {
         pow2 <- 2^(0:(object$levelmax+1))
         hmax <- sum(max(which(nchar(state) >0 )) >= pow2) + 1
@@ -77,14 +83,14 @@
             attr(zk, "midpoint") <- (length(zk)-1)/2
             labs <- obj$labels[clid == k]
             if (height == "eigen") {
-                height <- 0
+                hi <- 0
             } else {
-                height <- hmax - sum(k >= pow2) - 1
+                hi <- hmax - sum(k >= pow2) - 1
             }
             for (i in seq_len(length(zk))) {
                 attr(zk[[i]], "label") <- labs[i]
                 attr(zk[[i]], "members") <- 1L
-                attr(zk[[i]], "height") <- height
+                attr(zk[[i]], "height") <- hi
                 attr(zk[[i]], "leaf") <- TRUE
             }
         }
@@ -104,10 +110,7 @@
         ## group of size n proportion (n-1)/n of the eigenvalue of
         ## mother division.
         if (height == "eigen") {
-            attr(zk, "height") <- if(state[k] == "leaf")
-                                      (1-1/length(zk)) * eig[k %/% 2]
-                                  else
-                                      eig[k]
+            attr(zk, "height") <- eig[k]
         }
         else
             attr(zk, "height") <- hmax - sum(k >= pow2)
