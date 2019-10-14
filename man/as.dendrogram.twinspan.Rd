@@ -5,7 +5,7 @@
 \title{Extract Species or Quadrat Dendrograms}
 \usage{
 \method{as.dendrogram}{twinspan}(object, what = c("quadrat", "species"),
-  eigenheight = FALSE, ...)
+  height = c("level", "eigen"), ...)
 }
 \arguments{
 \item{object}{\code{\link{twinspan}} result object.}
@@ -13,14 +13,8 @@
 \item{what}{Return either a \code{"quadrat"} or \code{"species"}
 dendrogram.}
 
-\item{eigenheight}{Use eigenvalues of division as dendrogram
-heights. Terminal groups have no eigenvalues, because they were
-not considered for division. For them use arbitrary value that
-for a group of \eqn{n} units is proportion \eqn{(n-1)/n} of the
-height of mother division.  There is no guarantee that
-eigenvalues decrease in divisions, and there may be reversals
-where lower levels are higher than their mother groups, and the
-plotted trees can be messy and unreadable.}
+\item{height}{Use either division levels or eigenvalues of division
+as dendrogram heights.}
 
 \item{\dots}{Other parameters to functions.}
 }
@@ -32,6 +26,15 @@ Function extracts the species or quadrat classification as a
 hierarchic \code{\link[stats]{dendrogram}}.
 }
 \details{
+The dendrogram heights are either levels or eigenvalues of
+divisions depending on argument \code{height}. Terminal groups have
+no eigenvalues, because they were not considered for division. For
+them the method uses arbitrary value that for a group of \eqn{n}
+units is proportion \eqn{(n-1)/n} of the height of mother division.
+There is no guarantee that eigenvalues decrease in divisions, and
+there may be reversals where lower levels are higher than their
+mother groups, and the plotted trees can be messy and unreadable.
+
 \R{} has a wealth of functions to handle and display
 dendrograms. See \code{\link[stats]{dendrogram}} for general
 description. There is even stronger support in packages (for
