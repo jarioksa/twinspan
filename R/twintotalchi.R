@@ -55,8 +55,8 @@
     for(lev in 0:x$levelmax) {
         ids <- cut(x, level = lev, what = what)
         tab <- table(ids)
-        for (k in unique(ids))
-            if(sum(ids==k) > 1) {
+        for (k in unique(ids)) {
+            if(chi[k] == 0 && sum(ids==k) > 1) {
                 z <- switch(what,
                     "quadrat" =
                         twin2stack(x, subset = ids==k, downweight = TRUE),
@@ -64,6 +64,7 @@
                         twin2specstack(x, subset = ids==k, downweight = TRUE))
                 chi[k] <- totalchi(z)
             }
+        }
     }
     chi
 }
