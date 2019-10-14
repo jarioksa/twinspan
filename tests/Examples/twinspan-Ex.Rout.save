@@ -77,6 +77,8 @@ Warning in twinspan(ahti[1:87, ]) : some empty species were removed
            |--[dendrogram w/ 4 branches and 4 members at h = 3] ..
            `--[dendrogram w/ 2 branches and 2 members at h = 3] ..
 > plot(den, type = "triangle", nodePar = list(lab.cex=0.6, pch=NA))
+> den <- as.dendrogram(tw, height="chi")
+> plot(den, type = "triangle", nodePar = list(lab.cex=0.6, pch=NA))
 > 
 > 
 > 
@@ -990,7 +992,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  2.04 0.2 2.33 0 0 
+Time elapsed:  2.304 0.227 2.601 0 0 
 > grDevices::dev.off()
 null device 
           1 

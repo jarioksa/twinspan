@@ -3,14 +3,18 @@
 #' Function extracts the species or quadrat classification as a
 #' hierarchic \code{\link[stats]{dendrogram}}.
 #'
-#' The dendrogram heights are either levels or eigenvalues of
-#' divisions depending on argument \code{height}. Terminal groups have
-#' no eigenvalues, because they were not considered for division. For
-#' them the method uses arbitrary value that for a group of \eqn{n}
-#' units is proportion \eqn{(n-1)/n} of the height of mother division.
-#' There is no guarantee that eigenvalues decrease in divisions, and
-#' there may be reversals where lower levels are higher than their
-#' mother groups, and the plotted trees can be messy and unreadable.
+#' The dendrogram heights are levels of divisions, total Chi-squares
+#' of divisions and groups, or eigenvalues of divisions depending on
+#' argument \code{height}. Terminal groups have no eigenvalues,
+#' because they were not considered for division. For them the method
+#' uses arbitrary value that for a group of \eqn{n} units is
+#' proportion \eqn{(n-1)/n} of the height of mother
+#' division. Chi-squares are evaluated also for terminal groups.
+#' There is no guarantee that eigenvalues or Chi-squares decrease in
+#' divisions, and there may be reversals where lower levels are higher
+#' than their mother groups, and the plotted trees can be messy and
+#' unreadable. Chi-squares decrease more monotonically than
+#' eigenvalues of first axis.
 #'
 #' \R{} has a wealth of functions to handle and display
 #' dendrograms. See \code{\link[stats]{dendrogram}} for general
@@ -34,14 +38,17 @@
 #' den <- as.dendrogram(tw)
 #' str(den, max.level = 4)
 #' plot(den, type = "triangle", nodePar = list(lab.cex=0.6, pch=NA))
+#' den <- as.dendrogram(tw, height="chi")
+#' plot(den, type = "triangle", nodePar = list(lab.cex=0.6, pch=NA))
 #'
 #' @seealso \code{\link{as.hclust.twinspan}}, \code{\link{dendrogram}}.
 #'
 #' @param object \code{\link{twinspan}} result object.
 #' @param what Return either a \code{"quadrat"} or \code{"species"}
 #'     dendrogram.
-#' @param height Use either division levels or eigenvalues of division
-#'     as dendrogram heights.
+#' @param height Use either division levels (\code{"level"}), total
+#'     Chi-squares (\code{"chi"}) or eigenvalues of first axis
+#'     (\code{"eigen"}) of division as dendrogram heights.
 #'
 #' @param \dots Other parameters to functions.
 #'
@@ -50,7 +57,7 @@
 #' @export
 `as.dendrogram.twinspan` <-
     function(object, what = c("quadrat", "species"),
-             height = c("level", "eigen"), ...)
+             height = c("level", "chi", "eigen"), ...)
 {
     what <- match.arg(what)
     height <- match.arg(height)
@@ -69,6 +76,8 @@
             nk <- sum(clid == k)
             eig[k] <- (1 - 1/nk) * eig[k %/% 2]
         }
+    } else if (height == "chi") {
+        eig <- twintotalchi(object, what = what)
     } else {
         pow2 <- 2^(0:(object$levelmax+1))
         hmax <- sum(max(which(nchar(state) >0 )) >= pow2) + 1
@@ -82,7 +91,7 @@
             attr(zk, "members") <- length(zk)
             attr(zk, "midpoint") <- (length(zk)-1)/2
             labs <- obj$labels[clid == k]
-            if (height == "eigen") {
+            if (height %in% c("chi","eigen")) {
                 hi <- 0
             } else {
                 hi <- hmax - sum(k >= pow2) - 1
@@ -109,7 +118,7 @@
         ## terminal groups ("leaf"). We use an arbitrary value: for
         ## group of size n proportion (n-1)/n of the eigenvalue of
         ## mother division.
-        if (height == "eigen") {
+        if (height %in% c("chi","eigen")) {
             attr(zk, "height") <- eig[k]
         }
         else
