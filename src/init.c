@@ -15,9 +15,6 @@ extern void F77_NAME(class)(void *, void *, void *, void *, void *, void *,
 			    void *, void *, void *, void *, void *, void *,
 			    void *, void *, void *, void *, void *, void *,
 			    void *, void *, void *, void *);
-extern void F77_NAME(makejdat)(void *, void *, void *, void *, void *, void *,
-			       void *, void *, void *, void *, void *, void *,
-			       void *);
 extern void F77_NAME(revspec)(void *, void *, void *, void *, void *, void *,
 			      void *, void *, void *);
 
@@ -33,7 +30,6 @@ static const R_CMethodDef CCalls[] = {
 static const R_FortranMethodDef FortranCalls[] = {
     {"pseudo", (DL_FUNC) &F77_NAME(pseudo), 13},
     {"class", (DL_FUNC) &F77_NAME(class), 40},
-    {"makejdat", (DL_FUNC) &F77_NAME(makejdat), 13},
     {"revspec", (DL_FUNC) &F77_NAME(revspec), 9},
     {NULL, NULL, 0}
 };

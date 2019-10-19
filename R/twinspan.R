@@ -334,22 +334,80 @@
                     indicators = indics, positivelimit = Z$limpos,
                     labels = rnames, indlabels = pnames,
                     pseudo2species = jnflag[jnflag > 0])
-    ## species classification
-    Y <- .Fortran("makejdat", mm=as.integer(mm), nn=as.integer(Z$nn),
-                  nspec=as.integer(n), ndat=as.integer(Z$ndat),
-                  nmax=as.integer(nmax), iaddr=as.integer(Z$iaddr),
-                  idat=as.integer(Z$idat), indpot=as.integer(Z$indpot),
-                  iclass=as.integer(Z$iclass), y=as.double(Z$y),
-                  ccwt=as.double(Z$ccwt), rrwt=as.double(Z$rrwt),
-                  jdat=integer(ndat))
-    Z <- .Fortran("class", nspec=as.integer(Y$nspec),
-                  icmax=as.integer(3*max(Y$iclass)), ndat=as.integer(Y$ndat),
-                  0L, mmz=as.integer(MMZ), mms=as.integer(MMS),  ix=Z$ix,
-                  jnam=Z$jnam, iirow=Z$iirow, iaddr=Y$iaddr, indpot=Y$indpot,
+    ## species classification: build a matrix of preferences for
+    ## terminal clusters & internal divisions: see twin2specstack()
+    iclass <- quadrat$iclass
+    spmat <- matrix(0, max(iclass), n)
+    ## species totals in each terminal group
+    icl <- iclass[1]
+    k <- 1
+    spsum <- numeric(n)
+    for(i in seq_along(idat)) {
+        ## new quadrat?
+        if (idat[i] == -1) {
+            k <- k + 1
+            icl <- iclass[k]
+            next
+        }
+        ## new species?
+        if (idat[i] <= n) {
+            j <- idat[i]
+            spsum[j] <- spsum[j] + 1L
+        }
+        spmat[icl, j] <- spmat[icl, j] + 1L
+    }
+    ## accumulate species totals for internal divisions
+    for (i in max(iclass):2) {
+        spmat[i %/% 2,] <- spmat[i %/% 2,] + spmat[i,]
+    }
+    ## class totals
+    clsum <- rowSums(spmat)
+    ## ratio of preference
+    rat <- spmat * (clsum[1] - clsum) /
+        (clsum * sweep(-spmat, 2, spmat[1,], "+") + 1e-7)
+    rat <- t(rat)
+    ## finally construct species data
+    spmat <- matrix(0, n, 3 * max(iclass))
+    i <- seq(1, 3 * max(iclass), by = 3)
+    spmat[,i] <- rat >= 0.8
+    spmat[,i+1] <- rat >= 2
+    spmat[,i+2] <- rat >= 6
+    nc <- ncol(spmat)
+    jdat <- numeric(ndat/2)
+    k <- 1
+    for (j in seq_len(n)) {
+        for (i in seq_len(nc)) {
+            if (spmat[j, i] > 0) {
+                jdat[k] <- i
+                k <- k + 1
+            }
+        }
+        jdat[k] <- -1
+        k <- k + 1
+    }
+    ## clsum up to every cluster and to same class level
+    icl <- rep(seq_along(clsum), each = 3)
+    clsum <- rep(clsum, each = 3)
+    lev <- 2^levmax
+    while(any(up <- icl < lev)) {
+        clsum[up] <- sqrt(2) * clsum[up]
+        icl[up] <- 2 * icl[up]
+    }
+    zidat <- Z$idat ## full data
+    ## second and third pseudoquadrat level get double weight
+    clsum <- c(1, 2, 2) * clsum
+    Z <- .Fortran("class", nspec=as.integer(n),
+                  icmax=as.integer(nc),
+                  ndat=as.integer(length(jdat)),
+                  0L, mmz=as.integer(MMZ), mms=as.integer(MMS), ix=Z$ix,
+                  jnam=Z$jnam, iirow=Z$iirow, iaddr=which(jdat == -1),
+                  indpot=seq_len(nc),
                   indord=Z$indord, izone=Z$izone, iy=Z$iy, jjcol=Z$jjcol,
-                  jdat=Y$jdat, indsig=Z$indsig, ipict=Z$ipict,
-                  x=Z$x, xx=Z$xx, rtot=Z$rtot, rrwt=Y$rrwt, rowwgt=Z$rowwgt,
-                  y=Y$y, yy=Z$yy, ctot=Z$ctot, ccwt=Y$ccwt, colwgt=Z$colwgt,
+                  jdat=as.integer(jdat), indsig=Z$indsig, ipict=Z$ipict,
+                  x=Z$x, xx=Z$xx, rtot=Z$rtot, rrwt=as.double(spsum),
+                  rowwgt=Z$rowwgt,
+                  y=Z$y, yy=Z$yy, ctot=Z$ctot, ccwt=as.double(clsum),
+                  colwgt=Z$colwgt,
                   jname1=Z$jname1, inflag=as.integer(inflag),
                   x3=Z$x3, x4=Z$x4, x5=Z$x5, lind=Z$lind,
                   inlevmax = Z$inlevmax, inmmin=Z$inmmin,
@@ -364,7 +422,7 @@
     rev <- .Fortran("revspec", nspec=as.integer(n), mm=as.integer(mm),
                     ndat=Z$ndat, ix=as.integer(quadrat$index),
                     iy=as.integer(sindex),
-                    x=Z$x, y=Z$y, idat=Y$idat,
+                    x=Z$x, y=Z$y, idat=zidat,
                     irev=as.integer(irev))$irev
     if (rev)
         sindex <- rev(sindex)
