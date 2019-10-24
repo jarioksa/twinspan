@@ -25,6 +25,26 @@ Type 'q()' to quit R.
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
 > cleanEx()
+> nameEx("ahti")
+> ### * ahti
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ahti
+> ### Title: Vegetation of Lichen-rich Pine Forests in Finland
+> ### Aliases: ahti
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> ## Read the vignette listing complete scientific names
+> if (interactive()) {
++ vignette("ahtinames", package="twinspan")
++ }
+> 
+> 
+> 
+> cleanEx()
 > nameEx("as.dendrogram.twinspan")
 > ### * as.dendrogram.twinspan
 > 
@@ -943,8 +963,7 @@ List of 8
  111001 Dicrpoly -------------1-------11-1---------1---1
  11101  Cetrisla -1--------------1-1-11--1-11------1----
  111110 Melaprat -----1---------------------------------
-  sites species 
-     39      53 
+39 sites, 53 species
 > 
 > 
 > 
@@ -992,7 +1011,7 @@ List of 8
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  2.304 0.227 2.601 0 0 
+Time elapsed:  2.3 0.222 2.616 0 0 
 > grDevices::dev.off()
 null device 
           1 

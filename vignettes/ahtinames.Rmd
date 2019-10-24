@@ -1,0 +1,135 @@
+<!--
+%\VignetteIndexEntry{ahti names}
+%\VignetteEngine{knitr::knitr}
+%\VignetteEncoding{UTF-8}
+-->
+
+Full Names of Species in the `ahti` Data File
+=============================================
+
+This file lists full scientific names originally used by Oksanen &
+Ahti (1982) together with currently popular names of taxa in the
+`ahti` data of the **twinspan** package. The current names were mainly
+searched with **CRAN** packages **Taxonstand** and
+**taxize**. **Taxonstand** searches now frozen Plant List, and in
+**taxize** we used sources `NCBI` and `iPlant_TNRS` for plants and
+Index Fungorum for lichens. When these sources were in conflict, I
+used my own arbitration for the preferred name
+
+File name | Original name | Current name
+----------|---------------|-------------
+`Antedioi` |	*Antennaria dioica* |
+`Arctalpi` |	*Arctostaphylos alpinus* |	*Arctous alpina*	
+`Arctuvau` |	*Arctostaphylos uva-ursi* |		
+`Arthcitr` |	*Arthrorhaphis citrinella* |		
+`Baeoplac` |	*Baeomyces placophyllus* |		
+`Baeorose` |	*Baeomyces roseus* |	*Dibaeis rosea*	
+`Baeorufu` |	*Baeomyces rufus* |		
+`Barblyco` |	*Barbilophozia lycopodioides* |		
+`Buxbaphy` |	*Buxbaumia aphylla* |		
+`Calaarun` |	*Calamagrostis arundinacea* |		
+`Calaepig` |	*Calamagrostis epigejos*		
+`Calalapp` |	*Calamagrostis lapponica* |    *Deyeuxia lapponica*	
+`Callvulg` |	*Calluna vulgaris* |		
+`Careeric` |	*Carex ericetorum* |		
+`Cerapurp` |	*Ceratodon purpureus* |		
+`Cetrcucu` |	*Cetraria cucullata* |	*Nephromopsis cucullata*	
+`Cetreric` |	*Cetraria ericetorum* |		
+`Cetrisla` |	*Cetraria islandica* |		
+`Cetrniva` |	*Cetraria nivalis* |	*Nephromopsis nivalis*	
+`Cladamau` |	*Cladonia amaurocraea* |		
+`Cladarbu` |	*Cladina arbuscula* |	*Cladonia arbuscula*	
+`Cladbacf` |	*Cladonia bacilliformis* |		
+`Cladbaci` |	*Cladonia bacillaris* |		
+`Cladbell` |	*Cladonia bellidiflora* |		
+`Cladbotr` |	*Cladonia botrytes* |		
+`Cladcarn` |	*Cladonia carneola* |		
+`Cladceno` |    *Cladonia cenotea* |		
+`Cladcocc` |	*Cladonia coccifera* |		
+`Cladconi` |	*Cladonia coniocraea* |		
+`Cladcorn` |	*Cladonia cornuta* |		
+`Cladcris` |	*Cladonia crispata* |		
+`Cladcyan` |	*Cladonia cyanipes* |		
+`Claddefo` |	*Cladonia deformis* |		
+`Cladfimb` |	*Cladonia fimbriata* |		
+`Cladfloe` |	*Cladonia floerkeana* |		
+`Cladfurc` |	*Cladonia furcata* |
+`Cladgrac` |	*Cladonia gracilis* ssp. *gracilis* |		
+`Cladgray` |	*Cladonia grayi* |		
+`Cladmacr` |	*Cladonia macrophylla* |		
+`Cladmaxi` |	*Cladonia maxima*	|	
+`Cladmero` |	*Cladonia merochlorophaea* |		
+`Cladmiti` |	*Cladina mitis* | 	*Cladonia mitis*	
+`Cladnigr` |	*Cladonia gracilis* ssp. *nigripes* |		
+`Cladphyl` |	*Cladonia phyllophora* |		
+`Cladpleu` |	*Cladonia pleurota* |		
+`Cladpyxi` |	*Cladonia pyxidata* |		
+`Cladrang` |	*Cladina rangiferina* |	*Cladonia rangiferina*	
+`Cladsqua` |	*Cladonia squamosa* |		
+`Cladstel` |	*Cladina stellaris* |	*Cladonia stellaris*	
+`Cladsubf` |	*Cladonia subfurcata* |		
+`Cladsubu` |	*Cladonia subulata* |		
+`Cladturb` |	*Cladonia gracilis* ssp. *turbinata* |		
+`Cladunci` |	*Cladonia uncialis* |		
+`Cladvert` |	*Cladonia verticillata* |	*Cladonia cervicornis* ssp. *verticillata*	
+`Convmaja` |	*Convallaria majalis* |		
+`Descflex` |	*Deschampsia flexuosa* |	*Avenella flexuosa*	
+`Dicrdrum` |	*Dicranum drummondii* |		
+`Dicrfusc` |    *Dicranum fuscescens* |		
+`Dicrmaju` |	*Dicranum majus* |		
+`Dicrpoly` |	*Dicranum polysetum* |		
+`Dicrscop` |	*Dicranum scoparium* |		
+`Dicrspur` |	*Dicranum spurium* |		
+`Dicrundu` |	*Dicranum undulatum* |		
+`Diphalpi` |	*Diphasium alpinum* |	*Lycopodium alpinum*	
+`Diphcomp` |	*Diphasium complanatum* |	*Lycopodium complanatum*	
+`Empeherm` |	*Empetrum hermaphroditum* |	*Empetrum nigrum* ssp. *hermaphroditum*	
+`Empenigr` |	*Empetrum nigrum* | *Empetrum nigrum* ssp. *nigrum*		
+`Epilangu` |	*Epilobium angustifolium* |	*Chamaenerion angustifolium*	
+`Festovin` |	*Festuca ovina* |		
+`Hepatica` |	Hepaticae (liwerworts) |		
+`Hierumbe` |	*Hieracium umbellatum* |	
+`Hylosple` |	*Hylocomium splendens* |		
+`Hypomacu` |	*Hypochoeris maculata* | *Hypochaeris maculata*	
+`Icmaeric` |	*Icmadophila ericetorum* |		
+`Lecigran` |	*Lecidea granulosa* |	*Trapeliopsis granulosa*	
+`Lecilimo` |	*Lecidea limosa* |	*Protomicarea limosa*	
+`Leciulig` |	*Lecidea uliginosa* |	*Placynthiella uliginosa*	
+`Ledupalu` |	*Ledum palustre* |	*Rhododendron tomentosum*	
+`Linnbore` |	*Linnaea borealis* |
+`Luzupilo` |    *Luzula pilosa* |		
+`Lycoanno` |	*Lycopodium annotinum* |		
+`Melaprat` |	*Melampyrum pratense* |		
+`Monohypo` |	*Monotropa hypopitys* |		
+`Nepharct` |	*Nephroma arcticum* |		
+`Ochrfrig` |	*Ochrolechia frigida* |		
+`Ochrgemi` |	*Ochrolechia geminipara* |	*Pertusaria geminipara*	
+`Peltapht` |	*Peltigera aphthosa* |		
+`Peltleuc` |	*Peltigera leucophlebia* |		
+`Peltmala` |	*Peltigera malacea* |		
+`Peltpoly` |	*Peltigera polydactyla* |	*Peltigera polydactylon*	
+`Peltrufe` |	*Peltigera rufescens* |		
+`Peltscab` |	*Peltigera scabrosa* |		
+`Phylcoer` |	*Phyllodoce coerulea* |	*Phyllodoce caerulea*	
+`Pleuschr` |	*Pleurozium schreberi* |		
+`Pohlnuta` |	*Pohlia nutans* |		
+`Polycomm` |	*Polytrichum commune* |		
+`Polyjuni` |	*Polytrichum juniperinum* |		
+`Polyodor` |	*Polygonatum odoratum* |		
+`Polypili` |	*Polytrichum piliferum* |		
+`Polystri` |	*Polytrichum strictum* |		
+`Ptilcili` |	*Ptilidium ciliare* |		
+`Ptilcris` |	*Ptilium crista-castrensis* |		
+`Ptilpulc` |	*Ptilidium pulcherrimum* |		
+`Pycnpapi` |	*Pycnothelia papillaria* |		
+`Solivirg` |	*Solidago virgaurea* |		
+`Solocroc` |	*Solorina crocea* |		
+`Stercond` |	*Stereocaulon condensatum* |		
+`Stergran` |	*Stereocaulon grande* |		
+`Sterpasc` |	*Stereocaulon paschale* |		
+`Stertome` |	*Stereocaulon tomentosum* |		
+`Thymserp` |	*Thymus serpyllum* |		
+`Tonicumu` |	*Toninia cumulata* |	*Stereocaulon cumulatum*	
+`Vaccmyrt` |	*Vaccinium myrtillus* |		
+`Vacculig` |	*Vaccinium uliginosum* |		
+`Vaccviti` |	*Vaccinium vitis-idaea* |		

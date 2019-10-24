@@ -8,6 +8,8 @@ Authors@R: c(person(given = "Jari", family = "Oksanen",
 	     person(given = c("Mark", "O."), family = "Hill",
 	     role = c("aut")))
 Depends: R (>= 3.5.0)
+Suggests: knitr
+VignetteBuilder: utils, knitr
 Description: Classification of biological communities based on splitting
   first axis of Correspondence Analysis for the current subset of the
   data, and finding species that best indicate the splits. The method
