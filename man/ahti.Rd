@@ -14,10 +14,10 @@ estimated cover percentage values (Oksanen & Ahti, 1982).
 
 \details{
 
-The taxon names are given with 4+4 acronyms of the binomial name. Many
-species are lichens and bryophytes which may not be widely known: please
-check Oksanen & Ahti (1982) if in doubt. The nomenclature follows the
-original publication and is not updated to the modern view.
+The taxon names are given with 4+4 acronyms of the binomial name. The
+complete scientific names are listed in \code{\link{vignette}}
+\code{"ahtinames"}; perhaps the easiest way of reading the vignette is
+to use \code{\link{browseVignettes}} (but see Examples below).
 
 Oksanen & Ahti (1982) allocated the quadrats into vegetation classes
 that they called \sQuote{noda}. The name of quadrat is based on the
@@ -42,9 +42,15 @@ Oksanen & Ahti (1982).
 }
 
 \references{
-Oksanen, J. & Ahti, T. (1982) Lichen-rich pine forest vegatation in
+Oksanen, J. & Ahti, T. (1982) Lichen-rich pine forest vegetation in
 Finland. \emph{Annales Botanici Fennici} \bold{19,} 275--301.
 }
 
+\examples{
+## Read the vignette listing complete scientific names
+if (interactive()) {
+vignette("ahtinames", package="twinspan")
+}
+}
 
 \keyword{datasets}
