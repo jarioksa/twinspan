@@ -7,14 +7,18 @@
 Full Names of Species in the `ahti` Data File
 =============================================
 
-This file lists full scientific names originally used by Oksanen &
-Ahti (1982) together with currently popular names of taxa in the
-`ahti` data of the **twinspan** package. The current names were mainly
-searched with **CRAN** packages **Taxonstand** and
-**taxize**. **Taxonstand** searches now frozen Plant List, and in
-**taxize** we used sources `NCBI` and `iPlant_TNRS` for plants and
-Index Fungorum for lichens. When these sources were in conflict, I
-used my own arbitration for the preferred name
+This table lists full scientific names originally used by Oksanen &
+Ahti (1982). The first column (File name) gives the acronym used in
+the `ahti` file, and the table is ordered alphabetically by this
+acronym. The next columns give the full scientific names used by
+Oksanen & Ahti (1982), and the last column popularly accepted current
+names.  The current names were searched with the help of **CRAN**
+packages **Taxonstand** and **taxize**. The plant names were checked
+with **Taxonstand** that uses now frozen Plant List v1.1, and with
+**taxize** that uses sources `NCBI` and `iPlant_TNRS`. When these were
+in conflict, the alternative was chosen that avoids excessive
+splitting into monospecific genera. The lichen names were checked with
+**taxize** using Index Fungorum.
 
 File name | Original name | Current name
 ----------|---------------|-------------
@@ -133,3 +137,8 @@ File name | Original name | Current name
 `Vaccmyrt` |	*Vaccinium myrtillus* |		
 `Vacculig` |	*Vaccinium uliginosum* |		
 `Vaccviti` |	*Vaccinium vitis-idaea* |		
+
+### References
+
+Oksanen, J. & Ahti, T. 1982. Lichen-rich pine forest vegetation in
+Finland. _Annales Botanici Fennici_ **19,** 275--301.
