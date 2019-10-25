@@ -23,12 +23,12 @@ splitting into monospecific genera. The lichen names were checked with
 File name | Original name | Current name
 ----------|---------------|-------------
 `Antedioi` |	*Antennaria dioica* |
-`Arctalpi` |	*Arctostaphylos alpinus* |	*Arctous alpina*	
-`Arctuvau` |	*Arctostaphylos uva-ursi* |		
-`Arthcitr` |	*Arthrorhaphis citrinella* |		
+`Arctalpi` |	*Arctostaphylos alpinus* |	*Arctous alpina*
+`Arctuvau` |	*Arctostaphylos uva-ursi* |
+`Arthcitr` |	*Arthrorhaphis citrinella* |
 `Baeoplac` |	*Baeomyces placophyllus* |		
-`Baeorose` |	*Baeomyces roseus* |	*Dibaeis rosea*	
-`Baeorufu` |	*Baeomyces rufus* |		
+`Baeorose` |	*Baeomyces roseus* |	*Dibaeis baeomyces*
+`Baeorufu` |	*Baeomyces rufus* |
 `Barblyco` |	*Barbilophozia lycopodioides* |		
 `Buxbaphy` |	*Buxbaumia aphylla* |		
 `Calaarun` |	*Calamagrostis arundinacea* |		
@@ -44,7 +44,7 @@ File name | Original name | Current name
 `Cladamau` |	*Cladonia amaurocraea* |		
 `Cladarbu` |	*Cladina arbuscula* |	*Cladonia arbuscula*	
 `Cladbacf` |	*Cladonia bacilliformis* |		
-`Cladbaci` |	*Cladonia bacillaris* |		
+`Cladbaci` |	*Cladonia bacillaris* |	*Cladonia macilenta*
 `Cladbell` |	*Cladonia bellidiflora* |		
 `Cladbotr` |	*Cladonia botrytes* |		
 `Cladcarn` |	*Cladonia carneola* |		
@@ -54,7 +54,7 @@ File name | Original name | Current name
 `Cladcorn` |	*Cladonia cornuta* |		
 `Cladcris` |	*Cladonia crispata* |		
 `Cladcyan` |	*Cladonia cyanipes* |		
-`Claddefo` |	*Cladonia deformis* |		
+`Claddefo` |	*Cladonia deformis* coll.|
 `Cladfimb` |	*Cladonia fimbriata* |		
 `Cladfloe` |	*Cladonia floerkeana* |		
 `Cladfurc` |	*Cladonia furcata* |
@@ -64,7 +64,7 @@ File name | Original name | Current name
 `Cladmaxi` |	*Cladonia maxima*	|	
 `Cladmero` |	*Cladonia merochlorophaea* |		
 `Cladmiti` |	*Cladina mitis* | 	*Cladonia mitis*	
-`Cladnigr` |	*Cladonia gracilis* ssp. *nigripes* |		
+`Cladnigr` |	*Cladonia gracilis* ssp. *nigripes* | *Cladonia gracilis* ssp. *elongata*
 `Cladphyl` |	*Cladonia phyllophora* |		
 `Cladpleu` |	*Cladonia pleurota* |		
 `Cladpyxi` |	*Cladonia pyxidata* |		
