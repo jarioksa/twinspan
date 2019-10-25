@@ -33,7 +33,7 @@ File name | Original name | Current name
 `Buxbaphy` |	*Buxbaumia aphylla* |		
 `Calaarun` |	*Calamagrostis arundinacea* |		
 `Calaepig` |	*Calamagrostis epigejos*		
-`Calalapp` |	*Calamagrostis lapponica* |    *Deyeuxia lapponica*	
+`Calalapp` |	*Calamagrostis lapponica* |
 `Callvulg` |	*Calluna vulgaris* |		
 `Careeric` |	*Carex ericetorum* |		
 `Cerapurp` |	*Ceratodon purpureus* |		
