@@ -4,7 +4,7 @@
 \alias{image.twinspan}
 \title{Image of Quadrat and Species Classification and Average Abundances in Cells}
 \usage{
-\method{image}{twinspan}(x, leadingspecies = FALSE, ...)
+\method{image}{twinspan}(x, leadingspecies = FALSE, CAorder = FALSE, ...)
 }
 \arguments{
 \item{x}{\code{\link{twinspan}} result object.}
@@ -12,6 +12,11 @@
 \item{leadingspecies}{Show averages of leading species (most
 abundant, ties broken by frequency) of each cluster instead of
 averages of all species of the group.}
+
+\item{CAorder}{Do not use the original \code{twinspan} ordering of
+quadrats and species, but reorder the dendrograms by
+correspondence analyais to give better diagonal structure in
+image.}
 
 \item{\dots}{Other arguments passed to \code{\link[vegan]{tabasco}}
 and further to \code{\link[stats]{heatmap}}.}
