@@ -81,6 +81,8 @@
         colnames(mat) <- spcl$labels
     }
     rownames(mat) <- qcl$labels
-    tabasco(mat, use=qcl, sp.ind = spcl, Rowv = FALSE, Colv = FALSE, ...)
+    ## species order may be reversed
+    tabasco(mat, use=qcl, sp.ind = spcl, Rowv = FALSE,
+            Colv = order(spcl$order) , ...)
     invisible(mat)
 }
