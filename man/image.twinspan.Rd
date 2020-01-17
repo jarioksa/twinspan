@@ -4,7 +4,7 @@
 \alias{image.twinspan}
 \title{Image of Quadrat and Species Classification and Average Abundances in Cells}
 \usage{
-\method{image}{twinspan}(x, leadingspecies = FALSE, CAorder = FALSE, ...)
+\method{image}{twinspan}(x, leadingspecies = FALSE, reorder = FALSE, ...)
 }
 \arguments{
 \item{x}{\code{\link{twinspan}} result object.}
@@ -13,10 +13,14 @@
 abundant, ties broken by frequency) of each cluster instead of
 averages of all species of the group.}
 
-\item{CAorder}{Do not use the original \code{twinspan} ordering of
-quadrats and species, but reorder the dendrograms by
-correspondence analyais to give better diagonal structure in
-image.}
+\item{reorder}{Do not use the original \code{twinspan} ordering of
+quadrats and species, but reorder the dendrograms. Setting this
+\code{TRUE} will use the first correspondence analysis axis to
+reorder the tree which often improves the diagonal
+structure. With this option, it is also possible to use
+arguments \code{Colv} and \code{Rowv} vectors to reorder the
+dendrogram by their values. The length of such a vector must
+correspond to the number of row or column classes.}
 
 \item{\dots}{Other arguments passed to \code{\link[vegan]{tabasco}}
 and further to \code{\link[stats]{heatmap}}.}

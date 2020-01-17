@@ -51,10 +51,14 @@
 #' @param leadingspecies Show averages of leading species (most
 #'     abundant, ties broken by frequency) of each cluster instead of
 #'     averages of all species of the group.
-#' @param CAorder Do not use the original \code{twinspan} ordering of
-#'     quadrats and species, but reorder the dendrograms by
-#'     correspondence analyais to give better diagonal structure in
-#'     image.
+#' @param reorder Do not use the original \code{twinspan} ordering of
+#'     quadrats and species, but reorder the dendrograms. Setting this
+#'     \code{TRUE} will use the first correspondence analysis axis to
+#'     reorder the tree which often improves the diagonal
+#'     structure. With this option, it is also possible to use
+#'     arguments \code{Colv} and \code{Rowv} vectors to reorder the
+#'     dendrogram by their values. The length of such a vector must
+#'     correspond to the number of row or column classes.
 #' @param \dots Other arguments passed to \code{\link[vegan]{tabasco}}
 #'     and further to \code{\link[stats]{heatmap}}.
 #'
@@ -64,7 +68,7 @@
 #'
 #' @export
 `image.twinspan` <-
-    function(x, leadingspecies = FALSE, CAorder = FALSE, ...)
+    function(x, leadingspecies = FALSE, reorder = FALSE, ...)
 {
     mat <- twin2mat(x) # matrix of pseudospecies data
     spcl <- as.hclust(x, "species") # species tree
@@ -86,7 +90,7 @@
     }
     rownames(mat) <- qcl$labels
     ## tabasco default reorders table by CA axis 1
-    if (CAorder) {
+    if (reorder) {
         tabasco(mat, use=qcl, sp.ind = spcl, ...)
     }
     ## Use original twinspsan order (species order may be reversed)
