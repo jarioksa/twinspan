@@ -1,4 +1,50 @@
-### Twinspan ID for clustering object
+##' Get Twinspan Classs Identiers for Clustering Object
+##'
+##' @description Twinspan returns the classification topology as a
+##'     single integer vector. These functions find similar
+##'     classification identifiers for each sampling unit, or
+##'     \code{cut} that vector for a lower number of classes.
+##'
+##' @details Twinspan expresses the topology of cluster tree as an
+##'     integer. When a cluster \eqn{z} is split into two, its
+##'     daughters will be \eqn{2z}{2*z} and \eqn{2z+1}{2*z+1}, and its
+##'     parent cluster is found with integer division \eqn{z/2}. The
+##'     classification vector only stores the topology of the trees,
+##'     and has no information on heights.
+##'
+##'     \code{\link{twinspan}} will not split small clusters and only
+##'     proceeds to a defined depth of divisions. In contrast,
+##'     \code{twinind} proceeds to each terminal unit (leaf, sampling
+##'     unit, quadrat) and these will all have unique
+##'     identifiers. With \code{cut} function you can restrict the
+##'     identifiers to certain level of classification similarly as in
+##'     \code{twinspan} (see \code{\link{cut.twinspan}}).
+##'
+##' @section Warning: If the classification is deep and has many (>
+##'     30) levels of hierarchy, the identifiers can exceed the
+##'     integer maximum in \R{}, and leaves may have non-unique
+##'     identifiers, and may not recover the correct
+##'     topoloty. However, they may still be unique beyond this limit,
+##'     but the user should check this after getting a warning.
+##'
+##' @return Vector of class \code{"twinid"} giving
+##'     \code{\link{twinspan}} id of each sampling unit.
+##'
+##' @param hclust Cluster Analysis result compatible with
+##'     \code{\link{hclust}}.
+##' @param x Vector of classification IDs from \code{twinind}.
+##' @param level Level of hierarchy of classification. If missing,
+##'     level used in the object will be returned.
+##' @param ... Other parameters to functions (ignored).
+##'
+##' @examples
+##' data(ahti)
+##' cl <- hclust(dist(ahti, "manhattan"), "average")
+##' (id <- twinid(cl))
+##' cut(id, 6)
+##' table(cut(id, 6))
+##' 
+##' @export
 `twinid` <-
     function(hclust, ...)
 {
@@ -47,6 +93,8 @@
     classid
 }
 
+#' @rdname twinid
+#' @export
 `cut.twinid` <-
     function(x, level, ...)
 {
