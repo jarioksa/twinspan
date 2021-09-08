@@ -10,16 +10,16 @@
     classid <- numeric(nrow(merge) + 1)
     ## Recursive function to label units (leaves) as Twinspan class IDs
     visit <- function(i, j) {
-        ## left entry: deeper level, double id and save on left identifiers
         if (j==1) {
+            ## left: deeper level, double id and save on left identifiers
             id <<- 2*id
             leftid[i] <<- id
         } else {
-            ## right entry: same level as left, but increase id by one
+            ## right: same level as left, but increase id by one
             id <<- leftid[i] + 1
         }
-        ## leaf: save its id and exit this instance of visit()
         if (merge[i,j] < 0) {
+            ## leaf: save its id and exit this instance of visit()
             classid[-merge[i,j]] <<- id
         } else {
             ## internal node: visit recursively left and right branches
