@@ -29,6 +29,9 @@
     }
     visit(nrow(merge), 1)
     visit(nrow(merge), 2)
+    ## warn on large IDs: depth > 30
+    if (max(classid) > .Machine$integer.max)
+        warning("some class identifiers larger than integer maximum")
     class(classid) <- "twinid"
     classid
 }
