@@ -29,5 +29,18 @@
     }
     visit(nrow(merge), 1)
     visit(nrow(merge), 2)
+    class(classid) <- "twinid"
     classid
+}
+
+`cut.twinid` <-
+    function(x, level, ...)
+{
+    ## max id for given level
+    clmax <- 2^(level+1) - 1
+    while (any(big <- x > clmax)) {
+        ## mother class by integer division
+        x[big] <- x[big] %/% 2
+    }
+    x
 }
