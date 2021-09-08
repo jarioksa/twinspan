@@ -98,6 +98,9 @@
 `cut.twinid` <-
     function(x, level, ...)
 {
+    ## no level: return x
+    if (missing(level))
+        return(x)
     ## max id for given level
     clmax <- 2^(level+1) - 1
     while (any(big <- x > clmax)) {
