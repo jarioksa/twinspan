@@ -23,6 +23,11 @@ all quadrats and cannot be used together with \code{maxspp}.}
 
 \item{subset}{Select a subset of quadrats.}
 }
+\value{
+Function returns invisibly the data that
+    \code{\link[vegan]{vegemite}} used. This data can also be
+    exported or used as any other data set.
+}
 \description{
 Prints a community table of pseudospecies ordered by
 \code{\link{twinspan}} classification.
