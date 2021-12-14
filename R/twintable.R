@@ -26,6 +26,10 @@
 #' abundant species of each species group (ties broken by species
 #' frequency), or species used as indicators, or both.
 #'
+#' @return Function returns invisibly the data that
+#'     \code{\link[vegan]{vegemite}} used. This data can also be
+#'     exported or used as any other data set.
+#'
 #' @examples
 #'
 #' data(ahti)
@@ -83,6 +87,7 @@
     mat <- mat[i,j]
     dimnames(mat) <- list(inam, jnam)
     vegemite(mat, zero="-")
+    invisible(mat) # return data that vegemite used
 }
 
 ### Unexported function to turn the class number into binary string.
