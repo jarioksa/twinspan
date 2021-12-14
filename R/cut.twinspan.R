@@ -54,3 +54,31 @@
     }
     cl
 }
+
+## cut by group homogeneity as defined by within-group
+## Chi-square. This could give similar clustering as Rolecek's
+## modified twinspan which only splits the most heterogeneous group at
+## each step instead of dichotomizing. However, we use the internal
+## twinspan criterion of Chi-square instead of dissimilarities. There
+## is no guarantee that the tree will be ordered, but let's hope so
+## and as.dendrogram(x, height="chi") will show this.
+
+#' @export
+`chicut` <-
+    function(x, ngroups)
+{
+    if (missing(ngroups))
+        ngroups <- 1 # return one group if nothing is asked
+    chi <- twintotalchi(x)
+    chi[chi <= 0] <- NA # not evaluated
+    ix <- order(chi, decreasing = TRUE) # order by heterogeneity
+    clim <- 2^(0:x$levelmax) - 1L
+    class <- rep(1, x$nquadrat)
+    for(i in seq_len(ngroups - 1)) {
+        lev <- max(which(ix[i] > clim))
+        id <- 2L * ix[i]
+        class[cut(tw, level=lev) == id] <- id
+        class[cut(tw, level=lev) == id+1L] <- id + 1L
+    }
+    class
+}
