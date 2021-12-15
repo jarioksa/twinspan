@@ -4,13 +4,17 @@
 \alias{as.hclust.twinspan}
 \title{Extract twinspan Grouping as Hierarchical Cluster Tree}
 \usage{
-\method{as.hclust}{twinspan}(x, what = c("quadrat", "species"), ...)
+\method{as.hclust}{twinspan}(x, what = c("quadrat", "species"), height = c("level", "chi"), ...)
 }
 \arguments{
 \item{x}{\code{\link{twinspan}} result object.}
 
 \item{what}{Extract \code{"quadrat"} or \code{"species"}
 classification tree.}
+
+\item{height}{Use either division levels (\code{"level"}) or total
+Chi-squares of division (\code{"chi"}) as heights of internal
+nodes in the tree.}
 
 \item{\dots}{Other parameters to the function (ignored).}
 }

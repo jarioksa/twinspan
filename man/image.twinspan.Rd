@@ -4,7 +4,13 @@
 \alias{image.twinspan}
 \title{Image of Quadrat and Species Classification and Average Abundances in Cells}
 \usage{
-\method{image}{twinspan}(x, leadingspecies = FALSE, reorder = FALSE, ...)
+\method{image}{twinspan}(
+  x,
+  leadingspecies = FALSE,
+  reorder = FALSE,
+  height = c("level", "chi"),
+  ...
+)
 }
 \arguments{
 \item{x}{\code{\link{twinspan}} result object.}
@@ -21,6 +27,10 @@ structure. With this option, it is also possible to use
 arguments \code{Colv} and \code{Rowv} vectors to reorder the
 dendrogram by their values. The length of such a vector must
 correspond to the number of row or column classes.}
+
+\item{height}{Use either division levels (\code{"level"}) or total
+Chi-squares of division (\code{"chi"}) as heights of internal
+nodes in the trees boarding the image.}
 
 \item{\dots}{Other arguments passed to \code{\link[vegan]{tabasco}}
 and further to \code{\link[stats]{heatmap}}.}

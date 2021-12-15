@@ -4,14 +4,23 @@
 \alias{plot.twinspan}
 \title{Plot Classification Tree}
 \usage{
-\method{plot}{twinspan}(x, what = c("quadrat", "species"),
-  main = "Twinspan Dendrogram", ...)
+\method{plot}{twinspan}(
+  x,
+  what = c("quadrat", "species"),
+  height = c("level", "chi"),
+  main = "Twinspan Dendrogram",
+  ...
+)
 }
 \arguments{
 \item{x}{\code{\link{twinspan}} result object.}
 
 \item{what}{Plot \code{"quadrat"} or \code{"species"}
 classification tree.}
+
+\item{height}{Use either division levels (\code{"level"}) or total
+Chi-squares of division (\code{"chi"}) as heights of internal
+nodes in the tree.}
 
 \item{main}{Main title of the plot.}
 
