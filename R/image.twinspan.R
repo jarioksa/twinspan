@@ -59,6 +59,9 @@
 #'     arguments \code{Colv} and \code{Rowv} vectors to reorder the
 #'     dendrogram by their values. The length of such a vector must
 #'     correspond to the number of row or column classes.
+#' @param height Use either division levels (\code{"level"}) or total
+#'     Chi-squares of division (\code{"chi"}) as heights of internal
+#'     nodes in the trees boarding the image.
 #' @param \dots Other arguments passed to \code{\link[vegan]{tabasco}}
 #'     and further to \code{\link[stats]{heatmap}}.
 #'
@@ -68,11 +71,13 @@
 #'
 #' @export
 `image.twinspan` <-
-    function(x, leadingspecies = FALSE, reorder = FALSE, ...)
+    function(x, leadingspecies = FALSE, reorder = FALSE,
+             height = c("level", "chi"), ...)
 {
+    height <- match.arg(height)
     mat <- twin2mat(x) # matrix of pseudospecies data
-    spcl <- as.hclust(x, "species") # species tree
-    qcl <- as.hclust(x) # quadrat tree
+    spcl <- as.hclust(x, "species", height = height) # species tree
+    qcl <- as.hclust(x, height = height) # quadrat tree
     ## calculate quadrat group means of leading species
     if (leadingspecies) {
         j <- goodspec(x, "leading")

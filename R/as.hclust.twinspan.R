@@ -29,15 +29,20 @@
 #' @param x \code{\link{twinspan}} result object.
 #' @param what Extract \code{"quadrat"} or \code{"species"}
 #'     classification tree.
+#' @param height Use either division levels (\code{"level"}) or total
+#'     Chi-squares of division (\code{"chi"}) as heights of internal
+#'     nodes in the tree.
 #' @param \dots Other parameters to the function (ignored).
 #'
 #' @importFrom stats as.hclust
 #'
 #' @export
 `as.hclust.twinspan` <-
-    function(x, what = c("quadrat","species"), ...)
+    function(x, what = c("quadrat","species"), height = c("level", "chi"),
+             ...)
 {
-    what = match.arg(what)
+    what <- match.arg(what)
+    height <- match.arg(height)
     class <- cut(x, what=what)
     n <- max(class)
     state <- character(n)
@@ -46,7 +51,7 @@
     nclus <- sum(state == "clust")
     line <- numeric(n)
     merge <- matrix(0, nclus-1, 2)
-    height <- numeric(nclus-1)
+    treeheight <- numeric(nclus-1)
     pow2 <- 2^(seq_len(x$levelmax+1))
     maxh <- sum(max(class) >= pow2) + 1
     nro <- nclus
@@ -55,7 +60,7 @@
         if (state[i] == "")
             next
         now <- now + 1
-        height[now] <- maxh - sum(i >= pow2)
+        treeheight[now] <- maxh - sum(i >= pow2)
         for(j in 2:1) {
             line[i+j-1] <- now
             if(state[i+j-1] == "clust") {
@@ -69,10 +74,12 @@
     labels <- table(class)
     labels <- paste0(names(labels), " (N=", labels, ")")
     nodelabels <- rev(which(state=="div"))
+    if (height == "chi") # replace levels with Chi-squares of internal nodes
+        treeheight <- twintotalchi(x, what)[nodelabels]
     ind <- x[[what]]$index
     order <- order(tapply(order(ind), class, min))
-    out <- list(merge = merge, labels = labels, height = height, order = order,
-                nodelabels = nodelabels, method = "twinspan")
+    out <- list(merge = merge, labels = labels, height = treeheight,
+                order = order, nodelabels = nodelabels, method = "twinspan")
     class(out) <- "hclust"
     out
 }
@@ -114,17 +121,20 @@
 #' @param main Main title of the plot.
 #' @param \dots Other parameters passed to \code{\link{plot}} and
 #'     \code{\link[vegan]{ordilabel}}.
-#'
+#' @param height Use either division levels (\code{"level"}) or total
+#'     Chi-squares of division (\code{"chi"}) as heights of internal
+#'     nodes in the tree.
 #' @importFrom vegan ordilabel
 #' @importFrom graphics plot
 #'
 #' @export
 `plot.twinspan` <-
-    function(x, what = c("quadrat", "species"), main = "Twinspan Dendrogram",
+    function(x, what = c("quadrat", "species"), height = c("level", "chi"),
+             main = "Twinspan Dendrogram",
              ...)
 {
     what <- match.arg(what)
-    x <- as.hclust(x, what = what)
+    x <- as.hclust(x, what = what, height = height)
     plot(x, main = main, ...)
     ordilabel(x, "internal", labels = x$nodelabels, ...)
 }
