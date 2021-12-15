@@ -74,8 +74,23 @@
     labels <- table(class)
     labels <- paste0(names(labels), " (N=", labels, ")")
     nodelabels <- rev(which(state=="div"))
-    if (height == "chi") # replace levels with Chi-squares of internal nodes
+    if (height == "chi") {
+        ## replace levels with Chi-squares of internal nodes
         treeheight <- twintotalchi(x, what)[nodelabels]
+        ## height should be ordered in hclust tree so that hclust
+        ## methods know how to handle tree
+        if (is.unsorted(treeheight)) {
+            o <- order(treeheight)
+            oo <- order(o)
+            for (i in 1:nrow(merge))
+                for (j in 1:2)
+                    if (merge[i,j] > 0) # a (reordered) division
+                        merge[i,j] <- oo[merge[i,j]]
+            merge <- merge[o,]
+            treeheight <- treeheight[o]
+            nodelabels <- nodelabels[o]
+        }
+    }
     ind <- x[[what]]$index
     order <- order(tapply(order(ind), class, min))
     out <- list(merge = merge, labels = labels, height = treeheight,
