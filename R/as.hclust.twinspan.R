@@ -81,6 +81,7 @@
         ## methods know how to handle tree
         if (is.unsorted(treeheight)) {
             o <- order(treeheight)
+            o <- o[rev(fixTreeReversal(rev(nodelabels[o]), index = TRUE))]
             oo <- order(o)
             for (i in 1:nrow(merge))
                 for (j in 1:2)
@@ -117,21 +118,24 @@
 ## tried).
 
 fixTreeReversal <-
-    function(order)
+    function(order, index = FALSE)
 {
     n <- length(order)
     ## parent of group i is i %/% 2
+    if(index)
+        idx <- rev(seq_along(order)) # reverse index
     for (i in 2:n) {
         a <- order[1:(i-1)] %/% 2 == order[i]
         if (any(a)) {
             k <- min(which(a)) # two kids should be handled better
-            tmp <- order[k]
-            order[k] <- order[i]
-            order[i] <- tmp
-            warning(gettextf("tree reversal: group %d more heterogeneous than parent %d", order[i], order[k]))
+            if (index)
+                idx[c(i,k)] <- idx[c(k,i)]
+            else
+                order[c(i,k)] <- order[c(k,i)]
+            warning(gettextf("tree reversal: group %d more heterogeneous than parent %d", order[k], order[i]))
         }
     }
-    order
+    if(index) idx else order
 }
 ### plot.twinspan as plot of hclust tree
 
