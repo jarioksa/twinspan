@@ -107,6 +107,32 @@
     out
 }
 
+## If within-group heterogeneity (such as Chi-square) is used as
+## height in a twinspan tree, there may be reversed branches or the
+## subgroup is more heterogeneous than her mother group. This function
+## goes through order of groups and if it finds a subgroup was used
+## before the parent group, it will swap these two. I do not know how
+## well these trees will work, but trees with reversals are not very
+## common, and this helps at least in some cases (all that I have
+## tried).
+
+fixTreeReversal <-
+    function(order)
+{
+    n <- length(order)
+    ## parent of group i is i %/% 2
+    for (i in 2:n) {
+        a <- order[1:(i-1)] %/% 2 == order[i]
+        if (any(a)) {
+            k <- min(which(a)) # two kids should be handled better
+            tmp <- order[k]
+            order[k] <- order[i]
+            order[i] <- tmp
+            warning(gettextf("tree reversal: group %d more heteregenous than parent %d", order[i], order[k]))
+        }
+    }
+    order
+}
 ### plot.twinspan as plot of hclust tree
 
 #' Plot Classification Tree
