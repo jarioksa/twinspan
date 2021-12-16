@@ -89,6 +89,14 @@
             merge <- merge[o,]
             treeheight <- treeheight[o]
             nodelabels <- nodelabels[o]
+            ## This simple method fails if tree has reversal: split
+            ## group is more heterogeneous than her parent. This case
+            ## could be handled, but needs different and more
+            ## complicated approach. First tests indicate that this is
+            ## not too frequent a case and we just refuse to work. You
+            ## are welcome to suggest new code if this bugs you.
+            if (any(merge > row(merge))) # mother before her daughters
+                stop("some split groups are more heterogeneous than their mother")
         }
     }
     ind <- x[[what]]$index
