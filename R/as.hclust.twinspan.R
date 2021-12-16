@@ -128,7 +128,7 @@ fixTreeReversal <-
             tmp <- order[k]
             order[k] <- order[i]
             order[i] <- tmp
-            warning(gettextf("tree reversal: group %d more heteregenous than parent %d", order[i], order[k]))
+            warning(gettextf("tree reversal: group %d more heterogeneous than parent %d", order[i], order[k]))
         }
     }
     order
