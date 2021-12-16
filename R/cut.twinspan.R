@@ -76,6 +76,7 @@
     ## terminal nodes (leaves) cannot be split
     chi[x$quadrat$eig <= 0] <- 0
     ix <- order(chi, decreasing = TRUE) # order by heterogeneity
+    ix <- fixTreeReversal(ix)
     clim <- 2^(0:x$levelmax) - 1L
     class <- rep(1, x$nquadrat)
     for(i in seq_len(ngroups - 1)) {
