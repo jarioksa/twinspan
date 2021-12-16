@@ -70,7 +70,11 @@
     if (missing(ngroups))
         ngroups <- 1 # return one group if nothing is asked
     chi <- twintotalchi(x)
-    chi[chi <= 0] <- NA # not evaluated
+    ## latter half of chi have items that cannot be split
+    k <- length(chi) %/% 2L + 1L
+    chi[k:length(chi)] <- 0
+    ## terminal nodes (leaves) cannot be split
+    chi[x$quadrat$eig <= 0] <- 0
     ix <- order(chi, decreasing = TRUE) # order by heterogeneity
     clim <- 2^(0:x$levelmax) - 1L
     class <- rep(1, x$nquadrat)
