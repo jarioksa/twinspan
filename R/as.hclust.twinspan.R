@@ -124,16 +124,23 @@ fixTreeReversal <-
     ## parent of group i is i %/% 2
     if(index)
         idx <- rev(seq_along(order)) # reverse index
-    for (i in 2:n) {
-        a <- order[1:(i-1)] %/% 2 == order[i]
-        if (any(a)) {
-            k <- min(which(a)) # two kids should be handled better
-            if (index)
-                idx[c(i,k)] <- idx[c(k,i)]
-            else
+    repeat{
+        ## may need several passages
+        SWAPPED <- FALSE
+        for (i in 2:n) {
+            a <- order[1:(i-1)] %/% 2 == order[i]
+            if (any(a)) {
+                SWAPPED <- TRUE
+                k <- max(which(a)) # two kids should be handled better
+                if (index)
+                    idx[c(i,k)] <- idx[c(k,i)]
                 order[c(i,k)] <- order[c(k,i)]
-            warning(gettextf("tree reversal: group %d more heterogeneous than parent %d", order[i], order[k]))
+                warning(
+                    gettextf("tree reversal: group %d more heterogeneous than parent %d",
+                             max(order[c(i,k)]), min(order[c(i,k)])))
+            }
         }
+        if (!SWAPPED) break
     }
     if(index) idx else order
 }
