@@ -65,20 +65,24 @@
 
 #' @export
 `chicut` <-
-    function(x, ngroups)
+    function(x, what = c("quadrat", "species"), ngroups)
 {
+    what <- match.arg(what)
     if (missing(ngroups))
         ngroups <- 1 # return one group if nothing is asked
-    chi <- twintotalchi(x)
+    chi <- twintotalchi(x, what = what)
     ## latter half of chi have items that cannot be split
     k <- length(chi) %/% 2L + 1L
     chi[k:length(chi)] <- 0
     ## terminal nodes (leaves) cannot be split
-    chi[x$quadrat$eig <= 0] <- 0
+    chi[x[[what]]$eig <= 0] <- 0
     ix <- order(chi, decreasing = TRUE) # order by heterogeneity
     ix <- fixTreeReversal(ix)
     clim <- 2^(0:x$levelmax) - 1L
-    class <- rep(1, x$nquadrat)
+    nobs <- switch(what,
+                   "quadrat" = x$nquadrat,
+                   "species" = x$nspecies)
+    class <- rep(1, nobs)
     for(i in seq_len(ngroups - 1)) {
         lev <- max(which(ix[i] > clim))
         id <- 2L * ix[i]
