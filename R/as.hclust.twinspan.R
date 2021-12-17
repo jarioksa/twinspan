@@ -132,7 +132,7 @@ fixTreeReversal <-
                 idx[c(i,k)] <- idx[c(k,i)]
             else
                 order[c(i,k)] <- order[c(k,i)]
-            warning(gettextf("tree reversal: group %d more heterogeneous than parent %d", order[k], order[i]))
+            warning(gettextf("tree reversal: group %d more heterogeneous than parent %d", order[i], order[k]))
         }
     }
     if(index) idx else order
