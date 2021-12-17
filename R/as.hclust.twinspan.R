@@ -132,12 +132,20 @@ fixTreeReversal <-
             if (any(a)) {
                 SWAPPED <- TRUE
                 k <- max(which(a)) # two kids should be handled better
-                if (index)
-                    idx[c(i,k)] <- idx[c(k,i)]
-                order[c(i,k)] <- order[c(k,i)]
+                ## move kid immediately after her parent
+                if (index) {
+                    if (i-k == 1)
+                        idx[c(i,k)] <- idx[c(k,i)]
+                    else
+                        idx[k:i] <- idx[c((k+1):(i-1), i, k)]
+                }
+                if (i-k == 1)
+                    order[c(i,k)] <- order[c(k,i)]
+                else
+                    order[k:i] <- order[c((k+1):(i-1), i, k)]
                 warning(
                     gettextf("tree reversal: group %d more heterogeneous than parent %d",
-                             max(order[c(i,k)]), min(order[c(i,k)])))
+                             order[i], order[i-1]))
             }
         }
         if (!SWAPPED) break
