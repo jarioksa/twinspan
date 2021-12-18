@@ -86,8 +86,8 @@
     for(i in seq_len(ngroups - 1)) {
         lev <- max(which(ix[i] > clim))
         id <- 2L * ix[i]
-        class[cut(x, level=lev) == id] <- id
-        class[cut(x, level=lev) == id+1L] <- id + 1L
+        class[cut(x, what = what, level=lev) == id] <- id
+        class[cut(x, what = what, level=lev) == id+1L] <- id + 1L
     }
     class
 }
