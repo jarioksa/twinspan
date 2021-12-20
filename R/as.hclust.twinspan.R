@@ -131,7 +131,7 @@ fixTreeReversal <-
             a <- order[1:(i-1)] %/% 2 == order[i]
             if (any(a)) {
                 SWAPPED <- TRUE
-                k <- max(which(a)) # two kids should be handled better
+                k <- min(which(a)) # there should be no two kids, but check
                 ## move kid immediately after her parent
                 if (index) {
                     if (i-k == 1)
