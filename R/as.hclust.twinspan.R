@@ -2,7 +2,6 @@
 ### tree. Hclust trees can not have polytomies, and quadrats must be
 ### omitted. There already is as.dendrogram, but try to see if this
 ### can be developed into a decision tree.
-
 #' Extract twinspan Grouping as Hierarchical Cluster Tree
 #'
 #' Function extracts classification as an \code{\link{hclust}}
@@ -13,18 +12,56 @@
 #' number and number of items in the terminal group are used as group
 #' names and are displayed in plots.
 #'
-#' @seealso \code{\link{as.dendrogram.twinspan}},
-#'     \code{\link{hclust}}, \code{\link{plot.twinspan}},
-#'     \code{\link{image.twinspan}}.
+#' Function can return either a tree showing the \code{twinspan}
+#' hierarchy or showing the heterogeneity of each group or
+#' division. In the first case, all divisions and groups at a certain
+#' level of hierarchy are at the same height, but in the latter the
+#' divisions are at the height defined by their heterogeneity. The
+#' criterion of heterogeneity is the total chi-square (also known as
+#' inertia) of the matrix that \code{\link{twinspan}} internally uses
+#' in that division (see \code{\link{twintotalchi}}). This tree gives
+#' the visual presentation of the modified method of Roleček et
+#' al. (2009).
 #'
-#' @return an \code{\link{hclust}} object.
+#' When tree heights are based on heterogeneity, subgroups can be more
+#' heterogeneous than their parent group. These appear as reversed
+#' branches in the tree. A warning is issued for each such case.
+#'
+#' @encoding UTF-8
+#'
+#' @seealso \code{\link{as.dendrogram.twinspan}} provides an
+#'     alternative which also shows the sampling units (quadrats or
+#'     species). The result is based \code{\link{hclust}} and can be
+#'     handled with its support
+#'     functions. \code{\link{plot.twinspan}},
+#'     \code{\link{image.twinspan}} display the tree. Function
+#'     \code{\link{cut.twinspan}} cuts the tree by a level of
+#'     hierarchy, and \code{\link{cuth}} by heterogeneity for original
+#'     sampling units (quadrats, species).
+#'
+#' @return an \code{\link{hclust}} object amended with labels for
+#'     internal nodes (\code{nodelabels}).
+#'
+#' @references
+#' Roleček, J, Tichý, L., Zelený, D. & Chytrý, M. (2009). Modified
+#' TWINSPAN classification in which the hierarchy respects cluster
+#' heterogeneity. \emph{J Veg Sci} 20: 596--602.
 #'
 #' @examples
 #'
 #' data(ahti)
 #' tw <- twinspan(ahti)
-#' plot(as.hclust(tw))
 #' plot(as.hclust(tw, "species"))
+#' cl <- as.hclust(tw)
+#' ## plot and 8 groups by hierarchy level
+#' plot(cl)
+#' rect.hclust(cl, 8)
+#' ## plot and 8 groups by heterogeneity
+#' cl <- as.hclust(tw, height="chi")
+#' plot(cl)
+#' rect.hclust(cl, 8)
+#'
+#'
 #'
 #' @param x \code{\link{twinspan}} result object.
 #' @param what Extract \code{"quadrat"} or \code{"species"}
@@ -90,12 +127,7 @@
             merge <- merge[o,]
             treeheight <- treeheight[o]
             nodelabels <- nodelabels[o]
-            ## This simple method fails if tree has reversal: split
-            ## group is more heterogeneous than her parent. This case
-            ## could be handled, but needs different and more
-            ## complicated approach. First tests indicate that this is
-            ## not too frequent a case and we just refuse to work. You
-            ## are welcome to suggest new code if this bugs you.
+            ## tree reversals should be handled, but check anyway
             if (any(merge > row(merge))) # mother before her daughters
                 stop("some split groups are more heterogeneous than their mother")
         }
@@ -112,10 +144,9 @@
 ## height in a twinspan tree, there may be reversed branches or the
 ## subgroup is more heterogeneous than her mother group. This function
 ## goes through order of groups and if it finds a subgroup was used
-## before the parent group, it will swap these two. I do not know how
-## well these trees will work, but trees with reversals are not very
-## common, and this helps at least in some cases (all that I have
-## tried).
+## before the parent group, it will move the kid behind her
+## parent. Non-exported support function tuned to work only with our
+## as.hclust.twinspan and cuth functions.
 
 fixTreeReversal <-
     function(order, index = FALSE)
@@ -162,12 +193,15 @@ fixTreeReversal <-
 #' are the same numbers as used in \code{\link{summary.twinspan}} and
 #' returned by \code{\link{cut.twinspan}} or
 #' \code{\link{predict.twinspan}} for the same classification
-#' level. For terminal groups the plot shows the number of the group
-#' and the number of items (quadrats or species) in the group. For
-#' division number \eqn{k}, its daughter divisions or groups are
-#' \eqn{2k}{2*k} and \eqn{2k+1}{2*k+1}. The tree is similar as a plot
-#' of \code{\link{as.hclust.twinspan}}, but adds numbers of internal
-#' nodes.
+#' level. For terminal groups the plot shows the numeric code of the
+#' group and the number of items (quadrats or species) in the
+#' group. For division number \eqn{k}, its daughter divisions or
+#' groups are coded \eqn{2k}{2*k} and \eqn{2k+1}{2*k+1}. The tree is
+#' similar as a plot of \code{\link{as.hclust.twinspan}}, but adds
+#' numbers of internal nodes. The tree can be based either on the
+#' levels of hierarchy or on the heterogeneity of division as assessed
+#' by chi-square (or inertia) of the division (see
+#' \code{\link{as.hclust.twinspan}}).
 #'
 #' @seealso \code{\link{summary.twinspan}} for similar textual
 #'     presentation also showing the items (quadrats, species) in
@@ -182,6 +216,10 @@ fixTreeReversal <-
 #' data(ahti)
 #' tw <- twinspan(ahti)
 #' plot(tw, "species")
+#' ## default plot for quadrats
+#' plot(tw)
+#' ## plot by the heterogeneity of divisions
+#' plot(tw, height = "chi")
 #'
 #' @param x \code{\link{twinspan}} result object.
 #' @param what Plot \code{"quadrat"} or \code{"species"}

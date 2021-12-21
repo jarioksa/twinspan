@@ -30,7 +30,8 @@ correspond to the number of row or column classes.}
 
 \item{height}{Use either division levels (\code{"level"}) or total
 Chi-squares of division (\code{"chi"}) as heights of internal
-nodes in the trees boarding the image.}
+nodes in the trees boarding the image (see
+\code{\link{as.hclust.twinspan}}).}
 
 \item{\dots}{Other arguments passed to \code{\link[vegan]{tabasco}}
 and further to \code{\link[stats]{heatmap}}.}
@@ -60,14 +61,16 @@ the groups are similar as in hierarchic cluster trees produced by
 \code{\link{as.hclust.twinspan}} and
 \code{\link{summary.twinspan}}.  Function also adds quadrat
 classification tree on the top and species classification tree on
-the left margin (see \code{\link{as.hclust.twinspan}}).
+the left margin (see \code{\link{as.hclust.twinspan}}). These trees
+show either the levels of hierarchy or the heterogeneities of
+divided groups depending on the argument \code{height}.
 }
 \examples{
 
 data(ahti)
 tw <- twinspan(ahti)
 image(tw)
-im <- image(tw, leading = TRUE)
+im <- image(tw, height = "chi", leading = TRUE)
 ## image returns invisibly data
 head(im)
 

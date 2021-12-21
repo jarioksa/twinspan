@@ -4,8 +4,12 @@
 \alias{as.dendrogram.twinspan}
 \title{Extract Species or Quadrat Dendrograms}
 \usage{
-\method{as.dendrogram}{twinspan}(object, what = c("quadrat", "species"),
-  height = c("level", "chi", "eigen"), ...)
+\method{as.dendrogram}{twinspan}(
+  object,
+  what = c("quadrat", "species"),
+  height = c("level", "chi", "eigen"),
+  ...
+)
 }
 \arguments{
 \item{object}{\code{\link{twinspan}} result object.}
