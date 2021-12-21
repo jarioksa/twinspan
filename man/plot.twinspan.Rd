@@ -4,14 +4,23 @@
 \alias{plot.twinspan}
 \title{Plot Classification Tree}
 \usage{
-\method{plot}{twinspan}(x, what = c("quadrat", "species"),
-  main = "Twinspan Dendrogram", ...)
+\method{plot}{twinspan}(
+  x,
+  what = c("quadrat", "species"),
+  height = c("level", "chi"),
+  main = "Twinspan Dendrogram",
+  ...
+)
 }
 \arguments{
 \item{x}{\code{\link{twinspan}} result object.}
 
 \item{what}{Plot \code{"quadrat"} or \code{"species"}
 classification tree.}
+
+\item{height}{Use either division levels (\code{"level"}) or total
+Chi-squares of division (\code{"chi"}) as heights of internal
+nodes in the tree.}
 
 \item{main}{Main title of the plot.}
 
@@ -26,18 +35,25 @@ The internal nodes are labelled by the numbers of division. These
 are the same numbers as used in \code{\link{summary.twinspan}} and
 returned by \code{\link{cut.twinspan}} or
 \code{\link{predict.twinspan}} for the same classification
-level. For terminal groups the plot shows the number of the group
-and the number of items (quadrats or species) in the group. For
-division number \eqn{k}, its daughter divisions or groups are
-\eqn{2k}{2*k} and \eqn{2k+1}{2*k+1}. The tree is similar as a plot
-of \code{\link{as.hclust.twinspan}}, but adds numbers of internal
-nodes.
+level. For terminal groups the plot shows the numeric code of the
+group and the number of items (quadrats or species) in the
+group. For division number \eqn{k}, its daughter divisions or
+groups are coded \eqn{2k}{2*k} and \eqn{2k+1}{2*k+1}. The tree is
+similar as a plot of \code{\link{as.hclust.twinspan}}, but adds
+numbers of internal nodes. The tree can be based either on the
+levels of hierarchy or on the heterogeneity of division as assessed
+by chi-square (or inertia) of the division (see
+\code{\link{as.hclust.twinspan}}).
 }
 \examples{
 
 data(ahti)
 tw <- twinspan(ahti)
 plot(tw, "species")
+## default plot for quadrats
+plot(tw)
+## plot by the heterogeneity of divisions
+plot(tw, height = "chi")
 
 }
 \seealso{

@@ -32,17 +32,33 @@
 #' prelude to \code{twintable}. With function
 #' \code{\link{as.dendrogram.twinspan}} it is possible to construct a
 #' \code{\link{dendrogram}} of complete classification down to final
-#' units (quadrats, species), and \code{\link{as.hclust.dendrogram}}
+#' units (quadrats, species), and \code{\link{as.hclust.twinspan}}
 #' constructs an \code{\link{hclust}} tree down to final groups.
 #'
+#' The \code{twinspan} function performs the classic TWINSPAN with
+#' fixed levels of hierarchy, but with other functions in this package
+#' it is also possible to perform the modified method of Roleček et
+#' al. (2009): the topography of the tree is the same, but the
+#' division heights are based on the hetergeneity of the group, and
+#' the groups are extracted in the order of their heterogeneity. The
+#' measure of the heterogeneity is total standardized chi-square (or
+#' inertia) of the divided group. This is based on the same matrix
+#' as used internally in \code{twinspan} code (see support functions
+#' \code{\link{twintotalchi}}, \code{\link{twin2stack}} and
+#' \code{\link{twin2specstack}}).
+#'
 #' The classification at any level of division can be extracted with
-#' \code{\link{cut.twinspan}}. Function \code{\link{predict.twinspan}}
+#' \code{\link{cut.twinspan}}, and the most heterogenous groups with
+#' \code{\link{cuth}}. Function \code{\link{predict.twinspan}}
 #' provides a similar classification vector, but based on indicator
 #' pseudospecies, and can be used also with new data that was not used
 #' in \code{twinspan}. These two classifications are often in
 #' conflict, and \code{\link{misclassified}} will detect those cases
 #' and the divisions where the two classifications diverged. Function
-#' \code{\link{eigenvals}} extracts the eigenvalues of divisions.
+#' \code{\link{eigenvals}} extracts the eigenvalues of divisions, and
+#' \code{\link{twintotalchi}} finds the \dQuote{sum of all
+#' eigenvalues} or the standardized chi-square of each division or
+#' final group.
 #'
 #' Function \code{\link{twinsform}} transforms the data similarly as
 #' \code{twinspan} and can be used to reproduce the results of any
@@ -56,7 +72,7 @@
 #' it will not be explained in details in this manual, but you should
 #' consult the source code or literature sources. Hill (1979) is the
 #' most authorative source, but may be difficult to find. Kent & Coker
-#' (1991) do a great work in explaining the method, including many
+#' (1991) do a great job in explaining the method, including many
 #' obscure details.
 #'
 #' A strong simplification (but often sufficient to understand the
@@ -80,21 +96,20 @@
 #' (values 1) are reduced linearly towards minimimum value of 0.01
 #' according to their frequencies. This will reduce their impact in
 #' correspondence analysis which is regarded as being sensitive to
-#' rare species. A species may be downweighted only for its higher
-#' pseudospecies levels. The first axis of correspondence analysis is
-#' found for the downweighted data. This initial step can be reduced
-#' with the help of functions \code{\link{twinsform}} or
+#' rare species. Each cut level of the species is downweighted
+#' independently. The first axis of correspondence analysis is found
+#' for the downweighted data. This initial step can be reproduced with
+#' the help of functions \code{\link{twinsform}} or
 #' \code{\link{twin2stack}}.  However, the division is not based on
 #' this step only. Next the method finds the best indicator
-#' pseudospecies for this division. Further, it polarizes the
+#' pseudospecies for the division. Further, it polarizes the
 #' ordination by using indicator scores for all species to find the
-#' final classes for quadrats. Further, it does not mechanically just
+#' final classes for quadrats. It does not mechanically just
 #' split the axis in the middle, but it finds the cutpoint so that
 #' indicator scores from the indicator pseudospecies and final split
 #' are as concordant as possible. Then the analysis is repeated for
 #' both resulting groups, including downweighting within the subset of
-#' quadrats. These latter steps cannot be reproduced within this
-#' package (yet).
+#' quadrats.
 #'
 #' After quadrat classification, TWINSPAN constructs species data
 #' which are completely different from the data used in quadrat
@@ -107,6 +122,13 @@
 #' function \code{\link{twin2specstack}} which also provides a more
 #' detailed description of the data structure used at this stage.
 #'
+#' Function \code{twinspan} performs only the classical TWINSPAN, but
+#' with support functions the modified method of Roleček et al. (2009)
+#' can be performed (see \code{\link{cuth}},
+#' \code{\link{as.hclust.twinspan}}).
+#'
+#' @encoding UTF-8
+#'
 #' @references
 #'
 #' Hill, M.O. (1979). \emph{TWINSPAN - a FORTRAN program for arranging
@@ -116,6 +138,10 @@
 #'
 #' Kent, M. & Coker, P. (1992) \emph{Vegetation description and
 #' analysis: A practical approach.} John Wiley & Sons.
+#'
+#' Roleček, J, Tichý, L., Zelený, D. & Chytrý, M. (2009). Modified
+#' TWINSPAN classification in which the hierarchy respects cluster
+#' heterogeneity. \emph{J Veg Sci} 20: 596--602.
 #'
 #' @return
 #'
@@ -187,6 +213,10 @@
 #' plot(twb)
 #' ## compare confusion
 #' table(cut(tw, level=3), cut(twb, level=3))
+#' ## modified method of Roleček et al. (2009)
+#' plot(twb, height="chi", main = "Rolecek tree")
+#' ## compare against the default by hierarchy levels
+#' table(cuth(twb, ngroups=8), cut(twb, level=3))
 #'
 #'
 #' @param x Input data, usually a species community data set where
