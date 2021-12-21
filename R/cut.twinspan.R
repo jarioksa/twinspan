@@ -58,13 +58,12 @@
 ## cut by group homogeneity as defined by within-group
 ## Chi-square. This could give similar clustering as Rolecek's
 ## modified twinspan which only splits the most heterogeneous group at
-## each step instead of dichotomizing. However, we use the internal
-## twinspan criterion of Chi-square instead of dissimilarities. There
-## is no guarantee that the tree will be ordered, but let's hope so
-## and as.dendrogram(x, height="chi") will show this.
+## each step instead of dichotomizing. There is no guarantee that the
+## tree will be ordered, but the code should handle this.
 
+#' @rdname cut.twinspan
 #' @export
-`chicut` <-
+`cuth` <-
     function(x, what = c("quadrat", "species"), ngroups)
 {
     what <- match.arg(what)
