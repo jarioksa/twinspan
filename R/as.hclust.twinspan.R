@@ -165,15 +165,9 @@ fixTreeReversal <-
                 k <- min(which(a)) # there should be no two kids, but check
                 ## move kid immediately after her parent
                 if (index) {
-                    if (i-k == 1)
-                        idx[c(i,k)] <- idx[c(k,i)]
-                    else
-                        idx[k:i] <- idx[c((k+1):(i-1), i, k)]
+                    idx[k:i] <- idx[c((k+1):i, k)]
                 }
-                if (i-k == 1)
-                    order[c(i,k)] <- order[c(k,i)]
-                else
-                    order[k:i] <- order[c((k+1):(i-1), i, k)]
+                order[k:i] <- order[c((k+1):i, k)]
                 warning(
                     gettextf("tree reversal: group %d more heterogeneous than parent %d",
                              order[i], order[i-1]))
