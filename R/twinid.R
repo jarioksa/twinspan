@@ -43,7 +43,7 @@
 ##' (id <- twinid(cl))
 ##' cut(id, 6)
 ##' table(cut(id, 6))
-##' 
+##'
 ##' @export
 `twinid` <-
     function(hclust, ...)
@@ -86,7 +86,11 @@
     }
     visit(nrow(merge), 1)
     visit(nrow(merge), 2)
-    ## warn on large IDs: depth > 30, floor(log2(classid)) gives the depths.
+    ## all leaves should have unique identifiers
+    if (any(duplicated(classid)))
+        stop("some terminal nodes (leaves) have duplicated identifiers")
+    ## warn on large IDs: depth > 30 can exceed integer maximum, and
+    ## we cannot guarantee integer division (even with unique IDs)
     if (max(classid) > .Machine$integer.max)
         warning("some class identifiers larger than integer maximum")
     class(classid) <- "twinid"
