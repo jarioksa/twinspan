@@ -284,6 +284,11 @@
         warning("some empty species were removed")
         x <- x[, csum>0, drop=FALSE]
     }
+    ## stop with empty quadrats: twinspan could manage them, but many
+    ## support functions should be re-written: better have users to
+    ## remove empty quadrats.
+    if (any(rowSums(x) <= 0))
+        stop("you have empty quadrats: please remove them")
     n <- ncol(x) # no. of species
     mm <- nrow(x) # no. of SUs
     nid <- 2 * sum(x > 0) + mm # length of idat
