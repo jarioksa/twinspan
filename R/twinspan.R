@@ -479,7 +479,7 @@
 {
     ## all classes to the uppermost level numbers
     up <- 2^levmax
-    while(any(small <- class < up & class > 0)) {
+    while(any(small <- class < up)) {
         class[small] <- class[small] * 2
     }
     order(class)
