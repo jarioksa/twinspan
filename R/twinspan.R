@@ -267,7 +267,6 @@
     else
         if (length(lwgt) != length(cutlevels))
             stop("lwgt must have same length as cutlevels")
-    ipunch = 0L ## never write to a file
     ## set internal constants and their derived quantities
     MZCRIT <- 8L
     MZOUT <- 4L
@@ -340,7 +339,6 @@
     indpot <- Z$indpot
     jnflag <- Z$jnflag
     ## Call CLASS
-    maxsam <- ndat # ??
     inddim <- indmax * (2^levmax-1) # dims for indicators
     Z <- .Fortran("class", mm=as.integer(mm), nn=as.integer(nn),
                   ndat=as.integer(ndat), mind=as.integer(indmax),
