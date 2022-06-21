@@ -61,6 +61,7 @@
 #'     final level used in the object will be returned.
 #' @param what Return either a \code{"quadrat"} or \code{"species"}
 #'     classification vector.
+#' @param binname Use binary label for classes instead of decimal number.
 #' @param \dots Other parameters (ignored).
 #'
 #' @return A vector of class numbers for the given level of hierarchy
@@ -70,7 +71,7 @@
 #'
 #' @export
 `cut.twinspan` <-
-    function(x, level, what = c("quadrat", "species"), ...)
+    function(x, level, what = c("quadrat", "species"), binname = FALSE, ...)
 {
     what <- match.arg(what)
     if (missing(level))
@@ -81,6 +82,8 @@
         ## mother class by integer division
         cl[big] <- cl[big] %/% 2
     }
+    if (binname)
+        cl <- sapply(cl, class2bin)
     cl
 }
 
@@ -96,7 +99,7 @@
 #'
 #' @export
 `cuth` <-
-    function(x, what = c("quadrat", "species"), ngroups)
+    function(x, what = c("quadrat", "species"), ngroups, binname = FALSE)
 {
     what <- match.arg(what)
     if (missing(ngroups))
@@ -121,5 +124,7 @@
         class[cut(x, what = what, level=lev) == id] <- id
         class[cut(x, what = what, level=lev) == id+1L] <- id + 1L
     }
+    if (binname)
+        class <- sapply(class, class2bin)
     class
 }
