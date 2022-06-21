@@ -6,9 +6,9 @@
 \alias{cuth}
 \title{Return twinspan Classification at Given Level}
 \usage{
-\method{cut}{twinspan}(x, level, what = c("quadrat", "species"), ...)
+\method{cut}{twinspan}(x, level, what = c("quadrat", "species"), binname = FALSE, ...)
 
-cuth(x, what = c("quadrat", "species"), ngroups)
+cuth(x, what = c("quadrat", "species"), ngroups, binname = FALSE)
 }
 \arguments{
 \item{x}{\code{twinspan} result.}
@@ -18,6 +18,8 @@ final level used in the object will be returned.}
 
 \item{what}{Return either a \code{"quadrat"} or \code{"species"}
 classification vector.}
+
+\item{binname}{Use binary label for classes instead of decimal number.}
 
 \item{\dots}{Other parameters (ignored).}
 
