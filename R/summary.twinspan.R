@@ -74,12 +74,8 @@
 {
     level <- sum(2^(seq_len(15)) <= k)
     cat(rep("  ", level), sep="")
-    if (binname) {
-        if (k==1)
-            cat("root) ", sep="")
-        else
-            cat(class2bin(k), ") ", sep="")
-    }
+    if (binname)
+        cat(class2bin(k), ") ", sep="")
     else
         cat(k, ") ", sep="")
     if (state[k] == "division") {

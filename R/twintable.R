@@ -96,6 +96,8 @@
 `class2bin` <-
     function(cl)
 {
+    if (cl == 1)
+        return("root")
     str <- ""
     while(cl > 1) {  # cl > 0 would give the binary number
         str <- paste0(cl %% 2L, str)
