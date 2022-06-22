@@ -245,10 +245,8 @@ attr(,"sumev")
 > tw <- twinspan(ahti)
 > image(tw)
 > im <- image(tw, height = "chi", leading = TRUE)
-Warning in fixTreeReversal(rev(nodelabels[o]), index = TRUE) :
-  tree reversal: group 16 more heterogeneous than parent 8
-Warning in fixTreeReversal(rev(nodelabels[o]), index = TRUE) :
-  tree reversal: group 31 more heterogeneous than parent 15
+Warning: tree reversal: group 16 more heterogeneous than parent 8
+Warning: tree reversal: group 31 more heterogeneous than parent 15
 > ## image returns invisibly data
 > head(im)
          Arctuvau Cladphyl Vaccmyrt Empenigr Cladrang Cladstel Cladarbu
@@ -963,12 +961,10 @@ List of 8
   15  0  0  0  0  0  0  9  2
 > ## modified method of Roleček et al. (2009)
 > plot(twb, height="chi", main = "Rolecek tree")
-Warning in fixTreeReversal(rev(nodelabels[o]), index = TRUE) :
-  tree reversal: group 45 more heterogeneous than parent 22
+Warning: tree reversal: group 45 more heterogeneous than parent 22
 > ## compare against the default by hierarchy levels
 > table(cuth(twb, ngroups=8), cut(twb, level=3))
-Warning in fixTreeReversal(ix) :
-  tree reversal: group 45 more heterogeneous than parent 22
+Warning: tree reversal: group 45 more heterogeneous than parent 22
     
       8  9 10 11 12 13 14 15
   6   0  0  0  0 20  4  0  0
@@ -1117,7 +1113,7 @@ Warning in fixTreeReversal(ix) :
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.339 0.087 1.428 0 0 
+Time elapsed:  1.501 0.085 1.59 0 0 
 > grDevices::dev.off()
 null device 
           1 

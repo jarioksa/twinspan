@@ -174,7 +174,8 @@ fixTreeReversal <-
                 order[k:i] <- order[c((k+1):i, k)]
                 warning(
                     gettextf("tree reversal: group %d more heterogeneous than parent %d",
-                             order[i], order[i-1]))
+                             order[i], order[i-1]),
+                    call. = FALSE)
             }
         }
         if (!SWAPPED) break
