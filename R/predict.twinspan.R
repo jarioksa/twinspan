@@ -38,13 +38,14 @@
 #'     \code{cutlevels} used in the original \code{twinspan} model.
 #' @param level Level of hierarchy of classification. If missing, the
 #'     prediction is made to the highest level of classification.
+#' @param binname Use binary labels instead of decimal class numbers.
 #' @param \dots Other parameters passed to the function (ignored).
 #'
 #' @importFrom stats predict
 #'
 #' @export
 `predict.twinspan` <-
-    function(object, newdata, level, ...)
+    function(object, newdata, level, binname = FALSE, ...)
 {
     if (missing(level))
         level <- 15
@@ -84,5 +85,7 @@
             if (k > ncol(inds)) break
         }
     }
+    if (binname)
+        pred <- sapply(pred, class2bin)
     pred
 }
