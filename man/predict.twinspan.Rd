@@ -4,7 +4,7 @@
 \alias{predict.twinspan}
 \title{Predict Class Membership of Quadrats}
 \usage{
-\method{predict}{twinspan}(object, newdata, level, ...)
+\method{predict}{twinspan}(object, newdata, level, binname = FALSE, ...)
 }
 \arguments{
 \item{object}{\code{twinspan} result object.}
@@ -15,6 +15,8 @@ by their names, and the pseudospecies are based on the
 
 \item{level}{Level of hierarchy of classification. If missing, the
 prediction is made to the highest level of classification.}
+
+\item{binname}{Use binary labels instead of decimal class numbers.}
 
 \item{\dots}{Other parameters passed to the function (ignored).}
 }

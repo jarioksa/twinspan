@@ -41,11 +41,12 @@
 #'
 #' @param object \code{\link{twinspan}} result object.
 #' @param what Summarize either quadrat or species classification.
+#' @param binname Use binary labels for divisions instead of decimal numbers.
 #' @param \dots Other arguments (ignored).
 #'
 #' @export
 `summary.twinspan` <-
-    function(object, what = c("quadrat","species"), ...)
+    function(object, what = c("quadrat","species"), binname = FALSE, ...)
 {
     what <- match.arg(what)
     obj <- object[[what]]
@@ -55,25 +56,28 @@
     state[which(obj$eig > 0)] <- "division"
     state[unique(clid)] <- "cluster"
     ## twinvisit is called recursively
-    o <- twinvisit(1, state, obj)
+    o <- twinvisit(1, state, obj, binname = binname)
 }
 
 `twinvisit` <-
-    function(k, state, obj)
+    function(k, state, obj, binname)
 {
     if(k > length(state) || state[k]=="")
         return(NULL)
-    twinreport(k, state, obj)
-    twinvisit(2*k, state, obj)
-    twinvisit(2*k+1, state, obj)
+    twinreport(k, state, obj, binname = binname)
+    twinvisit(2*k, state, obj, binname = binname)
+    twinvisit(2*k+1, state, obj, binname = binname)
 }
 
 `twinreport` <-
-    function(k, state, obj)
+    function(k, state, obj, binname = binname)
 {
     level <- sum(2^(seq_len(15)) <= k)
     cat(rep("  ", level), sep="")
-    cat(k, ") ", sep="")
+    if (binname)
+        cat(class2bin(k), ") ", sep="")
+    else
+        cat(k, ") ", sep="")
     if (state[k] == "division") {
         cat("eig=", round(obj$eig[k], 3), sep = "")
         if (!is.null(obj$indicators)) {

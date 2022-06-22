@@ -69,6 +69,8 @@
 #' @param height Use either division levels (\code{"level"}) or total
 #'     Chi-squares of division (\code{"chi"}) as heights of internal
 #'     nodes in the tree.
+#' @param binname Use binary labels for classes instead of decimal
+#'     numbers.
 #' @param \dots Other parameters to the function (ignored).
 #'
 #' @importFrom stats as.hclust
@@ -76,7 +78,7 @@
 #' @export
 `as.hclust.twinspan` <-
     function(x, what = c("quadrat","species"), height = c("level", "chi"),
-             ...)
+             binname = FALSE, ...)
 {
     what <- match.arg(what)
     height <- match.arg(height)
@@ -109,6 +111,8 @@
         }
     }
     labels <- table(class)
+    if (binname)
+        names(labels) <- sapply(as.numeric(names(labels)), class2bin)
     labels <- paste0(names(labels), " (N=", labels, ")")
     nodelabels <- rev(which(state=="div"))
     if (height == "chi") {
@@ -224,17 +228,21 @@ fixTreeReversal <-
 #' @param height Use either division levels (\code{"level"}) or total
 #'     Chi-squares of division (\code{"chi"}) as heights of internal
 #'     nodes in the tree.
+#' @param binname Use binary labels for classes and nodes instead of
+#'     decimal numbers.
 #' @importFrom vegan ordilabel
 #' @importFrom graphics plot
 #'
 #' @export
 `plot.twinspan` <-
     function(x, what = c("quadrat", "species"), height = c("level", "chi"),
-             main = "Twinspan Dendrogram",
-             ...)
+             main = "Twinspan Dendrogram", binname = FALSE, ...)
 {
     what <- match.arg(what)
-    x <- as.hclust(x, what = what, height = height)
+    x <- as.hclust(x, what = what, height = height, binname = binname)
     plot(x, main = main, ...)
-    ordilabel(x, "internal", labels = x$nodelabels, ...)
+    labels <- x$nodelabels
+    if (binname)
+        labels <- sapply(labels, class2bin)
+    ordilabel(x, "internal", labels = labels, ...)
 }

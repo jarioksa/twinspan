@@ -4,12 +4,14 @@
 \alias{summary.twinspan}
 \title{Summary of twinspan Classification}
 \usage{
-\method{summary}{twinspan}(object, what = c("quadrat", "species"), ...)
+\method{summary}{twinspan}(object, what = c("quadrat", "species"), binname = FALSE, ...)
 }
 \arguments{
 \item{object}{\code{\link{twinspan}} result object.}
 
 \item{what}{Summarize either quadrat or species classification.}
+
+\item{binname}{Use binary labels for divisions instead of decimal numbers.}
 
 \item{\dots}{Other arguments (ignored).}
 }

@@ -9,6 +9,7 @@
   what = c("quadrat", "species"),
   height = c("level", "chi"),
   main = "Twinspan Dendrogram",
+  binname = FALSE,
   ...
 )
 }
@@ -23,6 +24,9 @@ Chi-squares of division (\code{"chi"}) as heights of internal
 nodes in the tree.}
 
 \item{main}{Main title of the plot.}
+
+\item{binname}{Use binary labels for classes and nodes instead of
+decimal numbers.}
 
 \item{\dots}{Other parameters passed to \code{\link{plot}} and
 \code{\link[vegan]{ordilabel}}.}

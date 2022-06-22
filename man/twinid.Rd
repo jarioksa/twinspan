@@ -7,7 +7,7 @@
 \usage{
 twinid(hclust, ...)
 
-\method{cut}{twinid}(x, level, ...)
+\method{cut}{twinid}(x, level, binname = FALSE, ...)
 }
 \arguments{
 \item{hclust}{Cluster Analysis result compatible with
@@ -19,6 +19,8 @@ twinid(hclust, ...)
 
 \item{level}{Level of hierarchy of classification. If missing,
 level used in the object will be returned.}
+
+\item{binname}{Use binary labels instead of decimal class numbers.}
 }
 \value{
 Vector of class \code{"twinid"} giving

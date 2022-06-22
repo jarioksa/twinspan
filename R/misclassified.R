@@ -53,10 +53,12 @@
 #' @param level Only consider misclassification down to this level.
 #' @param verbose If \code{FALSE}, returns only the index of
 #'     misclassified quadrats.
+#' @param binname Use binary labels instead of decimal numbers for
+#'     classes and divergent division in verbose object.
 #'
 #' @export
 `misclassified` <-
-    function(x, level, verbose = TRUE)
+    function(x, level, verbose = TRUE, binname = FALSE)
 {
     if (missing(level))
         level <- x$levelmax
@@ -87,6 +89,11 @@
         ## all done?
         if (all(div > 0))
             break
+    }
+    if (binname) {
+        class <- sapply(class, class2bin)
+        pred <- sapply(pred, class2bin)
+        div <- sapply(div, class2bin)
     }
     out <- list(index = ind, labels = labs, class = class, predicted = pred,
                 division = div)

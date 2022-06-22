@@ -98,9 +98,11 @@
 }
 
 #' @rdname twinid
+#' @param binname Use binary labels instead of decimal class numbers.
+#'
 #' @export
 `cut.twinid` <-
-    function(x, level, ...)
+    function(x, level, binname = FALSE, ...)
 {
     ## no level: return x
     if (missing(level))
@@ -111,5 +113,7 @@
         ## mother class by integer division
         x[big] <- x[big] %/% 2
     }
+    if (binname)
+        x <- sapply(x, class2bin)
     x
 }

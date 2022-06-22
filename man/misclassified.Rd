@@ -4,7 +4,7 @@
 \alias{misclassified}
 \title{Report Misclassified Quadrats}
 \usage{
-misclassified(x, level, verbose = TRUE)
+misclassified(x, level, verbose = TRUE, binname = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{twinspan}} result object.}
@@ -13,6 +13,9 @@ misclassified(x, level, verbose = TRUE)
 
 \item{verbose}{If \code{FALSE}, returns only the index of
 misclassified quadrats.}
+
+\item{binname}{Use binary labels instead of decimal numbers for
+classes and divergent division in verbose object.}
 }
 \value{
 If \code{verbose=TRUE}, the function returns an object of class
