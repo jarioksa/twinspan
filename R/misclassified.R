@@ -115,7 +115,7 @@
                           "Class" = x$class, "Predicted" = x$predicted,
                           "Division" = x$division)
         names(out)[1] <- ""
-        print(out, row.names = FALSE)
+        print(out, row.names = FALSE, right = FALSE)
     }
     invisible(x)
 }
