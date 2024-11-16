@@ -17,4 +17,4 @@ Description: Classification of biological communities based on splitting
 Imports: vegan
 License: MIT + file LICENCE
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.2
