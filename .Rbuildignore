@@ -1,3 +1,2 @@
-README.md
-twintree.png
-
+^README\.md$
+^\.png$
