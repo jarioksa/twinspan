@@ -85,8 +85,8 @@ x <- twin2stack(tw)
 dim(x)
 range(x)
 colnames(x)
-## Inspect division 4
-x <- twin2stack(tw, subset = cut(tw, 2) == 4, downweight = TRUE)
+## Inspect group 4
+x <- twin2stack(tw, subset = twingroup(tw, 4), downweight = TRUE)
 ## need vegan for correspondence analysis
 if (suppressPackageStartupMessages(require("vegan"))) {
 cca(x)

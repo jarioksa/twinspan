@@ -34,8 +34,8 @@
 #'
 #' data(ahti)
 #' tw <- twinspan(ahti)
-#' ## complete table would be large, but we subset
-#' twintable(tw, subset = cut(tw, 2) == 4, goodspecies = "both")
+#' ## complete table would be large, but we show subset of group 4
+#' twintable(tw, subset = twingroup(tw, 4), goodspecies = "both")
 #'
 #' @param object \code{\link{twinspan}} result object.
 #' @param maxspp Maximum number of most abundant species

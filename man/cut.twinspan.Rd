@@ -3,10 +3,13 @@
 \encoding{UTF-8}
 \name{cut.twinspan}
 \alias{cut.twinspan}
+\alias{twingroup}
 \alias{cuth}
 \title{Return twinspan Classification at Given Level}
 \usage{
 \method{cut}{twinspan}(x, level, what = c("quadrat", "species"), binname = FALSE, ...)
+
+twingroup(x, group, what = c("quadrat", "species"))
 
 cuth(x, what = c("quadrat", "species"), ngroups, binname = FALSE)
 }
@@ -22,6 +25,8 @@ classification vector.}
 \item{binname}{Use binary label for classes instead of decimal number.}
 
 \item{\dots}{Other parameters (ignored).}
+
+\item{group}{Group id number.}
 
 \item{ngroups}{Number of groups.}
 }
@@ -39,15 +44,11 @@ species.
 \details{
 \code{\link{twinspan}} returns only the the classification at the
 final level, but any upper level classes can be found by integer
-divisions by 2. \code{\link{twinspan}} bases classification
-principally on splitting polished ordination axis. Sometimes this
-allocation is in conflict with indicator pseudospecies. This is
-called \sQuote{misclassification} (see
-\code{\link{misclassified}}). Function
-\code{\link{predict.twinspan}} returns the similar classification
-based on indicator pseudospecies (also for new data), and
-\code{\link{misclassified}} analyses the differences of these
-classifications.
+divisions by 2. Function \code{cut} returns a vector class id
+numbers for a given level of classification. Utility function
+\code{twingroup} returns a logical vector that is \code{TRUE} for
+items belonging to a certain group at any level. It can be more
+practical in subsetting data.
 
 Function \code{cuth} cuts the classification by class heterogeneity
 instead of level, and can be used to implement the modified method
