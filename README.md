@@ -10,14 +10,12 @@ TWINSPAN is available as a self-standing computer program that
 can be compiled to work on many platforms. This R package uses
 the same Fortran code, but allows using TWINSPAN from **R** 
 together with other **R** functions for community ecology and
-statistics.
-
-The design philosophy of TWINSPAN is completely different from
-well-behaved **R** functions. TWINSPAN is a traditional console
-program that runs through a process, and prints its results as
-it advances. In **R**, the function should work silently, and
-return the result for further analysis. The code needs a thorough
-re-design to be used in **R**.
+statistics. The function runs silently – unlike the original
+TWINSPAN – and most information can be gained analysing the
+result with support functions provided in this package.
+Moreover, the package allows using
+Roleček _et al_ (2009) modification which bases grouping on
+withing-group heterogeneity instead of cluster level.
 
 ## Installation
 
@@ -45,17 +43,15 @@ The basic command to run twinspan is – unsurprisingly – `twinspan`:
 > data(spurn)
 > tw <- twinspan(spurn, cutlevels = 0:6)
 ```
+The example uses Spurn Point dune scrub data (Shimwell 1971).
 TWINSPAN uses basically binary data, and quantitative data are broken into 
-pseudospecies by species abundances using argument `cutlevels`. The default levels
-are `c(0, 2, 5, 10, 20)` are suitable for percentage values, but the `spurn` data are cover classes.
-Too keep the original class values, we list all cover classes as cut levels. Any species present
-in the data will be marked as `species1` where the last digit shows the level of pseudospecies
-level. With the present setting, `species3` means that the species occurs at cover class
-value 3 or higher, and there will also be `species1` and `species2`. 
+pseudospecies by species abundances using argument `cutlevels`. The default cut levels
+`c(0, 2, 5, 10, 20)` are suitable for percentage values, but the `spurn` data are cover classes.
+To keep the original class values, we list all cover classes as cut levels.
+The pseudospecies data can be generated with `twinsform` transformation:
 
 ```r
-> twindat <- twinsform(spurn, cutlevels=0:6)
-> colnames(twindat)
+> colnames(twinsform(spurn, cutlevels=0:6))
   [1] "Elaerham1"  "Jacovulg1"  "Soladulc1"  "Rubufrut1"  "UrtidioiA1"
   [6] "Rumecris1"  "ClayperfB1" "StelmediB1" "FestrubrC1" "ElymrepeC1"
 ... cut ...
@@ -64,8 +60,29 @@ value 3 or higher, and there will also be `species1` and `species2`.
 [121] "Elaerham6"  "ClayperfB6" "AmmoarenC6" "Elaerham7" 
 ```
 The original data of 40 species are extended to a matrix of 124 pseudospecies.
+The names of pseudospecies are formed appending an integer for the cut level
+after the species name. Level `1` means that the taxon occurs in the data,
+and `7` that it occurs at least the seventh cut level.
 
-Use `summary` to see the classification:
+The `twinspan` result can be inspected with support functions of the package.
+The hierarchy of groups can be displayed as a cluster tree with
+```r
+> plot(tw)
+```
+![](twintree.png)
+
+`twinspan` splits data into two groups and the height of the group shows the
+level of hierarchy. The numeric labels are marked within squares, or used
+as group names for terminal groups that are no longer divided. The number of
+items (`N`) is also given for each terminal group. When group $k$ is split
+into two, its children will be numbered $2k$ and $2k+1$ so that children
+of group  2 are 4 and 5. Alternatively (with argument
+`binname = TRUE`), binary text labels are used instead of numbers. The first groups
+are `0` and `1`, and when these are split `0` or `1` is appended so that the children
+of `0` are `00` and `01`.
+
+The summary of division process can be inspected with `summary` (with argument
+`binname = TRUE` binary labels are used instead of numeric):
 ```r
 > summary(tw)
 1) eig=0.56:  +ElymrepeC1 < 1
@@ -88,10 +105,10 @@ Use `summary` to see the classification:
 described here. The splits are based on the first correspondence analysis axis of the
 current subset which is still further polished to make the dichotomy clearer. The first
 split is made at eigenvalue 0.56, and the pseudospecies best indicating this division
-are is `ElymrepeC1` (_Elymus repens_ at class value 1). It is an indicator of "positive"
-(or right or second). The pseudospecies with minus sign indicate "negative" (or left or
+is `ElymrepeC1` (_Elymus repens_ at class value 1). It is an indicator of "positive"
+(or right or second) group. The pseudospecies with minus sign indicate "negative" (or left or
 first) group. The indicator species are summed up for every quadrat (or sampling unit: quadrat is
-the term used in TWINSPAN). The last number after `<` gives the threshold score for
+the term used in TWINSPAN). The last number after `<` gives the condition for
 positive group: if the indicator score is less than 1, the quadrat is in the negative
 group (2), and if it is 1 (or higher), the quadrat is in the positive group (3).
 These groups are again divided with new correspondence analysis, and from group 2 you go 
@@ -99,13 +116,50 @@ either to 4 (negative) or 5 (positive). With default settings, groups smaller th
 items or deeper than 7 levels of divisions are not divided. For these final groups,
 `summary` gives the size (`N`) and lists the names of the member quadrats.
 
-You can extract the classification of each quadrat with `cut`:
+The basic `twinspan` hierarchy is based on the level of division and it does not
+consider within-group heterogeneity. However, the package can evaluate heterogeneities
+and use these for trees and further analyses enabling the modification of Roleček _et al_
+(2009):
+```r
+plot(tw, height = "chi")
+```
+![](rolecek.png)
+
+The measure of heterogeneity is the sum of all eigenvalues of group as it is
+analysed in `twinspan`. This is equal to scaled Chi-square, hence the name
+`"chi"` in the argument.
+
+Group 2 of the first-level division is much more heterogeneous than group 3, and for
+comparable homogeneity of groups it would be best to combine level-1 group 3 with
+level-2 groups 4 and 5. 
+
+The basic `plot` and its underlying function `as.hclust` will use groups as terminal
+nodes. With `as.dendrogram` it is also possible to display quadrats (like they are
+called in `twinspan`):
+```r
+plot(as.dendrogram(tw, height="chi"), type = "triangle")
+```
+![](asdendrogram.png)
+
+The dendrogram used the Roleček modification. The first letter of the quadrat name
+gives the original class (Shimwell 1971), and this is fully recovered with three
+classes with Roleček modification.
+
+You can extract the classification of each quadrat with `cut` either for terminal
+groups or for a certain level:
 ```r
 > cut(tw)
  [1]  9  9  9 21 21  6 14  6 14 21 15 21 15  6 14 20 11 11  8  9
 > cut(tw, level=2)
  [1] 4 4 4 5 5 6 7 6 7 5 7 5 7 6 7 5 5 5 4 4
 ```
+The Roleček groups respecting heterogeneity can be extracted with `cuth` ("cut height")
+where you must specify the number of groups:
+```r
+> cuth(tw, ngroups=3)
+ [1] 4 4 4 5 5 3 3 3 3 5 3 5 3 3 3 5 5 5 4 4
+```
+
 You can also predict the membership of quadrats based on the indicator pseudospecies
 and threshold score. This can also be done with argument `newdata` using data set that
 contains same species, but is not used in developing the classification.
@@ -117,40 +171,8 @@ TWINSPAN classification is based
 on the polished ordination, and the indicator pseudospecies only *indicate* this
 division, and `predict` based on pseudospecies can give different classificatin than
 the actual TWINSPAN that split the data by polished axis of correspondence analysis.
-
-TWINSPAN stands for *two-way* indicator species analysis, and in addition to quadrat
-classification it also classifies the species (not the pseudospecies):
-```r
-> summary(tw, "species")
-1) eig=0.904
-  2) eig=0.499
-    4) eig=0.257
-      8) eig=0.1
-        16) eig=0.041
-          32) N=3: ClayperfB StelmediB GeasfornB 
-          33) N=4: CerafontB CirsvulgB Heraspho CardhirsB 
-        17) N=2: Inulcony Bracruta 
-      9) eig=0.217
-        18) eig=0.109
-          36) eig=0.024
-            72) N=2: Hyporadi Arrhelat 
-            73) N=4: UrtidioiA Soncaspe EurhpraeA Lophhete 
-          37) N=1: Sambnigr 
-        19) N=4: Soladulc Rubufrut Epilangu Hypncupr 
-    5) N=3: Elaerham Jacovulg Rumecris 
-  3) eig=0.212
-    6) N=4: Soncarve Calysold Agrostol Verocham 
-    7) eig=0.115
-      14) eig=0.046
-        28) eig=0.036
-          56) N=2: FestrubrC BracalbiC 
-          57) N=3: ElymrepeC AmmoarenC PoapratC 
-        29) N=3: RanubulbC PlanlancC Cladranf 
-      15) N=5: Ononspin Galiveru Bryuincl Syntrura Bovinigr 
-```
-Species classification is based on correspondence analysis where species are weighted by their
-indicator potential for the quadrat classification. You can extract the classification vector
-with `cut(tw, "species")`. 
+Function `misclassified` will list the quadrats where the pseudospecies-based and
+actual TWINSPAN classification differ. In this simple data set there are no such conflicts.
 
 The data can be tabulated with:
 ```r
@@ -206,13 +228,32 @@ The data can be tabulated with:
  111     Bovinigr --------------2-----
 20 sites, 40 species
 ```
-The strings of `0` and `1` in front of the species name and above quadrat name (or number)
-give the steps of division. The numeric values in the table are the pseudospecies values
-of the analysis.
+The binary labels before species and above quadrats specify the
+grouping. The table can be large, but you can limit the
+number of species or only list "leading species" for each group
+(most abundant and frequent in the species group), or species
+used as indicators (see `summary`) or both of these, or you
+can subset quadrats.
 
+A compact visual summary of classification can be displayed with
+```r
+> image(tw, height="chi", leadingspecies=TRUE, reorder=TRUE)
+```
+![](image.png)
+
+TWINSPAN stands for *TWo-way* INdicator SPecies ANalysis, and most of
+the functions described above can be used to display species. For instance,
+`summary(tw, "species")` will show the steps of grouping species.
 
 ### References
 
 Hill, M.O. (1979) _TWINSPAN: A FORTRAN program for arranging multivariate
 data in an ordered two-way table by classification of the individuals and
 attributes_. Ecology and Systematics, Cornell University, Ithaca, NY.
+
+Roleček, J, Tichý, L., Zelený, D. & Chytrý, M. (2009). Modified TWINSPAN
+classification in which the hierarchy respects cluster heterogeneity.
+_J Veg Sci_ 20: 596-602.
+
+Shimwell, D. W. (1971) _Description and Classification of
+Vegetation_. Sidgwick & Jackson.
