@@ -56,6 +56,8 @@
 `twintable` <-
     function(object, maxspp, goodspecies, subset)
 {
+    if (!inherits(object, "twinspan"))
+        stop("function can be used only with 'twinspan' result object")
     i <- object$quadrat$index
     j <- object$species$index
     ilab <- object$quadrat$labels
@@ -84,7 +86,7 @@
     ## add classification strings to names
     jnam <- addbin2name(jclass[j], jlab[j])
     inam <- addbin2name(iclass[i], ilab[i])
-    mat <- mat[i,j]
+    mat <- mat[i,j, drop=FALSE]
     dimnames(mat) <- list(inam, jnam)
     vegemite(mat, zero="-")
     invisible(mat) # return data that vegemite used
