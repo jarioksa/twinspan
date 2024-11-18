@@ -67,7 +67,8 @@ and `7` that it occurs at least the seventh cut level.
 The `twinspan` result can be inspected with support functions of the package.
 The hierarchy of groups can be displayed as a cluster tree with
 ```r
-> plot(tw)
+> plot(tw, main = "Numeric Label")
+> plot(tw, binname = TRUE, main = "Binary Label")
 ```
 ![](twintree.png)
 
@@ -114,14 +115,15 @@ group (2), and if it is 1 (or higher), the quadrat is in the positive group (3).
 These groups are again divided with new correspondence analysis, and from group 2 you go 
 either to 4 (negative) or 5 (positive). With default settings, groups smaller than 5
 items or deeper than 7 levels of divisions are not divided. For these final groups,
-`summary` gives the size (`N`) and lists the names of the member quadrats.
+`summary` gives the size (`N`) and lists the names of the member quadrats. Capital letters
+`A`, `B`, `C` of the quadrat name give the original classification of Shimwell (1971).
 
 The basic `twinspan` hierarchy is based on the level of division and it does not
 consider within-group heterogeneity. However, the package can evaluate heterogeneities
 and use these for trees and further analyses enabling the modification of Roleček _et al_
 (2009):
 ```r
-plot(tw, height = "chi")
+plot(tw, height = "chi", main = "Roleček Tree")
 ```
 ![](rolecek.png)
 
@@ -229,7 +231,9 @@ The data can be tabulated with:
 20 sites, 40 species
 ```
 The binary labels before species and above quadrats specify the
-grouping. The table can be large, but you can limit the
+grouping. Species names ending in capital letter `A`, `B`or `C`
+where regarded as diagnostic for these quadrat groups
+(Shimwell 1971). The table can be large, but you can limit the
 number of species or only list "leading species" for each group
 (most abundant and frequent in the species group), or species
 used as indicators (see `summary`) or both of these, or you
