@@ -59,7 +59,7 @@
     x <- as.matrix(x)
     ## take a subset
     if (!missing(subset))
-        x <- x[subset, ]
+        x <- x[subset,, drop = FALSE]
     ## Twinspan stacks binary matrices of pseudospecies and
     ## downweights them
     nlev <- length(cutlevels)
