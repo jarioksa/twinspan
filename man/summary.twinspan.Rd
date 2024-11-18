@@ -4,7 +4,7 @@
 \alias{summary.twinspan}
 \title{Summary of twinspan Classification}
 \usage{
-\method{summary}{twinspan}(object, what = c("quadrat", "species"), binname = FALSE, ...)
+\method{summary}{twinspan}(object, what = c("quadrat", "species"), binname = FALSE, maxitems, ...)
 }
 \arguments{
 \item{object}{\code{\link{twinspan}} result object.}
@@ -12,6 +12,8 @@
 \item{what}{Summarize either quadrat or species classification.}
 
 \item{binname}{Use binary labels for divisions instead of decimal numbers.}
+
+\item{maxitems}{Maximum number of items (members) listed for terminal groups.}
 
 \item{\dots}{Other arguments (ignored).}
 }
@@ -44,7 +46,7 @@ lists its elements (quadrats or species).
 \examples{
 data(ahti)
 tw <- twinspan(ahti)
-summary(tw)
+summary(tw, maxitems = 6)
 summary(tw, "species")
 
 }

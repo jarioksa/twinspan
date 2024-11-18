@@ -33,7 +33,7 @@
 #' @examples
 #' data(ahti)
 #' tw <- twinspan(ahti)
-#' summary(tw)
+#' summary(tw, maxitems = 6)
 #' summary(tw, "species")
 #'
 #' @return The function returns nothing. It only prints the result
@@ -42,12 +42,16 @@
 #' @param object \code{\link{twinspan}} result object.
 #' @param what Summarize either quadrat or species classification.
 #' @param binname Use binary labels for divisions instead of decimal numbers.
+#' @param maxitems Maximum number of items (members) listed for terminal groups.
 #' @param \dots Other arguments (ignored).
 #'
 #' @export
 `summary.twinspan` <-
-    function(object, what = c("quadrat","species"), binname = FALSE, ...)
+    function(object, what = c("quadrat","species"), binname = FALSE,
+             maxitems, ...)
 {
+    if (missing(maxitems))
+        maxitems <- Inf
     what <- match.arg(what)
     obj <- object[[what]]
     clid <- cut(object, what=what)
@@ -56,21 +60,21 @@
     state[which(obj$eig > 0)] <- "division"
     state[unique(clid)] <- "cluster"
     ## twinvisit is called recursively
-    o <- twinvisit(1, state, obj, binname = binname)
+    o <- twinvisit(1, state, obj, binname = binname, maxitems = maxitems)
 }
 
 `twinvisit` <-
-    function(k, state, obj, binname)
+    function(k, state, obj, binname, maxitems = maxitems)
 {
     if(k > length(state) || state[k]=="")
         return(NULL)
-    twinreport(k, state, obj, binname = binname)
-    twinvisit(2*k, state, obj, binname = binname)
-    twinvisit(2*k+1, state, obj, binname = binname)
+    twinreport(k, state, obj, binname = binname, maxitems = maxitems)
+    twinvisit(2*k, state, obj, binname = binname, maxitems = maxitems)
+    twinvisit(2*k+1, state, obj, binname = binname, maxitems = maxitems)
 }
 
 `twinreport` <-
-    function(k, state, obj, binname = binname)
+    function(k, state, obj, binname = binname, maxitems = maxitems)
 {
     level <- sum(2^(seq_len(15)) <= k)
     cat(rep("  ", level), sep="")
@@ -92,6 +96,9 @@
     else { # class
         nm <- obj$labels[obj$iclass == k]
         cat("N=", length(nm), ": ", sep="")
-        cat(nm, "\n")
+        if (length(nm) > maxitems)
+            cat(nm[seq_len(maxitems)], "...\n")
+        else
+            cat(nm, "\n")
     }
 }

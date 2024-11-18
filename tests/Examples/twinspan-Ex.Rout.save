@@ -431,7 +431,7 @@ Warning in twinspan(ahti[i != 1, ]) : some empty species were removed
 > 
 > data(ahti)
 > tw <- twinspan(ahti)
-> summary(tw)
+> summary(tw, maxitems = 6)
 1) eig=0.253:  -Cladcocc1 -Cladnigr1 -Cladmiti3 +Dicrpoly1 < 0
   2) eig=0.156:  +Cladstel5 -Cladvert1 -Polypili2 +Dicrfusc1 -Cladturb1 -Cetreric1 < 0
     4) eig=0.163:  +Cladrang3 -Sterpasc4 +Cladmero1 -Empenigr2 +Cladmiti4 +Callvulg1 < 2
@@ -473,7 +473,7 @@ Warning in twinspan(ahti[i != 1, ]) : some empty species were removed
             88) N=1: Vmyr071 
             89) N=5: Empe073 Empe031 Empe067 Empe072 Empe074 
           45) eig=0.118:  +Callvulg4 -Cladstel5 +Cladcarn1 -Polystri1 -Dicrfusc2 < 0
-            90) N=8: Vmyr036 Vmyr035 Vmyr075 Vmyr032 Empe065 Empe039 Empe093 Empe038 
+            90) N=8: Vmyr036 Vmyr035 Vmyr075 Vmyr032 Empe065 Empe039 ...
             91) N=5: Call114 Empe034 Empe062 Empe046 Empe043 
         23) eig=0.238:  +Lecigran1 < 1
           46) eig=0.313:  -Empeherm1 < 0
@@ -493,13 +493,13 @@ Warning in twinspan(ahti[i != 1, ]) : some empty species were removed
         25) eig=0.141:  -Cladstel5 -Cladpleu1 < -1
           50) N=3: Vmyr068 Syng135 Syng008 
           51) eig=0.152:  +Empeherm1 < 1
-            102) N=10: Mold162 Mold134 Sold143 Sold164 Myng120 Myng126 Myng121 Myng124 Syng007 Syng142 
+            102) N=10: Mold162 Mold134 Sold143 Sold164 Myng120 Myng126 ...
             103) N=2: Myng028 Syng023 
       13) eig=0.153:  -Cladcorn1 -Cladgray1 < 0
         26) eig=0.161:  +Peltmala1 < 1
           52) eig=0.173:  -Stergran1 < 0
             104) N=1: Syng003 
-            105) N=9: Sold137 Sold144 Sold014 Sold027 Sold015 Sold025 Syng026 Hbor169 Hbor171 
+            105) N=9: Sold137 Sold144 Sold014 Sold027 Sold015 Sold025 ...
           53) N=3: Sold022 Syng021 Syng024 
         27) eig=0.283:  -Dicrscop1 < 0
           54) N=3: Thym004 Thym136 Thym139 
@@ -509,9 +509,9 @@ Warning in twinspan(ahti[i != 1, ]) : some empty species were removed
         28) eig=0.102:  +Empenigr1 -Cladarbu4 -Pleuschr3 -Cladturb1 -Dicrpoly2 -Cetrisla2 < -1
           56) eig=0.161:  -Dicrpoly3 < 0
             112) N=2: Sold018 Sold016 
-            113) N=7: Mold161 Mold029 Mold152 Sold147 Sold146 Sold138 Sold012 
+            113) N=7: Mold161 Mold029 Mold152 Sold147 Sold146 Sold138 ...
           57) eig=0.121:  -Cladcorn1 < 0
-            114) N=16: Mold154 Mold155 Mold159 Mold151 Mold130 Mold158 Mold132 Mold128 Mold153 Mold157 Mold149 Mold148 Mold133 Mold129 Mold125 Sold009 
+            114) N=16: Mold154 Mold155 Mold159 Mold151 Mold130 Mold158 ...
             115) N=3: Vmyr041 Sold011 Sold010 
         29) N=4: Vmyr058 Mold156 Mold054 Sold019 
       15) eig=0.23:  +Cladceno1 < 1
@@ -1124,7 +1124,7 @@ Warning: tree reversal: group 45 more heterogeneous than parent 22
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.353 0.089 1.453 0 0 
+Time elapsed:  1.352 0.088 1.444 0 0 
 > grDevices::dev.off()
 null device 
           1 
