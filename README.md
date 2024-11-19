@@ -104,16 +104,19 @@ The summary of division process can be inspected with `summary` (with argument
 ```
 `twinspan` is divisive: it splits data into two parts at each step, and these steps are
 described here. The splits are based on the first correspondence analysis axis of the
-current subset which is still further polished to make the dichotomy clearer. The first
-split is made at eigenvalue 0.56, and the pseudospecies best indicating this division
-is `ElymrepeC1` (_Elymus repens_ at class value 1). It is an indicator of "positive"
-(or right or second) group. The pseudospecies with minus sign indicate "negative" (or left or
-first) group. The indicator species are summed up for every quadrat (or sampling unit: quadrat is
-the term used in TWINSPAN). The last number after `<` gives the condition for
-positive group: if the indicator score is less than 1, the quadrat is in the negative
-group (2), and if it is 1 (or higher), the quadrat is in the positive group (3).
+current subset which is still further polished to make the dichotomy clearer.
+`twinspan` finds the pseudospecies that best indicate the division based on CA axis,
+and `summary` shows these indicator. There are pseudospecies names with `+` or `-` signs.
+These are used to calculate indicator scores for each quadrat, adding or subtracting
+one for each pseudospecies in the quadrat. If the quadrat score is less than the critical
+score, we proceed from group $k$ to $2k$, and if the condition is false (quadrat score is
+equal or greater than the critical score), we proceed to its opposite $2k+1$. 
+The first split is made at eigenvalue 0.56, and the pseudospecies best indicating this division
+is `ElymrepeC1` (_Elymus repens_ at class value 1). The quadrat score will be 1 for quadrats
+with _Elymys repens_ and 0 without, and with condition $< 1$ we continue from 2 with quadrats
+without the species, and from 3 with quadrats with the indicator species.
 These groups are again divided with new correspondence analysis, and from group 2 you go 
-either to 4 (negative) or 5 (positive). With default settings, groups smaller than 5
+either to 4 (condition true) or 5 (condition false). With default settings, groups smaller than 5
 items or deeper than 7 levels of divisions are not divided. For these final groups,
 `summary` gives the size (`N`) and lists the names of the member quadrats. Capital letters
 `A`, `B`, `C` of the quadrat name give the original classification of Shimwell (1971).
@@ -169,6 +172,11 @@ contains same species, but is not used in developing the classification.
 > predict(tw, level=2)
  [1] 4 4 4 5 5 6 7 6 7 5 7 5 7 6 7 5 5 5 4 4
 ```
+Care is needed with `newdata`:  TWINSPAN will predict a class also when the
+`newdata` is completely unrelated to the original data. If there are no indicator
+species, the predicted class will be the one with indicator scores always 0, or group 21
+in this example.
+
 TWINSPAN classification is based
 on the polished ordination, and the indicator pseudospecies only *indicate* this
 division, and `predict` based on pseudospecies can give different classificatin than
