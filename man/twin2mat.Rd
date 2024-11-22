@@ -6,7 +6,7 @@
 \alias{twin2specstack}
 \title{Extract Transformed Input Data from twinspan Result}
 \usage{
-twin2stack(x, subset, downweight = FALSE)
+twin2stack(x, subset, downweight = TRUE)
 
 twin2mat(x)
 
@@ -81,7 +81,7 @@ x <- twin2mat(tw)
 dim(x)
 range(x)
 colnames(x)
-x <- twin2stack(tw)
+x <- twin2stack(tw, downweight = FALSE)
 dim(x)
 range(x)
 colnames(x)

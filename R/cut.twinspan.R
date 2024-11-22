@@ -111,7 +111,7 @@
 #'
 #' @export
 `cuth` <-
-    function(x, what = c("quadrat", "species"), ngroups, binname = FALSE)
+    function(x, ngroups, what = c("quadrat", "species"), binname = FALSE)
 {
     what <- match.arg(what)
     if (missing(ngroups))

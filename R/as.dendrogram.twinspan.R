@@ -44,11 +44,11 @@
 #' @seealso \code{\link{as.hclust.twinspan}}, \code{\link{dendrogram}}.
 #'
 #' @param object \code{\link{twinspan}} result object.
-#' @param what Return either a \code{"quadrat"} or \code{"species"}
-#'     dendrogram.
 #' @param height Use either division levels (\code{"level"}), total
 #'     Chi-squares (\code{"chi"}) or eigenvalues of first axis
 #'     (\code{"eigen"}) of division as dendrogram heights.
+#' @param what Return either a \code{"quadrat"} or \code{"species"}
+#'     dendrogram.
 #'
 #' @param \dots Other parameters to functions.
 #'
@@ -56,8 +56,8 @@
 #'
 #' @export
 `as.dendrogram.twinspan` <-
-    function(object, what = c("quadrat", "species"),
-             height = c("level", "chi", "eigen"), ...)
+    function(object, height = c("level", "chi", "eigen"),
+             what = c("quadrat", "species"), ...)
 {
     what <- match.arg(what)
     height <- match.arg(height)

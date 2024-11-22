@@ -11,7 +11,7 @@
 
 twingroup(x, group, what = c("quadrat", "species"))
 
-cuth(x, what = c("quadrat", "species"), ngroups, binname = FALSE)
+cuth(x, ngroups, what = c("quadrat", "species"), binname = FALSE)
 }
 \arguments{
 \item{x}{\code{twinspan} result.}

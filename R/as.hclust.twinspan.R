@@ -51,7 +51,7 @@
 #'
 #' data(ahti)
 #' tw <- twinspan(ahti)
-#' plot(as.hclust(tw, "species"))
+#' plot(as.hclust(tw, what = "species"))
 #' cl <- as.hclust(tw)
 #' ## plot and 8 groups by hierarchy level
 #' plot(cl)
@@ -64,11 +64,11 @@
 #'
 #'
 #' @param x \code{\link{twinspan}} result object.
-#' @param what Extract \code{"quadrat"} or \code{"species"}
-#'     classification tree.
 #' @param height Use either division levels (\code{"level"}) or total
 #'     Chi-squares of division (\code{"chi"}) as heights of internal
 #'     nodes in the tree.
+#' @param what Extract \code{"quadrat"} or \code{"species"}
+#'     classification tree.
 #' @param binname Use binary labels for classes instead of decimal
 #'     numbers.
 #' @param \dots Other parameters to the function (ignored).
@@ -77,7 +77,7 @@
 #'
 #' @export
 `as.hclust.twinspan` <-
-    function(x, what = c("quadrat","species"), height = c("level", "chi"),
+    function(x, height = c("level", "chi"), what = c("quadrat","species"),
              binname = FALSE, ...)
 {
     what <- match.arg(what)
@@ -214,21 +214,21 @@ fixTreeReversal <-
 #'
 #' data(ahti)
 #' tw <- twinspan(ahti)
-#' plot(tw, "species")
+#' plot(tw, what = "species")
 #' ## default plot for quadrats
 #' plot(tw)
 #' ## plot by the heterogeneity of divisions
 #' plot(tw, height = "chi")
 #'
 #' @param x \code{\link{twinspan}} result object.
+#' @param height Use either division levels (\code{"level"}) or total
+#'     Chi-squares of division (\code{"chi"}) as heights of internal
+#'     nodes in the tree.
 #' @param what Plot \code{"quadrat"} or \code{"species"}
 #'     classification tree.
 #' @param main Main title of the plot.
 #' @param \dots Other parameters passed to \code{\link{plot}} and
 #'     \code{\link[vegan]{ordilabel}}.
-#' @param height Use either division levels (\code{"level"}) or total
-#'     Chi-squares of division (\code{"chi"}) as heights of internal
-#'     nodes in the tree.
 #' @param binname Use binary labels for classes and nodes instead of
 #'     decimal numbers.
 #' @importFrom vegan ordilabel
@@ -236,7 +236,7 @@ fixTreeReversal <-
 #'
 #' @export
 `plot.twinspan` <-
-    function(x, what = c("quadrat", "species"), height = c("level", "chi"),
+    function(x, height = c("level", "chi"), what = c("quadrat", "species"),
              main = "Twinspan Dendrogram", binname = FALSE, ...)
 {
     what <- match.arg(what)

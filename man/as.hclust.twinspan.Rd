@@ -7,8 +7,8 @@
 \usage{
 \method{as.hclust}{twinspan}(
   x,
-  what = c("quadrat", "species"),
   height = c("level", "chi"),
+  what = c("quadrat", "species"),
   binname = FALSE,
   ...
 )
@@ -16,12 +16,12 @@
 \arguments{
 \item{x}{\code{\link{twinspan}} result object.}
 
-\item{what}{Extract \code{"quadrat"} or \code{"species"}
-classification tree.}
-
 \item{height}{Use either division levels (\code{"level"}) or total
 Chi-squares of division (\code{"chi"}) as heights of internal
 nodes in the tree.}
+
+\item{what}{Extract \code{"quadrat"} or \code{"species"}
+classification tree.}
 
 \item{binname}{Use binary labels for classes instead of decimal
 numbers.}
@@ -61,7 +61,7 @@ branches in the tree. A warning is issued for each such case.
 
 data(ahti)
 tw <- twinspan(ahti)
-plot(as.hclust(tw, "species"))
+plot(as.hclust(tw, what = "species"))
 cl <- as.hclust(tw)
 ## plot and 8 groups by hierarchy level
 plot(cl)

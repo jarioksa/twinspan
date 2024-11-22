@@ -6,20 +6,20 @@
 \usage{
 \method{as.dendrogram}{twinspan}(
   object,
-  what = c("quadrat", "species"),
   height = c("level", "chi", "eigen"),
+  what = c("quadrat", "species"),
   ...
 )
 }
 \arguments{
 \item{object}{\code{\link{twinspan}} result object.}
 
-\item{what}{Return either a \code{"quadrat"} or \code{"species"}
-dendrogram.}
-
 \item{height}{Use either division levels (\code{"level"}), total
 Chi-squares (\code{"chi"}) or eigenvalues of first axis
 (\code{"eigen"}) of division as dendrogram heights.}
+
+\item{what}{Return either a \code{"quadrat"} or \code{"species"}
+dendrogram.}
 
 \item{\dots}{Other parameters to functions.}
 }

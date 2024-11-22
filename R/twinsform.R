@@ -176,7 +176,7 @@
 #' dim(x)
 #' range(x)
 #' colnames(x)
-#' x <- twin2stack(tw)
+#' x <- twin2stack(tw, downweight = FALSE)
 #' dim(x)
 #' range(x)
 #' colnames(x)
@@ -199,7 +199,7 @@
 #'
 #' @export
 `twin2stack` <-
-    function(x, subset, downweight = FALSE)
+    function(x, subset, downweight = TRUE)
 {
     nc <- length(x$quadrat$indlabels)
     nr <- x$nquadrat

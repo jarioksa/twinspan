@@ -6,8 +6,8 @@
 \usage{
 \method{plot}{twinspan}(
   x,
-  what = c("quadrat", "species"),
   height = c("level", "chi"),
+  what = c("quadrat", "species"),
   main = "Twinspan Dendrogram",
   binname = FALSE,
   ...
@@ -16,12 +16,12 @@
 \arguments{
 \item{x}{\code{\link{twinspan}} result object.}
 
-\item{what}{Plot \code{"quadrat"} or \code{"species"}
-classification tree.}
-
 \item{height}{Use either division levels (\code{"level"}) or total
 Chi-squares of division (\code{"chi"}) as heights of internal
 nodes in the tree.}
+
+\item{what}{Plot \code{"quadrat"} or \code{"species"}
+classification tree.}
 
 \item{main}{Main title of the plot.}
 
@@ -53,7 +53,7 @@ by chi-square (or inertia) of the division (see
 
 data(ahti)
 tw <- twinspan(ahti)
-plot(tw, "species")
+plot(tw, what = "species")
 ## default plot for quadrats
 plot(tw)
 ## plot by the heterogeneity of divisions

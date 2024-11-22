@@ -118,7 +118,7 @@ Warning in twinspan(ahti[1:87, ]) : some empty species were removed
 > 
 > data(ahti)
 > tw <- twinspan(ahti)
-> plot(as.hclust(tw, "species"))
+> plot(as.hclust(tw, what = "species"))
 > cl <- as.hclust(tw)
 > ## plot and 8 groups by hierarchy level
 > plot(cl)
@@ -359,7 +359,7 @@ Warning: tree reversal: group 31 more heterogeneous than parent 15
 > 
 > data(ahti)
 > tw <- twinspan(ahti)
-> plot(tw, "species")
+> plot(tw, what = "species")
 > ## default plot for quadrats
 > plot(tw)
 > ## plot by the heterogeneity of divisions
@@ -634,7 +634,7 @@ Warning in twinspan(ahti[i != 1, ]) : some empty species were removed
 [103] "Ptilcris" "Cladfimb" "Cladbacf" "Cladgrac" "Cladconi" "Peltrufe"
 [109] "Hierumbe" "Cladfurc" "Polyodor" "Luzupilo" "Thymserp" "Convmaja"
 [115] "Hypomacu"
-> x <- twin2stack(tw)
+> x <- twin2stack(tw, downweight = FALSE)
 > dim(x)
 [1] 170 243
 > range(x)
@@ -1124,7 +1124,7 @@ Warning: tree reversal: group 45 more heterogeneous than parent 22
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.352 0.088 1.444 0 0 
+Time elapsed:  1.353 0.08 1.435 0 0 
 > grDevices::dev.off()
 null device 
           1 

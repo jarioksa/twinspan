@@ -55,7 +55,7 @@
     cuts <- object$cutlevels
     ## handle newdata
     if (missing(newdata))
-        newdata <- twin2stack(object)
+        newdata <- twin2stack(object, downweight = FALSE)
     else
         newdata <- twinsform(newdata, cuts, downweight = FALSE)
     ## one quadrat is turned into 1-column matrix: transpose
