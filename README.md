@@ -30,9 +30,9 @@ you need **C** and **Fortran** compilers.
 If you cannot install a source package, you can install **twinspan** from R-Universe:
 
 ```r
-install.packages('twinspan', repos = c('https://jarioksa.r-universe.dev', 'https://cloud.r-project.org'))
+install.packages('twinspan', repos = c('https://jarioksa.r-universe.dev',
+                                       'https://cloud.r-project.org'))
 ```
-
   
 ## What you can do with twinspan?
 
@@ -41,7 +41,7 @@ The basic command to run twinspan is – unsurprisingly – `twinspan`:
 > library(twinspan)
 > library(natto) # for data 
 > data(spurn)
-> tw <- twinspan(spurn, cutlevels = 0:6)
+> tw <- twinspan(spurn, cutlevels = 1:6)
 ```
 The example uses Spurn Point dune scrub data (Shimwell 1971).
 TWINSPAN uses basically binary data, and quantitative data are broken into 
@@ -55,14 +55,14 @@ The pseudospecies data can be generated with `twinsform` transformation:
   [1] "Elaerham1"  "Jacovulg1"  "Soladulc1"  "Rubufrut1"  "UrtidioiA1"
   [6] "Rumecris1"  "ClayperfB1" "StelmediB1" "FestrubrC1" "ElymrepeC1"
 ... cut ...
-[111] "ElymrepeC4" "AmmoarenC4" "Epilangu4"  "Elaerham5"  "UrtidioiA5"
-[116] "ClayperfB5" "StelmediB5" "FestrubrC5" "ElymrepeC5" "AmmoarenC5"
-[121] "Elaerham6"  "ClayperfB6" "AmmoarenC6" "Elaerham7" 
+ [71] "ElymrepeC3" "AmmoarenC3" "Epilangu3"  "Elaerham4"  "UrtidioiA4"
+ [76] "ClayperfB4" "StelmediB4" "FestrubrC4" "ElymrepeC4" "AmmoarenC4"
+ [81] "Elaerham5"  "ClayperfB5" "AmmoarenC5" "Elaerham6" 
 ```
-The original data of 40 species are extended to a matrix of 124 pseudospecies.
+The original data of 40 species are extended to a matrix of 84 pseudospecies.
 The names of pseudospecies are formed appending an integer for the cut level
 after the species name. Level `1` means that the taxon occurs in the data,
-and `7` that it occurs at least the seventh cut level.
+and `6` that it occurs at least the seventh cut level.
 
 The `twinspan` result can be inspected with support functions of the package.
 The hierarchy of groups can be displayed as a cluster tree with
@@ -86,21 +86,17 @@ The summary of division process can be inspected with `summary` (with argument
 `binname = TRUE` binary labels are used instead of numeric):
 ```r
 > summary(tw)
-1) eig=0.56:  +ElymrepeC1 < 1
-  2) eig=0.399:  -UrtidioiA1 < 0
-    4) eig=0.355:  -Soncarve1 < 0
+1) eig=0.561:  +ElymrepeC1 < 1
+  2) eig=0.4:  -UrtidioiA1 < 0
+    4) eig=0.361:  -Soncarve1 < 0
       8) N=1: A19 
       9) N=4: A1 A2 A3 A20 
-    5) eig=0.263:  +Inulcony1 < 1
-      10) eig=0.229:  -Rumecris1 < 0
-        20) N=1: B16 
-        21) N=4: B4 B5 B10 B12 
-      11) N=2: B17 B18 
-  3) eig=0.23:  +AmmoarenC5 +Jacovulg1 -Galiveru1 < 1
-    6) N=3: C6 C8 X14 
-    7) eig=0.226:  -Calysold1 < 0
-      14) N=3: C7 C9 C15 
-      15) N=2: C11 C13 
+    5) eig=0.258:  -ClayperfB4 < 0
+      10) N=4: B4 B5 B10 B16 
+      11) N=3: B12 B17 B18 
+  3) eig=0.248:  +AmmoarenC4 +Jacovulg1 -Rumecris1 -Soncarve1 < 0
+    6) N=4: C6 C8 C9 X14 
+    7) N=4: C7 C11 C13 C15 
 ```
 `twinspan` is divisive: it splits data into two parts at each step, and these steps are
 described here. The splits are based on the first correspondence analysis axis of the
@@ -111,7 +107,7 @@ These are used to calculate indicator scores for each quadrat, adding or subtrac
 one for each pseudospecies in the quadrat. If the quadrat score is less than the critical
 score, we proceed from group $k$ to $2k$, and if the condition is false (quadrat score is
 equal or greater than the critical score), we proceed to its opposite $2k+1$. 
-The first split is made at eigenvalue 0.56, and the pseudospecies best indicating this division
+The first split is made at eigenvalue 0.561, and the pseudospecies best indicating this division
 is `ElymrepeC1` (_Elymus repens_ at class value 1). The quadrat score will be 1 for quadrats
 with _Elymys repens_ and 0 without, and with condition $< 1$ we continue from 2 with quadrats
 without the species, and from 3 with quadrats with the indicator species.
@@ -154,9 +150,9 @@ You can extract the classification of each quadrat with `cut` either for termina
 groups or for a certain level:
 ```r
 > cut(tw)
- [1]  9  9  9 21 21  6 14  6 14 21 15 21 15  6 14 20 11 11  8  9
+ [1]  9  9  9 10 10  6  7  6  6 10  7 11  7  6  7 10 11 11  8  9
 > cut(tw, level=2)
- [1] 4 4 4 5 5 6 7 6 7 5 7 5 7 6 7 5 5 5 4 4
+ [1] 4 4 4 5 5 6 7 6 6 5 7 5 7 6 7 5 5 5 4 4
 ```
 The Roleček groups respecting heterogeneity can be extracted with `cuth` ("cut height")
 where you must specify the number of groups:
@@ -170,11 +166,11 @@ and threshold score. This can also be done with argument `newdata` using data se
 contains same species, but is not used in developing the classification.
 ```r
 > predict(tw, level=2)
- [1] 4 4 4 5 5 6 7 6 7 5 7 5 7 6 7 5 5 5 4 4
+ [1] 4 4 4 5 5 6 7 6 6 5 6 5 7 6 7 5 5 5 4 4
 ```
 Care is needed with `newdata`:  TWINSPAN will predict a class also when the
 `newdata` is completely unrelated to the original data. If there are no indicator
-species, the predicted class will be the one with indicator scores always 0, or group 21
+species, the predicted class will be the one with indicator scores always 0, or group 11
 in this example.
 
 TWINSPAN classification is based
@@ -189,53 +185,52 @@ The data can be tabulated with:
 > twintable(tw)
                                       
                   00000000000011111111
-                  00000111111100011111
-                  011110000011   00011
-                       01111          
+                  00000111111100001111
+                  011110000111        
                                       
-                  A   AB  BBBB  X  CCC
-                  1AAA21BB1111CC1CC111
-                  91230645027868479513
- 00000  ClayperfB -----6566443--------
- 00000  StelmediB -----2322543--------
- 00000  GeasfornB ------22-222--------
- 00001  CerafontB -----2--2233--------
- 00001  CirsvulgB -----2----2---------
- 00001   Heraspho ----------2---------
- 00001  CardhirsB ----------22--------
- 0001    Inulcony ----2-----23--------
- 0001    Bracruta --23--2-2222--------
- 001000  Hyporadi 2-------------------
- 001000  Arrhelat 3-------------------
- 001001 UrtidioiA 25334---------------
- 001001  Soncaspe ----2---------------
- 001001 EurhpraeA 33233---------------
- 001001  Lophhete ----2---------------
- 00101   Sambnigr ----22--------------
- 0011    Soladulc 2442332232-22-22--2-
- 0011    Rubufrut 223-4223222---2-----
- 0011    Epilangu 4---22--23----2-----
- 0011    Hypncupr -222---22-----2-----
- 01      Elaerham 77777777777756644555
- 01      Jacovulg 33232222---2--222322
- 01      Rumecris 322222-----2222-2-22
- 10      Soncarve 2-------2---222-223-
- 10      Calysold --------22-2-33222--
- 10      Agrostol ----2-----2--22-22--
- 10      Verocham 2-------2-----2-2---
- 11000  FestrubrC -------2----33322345
- 11000  BracalbiC ------------2-2-3-2-
- 11001  ElymrepeC ------------22445222
- 11001  AmmoarenC ------------44262653
- 11001   PoapratC -------------22-2232
- 1101   RanubulbC --------------2-2-22
- 1101   PlanlancC --------------2-2323
- 1101    Cladranf -------------------2
- 111     Ononspin ------------3-------
- 111     Galiveru ------------2-2-----
- 111     Bryuincl ------------2-2-----
- 111     Syntrura -------------22-----
- 111     Bovinigr --------------2-----
+                  A   A  BBBBB   X CCC
+                  1AAA2BB11111CCC1C111
+                  91230450627868947135
+ 11111   Bovinigr ---------------1----
+ 11111   Syntrura -------------1-1----
+ 11111   Bryuincl ------------1--1----
+ 11111   Galiveru ------------1--1----
+ 11111   Ononspin ------------2-------
+ 11110  BracalbiC ------------1-21-1--
+ 11101  RanubulbC --------------11-11-
+ 11101   PoapratC -------------111-211
+ 11101  ElymrepeC ------------11433111
+ 11101  FestrubrC ------1-----22121342
+ 11100   Cladranf ------------------1-
+ 11100  PlanlancC --------------11-122
+ 11100  AmmoarenC ------------33115425
+ 110     Agrostol ----1-----1--111---1
+ 110     Calysold -------1-1-1-2121--1
+ 110     Soncarve 1------1----1111-2-1
+ 10      Verocham 1------1------11----
+ 01      Rumecris 21111---1--11111-11-
+ 01      Jacovulg 2212111-1--1--111112
+ 01      Elaerham 66666666666645353444
+ 0011    Hypncupr -111--11-------1----
+ 0011    Epilangu 3---1--112-----1----
+ 0011    Soladulc 1331211221-11--111--
+ 00101   Sambnigr ----1---1-----------
+ 00101   Rubufrut 112-3121111----1----
+ 001001  Lophhete ----1---------------
+ 001001 EurhpraeA 22122---------------
+ 001001  Soncaspe ----1---------------
+ 001001 UrtidioiA 14223---------------
+ 001000  Arrhelat 2-------------------
+ 001000  Hyporadi 1-------------------
+ 0001    Bracruta --12-1-1-111--------
+ 0001    Inulcony ----1-----12--------
+ 000011 CardhirsB ----------11--------
+ 000011  Heraspho ----------1---------
+ 000011 CerafontB -------11122--------
+ 000010 GeasfornB -----11--111--------
+ 000010 CirsvulgB --------1-1---------
+ 000010 StelmediB -----2111432--------
+ 00000  ClayperfB -----4555332--------
 20 sites, 40 species
 ```
 The binary labels before species and above quadrats specify the
