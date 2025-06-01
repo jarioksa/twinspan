@@ -58,7 +58,7 @@ These should be changed to or
          X(I)=DBLE(II)
  500  CONTINUE
 ```
-Pull requests are welcome.
+Pull requests are welcome. This is not a simple mechanical task, because program can jump to a numbered statement (`GO TO 500`) anywhere from the code, and you need to analyse code carefully to see that the correct line is executed both in the loop and when jumping to the line outside the loop. If you have not yet heard the term "Fortran spaghetti", this is an opportunity to learn its meaning.
 
 When the original Fortran code was written, `END DO` did not exist, and empty statement `500 CONTINUE` was regarded as a waste of one punched card and killing trees.
 
