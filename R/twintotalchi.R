@@ -35,10 +35,10 @@
 `totalchi` <-
     function(x)
 {
-    x <- x/sum(x)
-    rc <- outer(rowSums(x), colSums(x))
-    x <- (x - rc)/sqrt(rc)
-    sum(x^2)
+    x <- x/sum(x)  # sum(x) == 1
+    rc <- outer(rowSums(x), colSums(x)) # sum(rc) == 1
+    ## x <- (x - rc)/sqrt(rc)
+    sum(x^2/rc) - 1
 }
 
 ### Evaluates the sum of all eigenvalues of Correspondence Analysis
