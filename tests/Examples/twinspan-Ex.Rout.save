@@ -1,6 +1,6 @@
 
-R version 4.4.1 (2024-06-14) -- "Race for Your Life"
-Copyright (C) 2024 The R Foundation for Statistical Computing
+R version 4.5.0 Patched (2025-04-21 r88173) -- "How About a Twenty-Six"
+Copyright (C) 2025 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -687,17 +687,14 @@ Warning in twinspan(ahti[i != 1, ]) : some empty species were removed
 > if (suppressPackageStartupMessages(require("vegan"))) {
 + cca(x)
 + }
-Call: cca(X = x)
 
--- Model Summary --
+Call: cca(X = x)
 
               Inertia Rank
 Total           1.288     
 Unconstrained   1.288   38
 
 Inertia is scaled Chi-square
-
--- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
     CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8 
@@ -709,17 +706,14 @@ Eigenvalues for unconstrained axes:
 > if (suppressPackageStartupMessages(require("vegan"))) {
 + cca(x)
 + }
-Call: cca(X = x)
 
--- Model Summary --
+Call: cca(X = x)
 
               Inertia Rank
 Total           2.028     
 Unconstrained   2.028  110
 
 Inertia is scaled Chi-square
-
--- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
    CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8 
@@ -732,7 +726,7 @@ Eigenvalues for unconstrained axes:
 > 
 > cleanEx()
 
-detaching ‘package:vegan’, ‘package:lattice’, ‘package:permute’
+detaching ‘package:vegan’, ‘package:permute’
 
 > nameEx("twinid")
 > ### * twinid
@@ -891,7 +885,7 @@ attr(,"sumev")
 > 
 > cleanEx()
 
-detaching ‘package:vegan’, ‘package:lattice’, ‘package:permute’
+detaching ‘package:vegan’, ‘package:permute’
 
 > nameEx("twinspan")
 > ### * twinspan
@@ -1124,7 +1118,7 @@ Warning: tree reversal: group 45 more heterogeneous than parent 22
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.353 0.08 1.435 0 0 
+Time elapsed:  1.347 0.089 1.44 0 0 
 > grDevices::dev.off()
 null device 
           1 
