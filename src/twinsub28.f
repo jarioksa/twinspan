@@ -6,7 +6,8 @@ C ROWWGT,COLWGT.
       REAL(8) X(M),Y(N),ROWWGT(M),COLWGT(N)
       INTEGER IIROW(M),IADDR(MM),IDAT(NDAT)
       DO 10 J=1,N
-   10 Y(J)=0.0
+      Y(J)=0.0
+ 10   CONTINUE
       DO 20 I=1,M
       II=IIROW(I)
       AX=X(I)*ROWWGT(I)
@@ -18,7 +19,8 @@ C ROWWGT,COLWGT.
       GOTO 15
    20 CONTINUE
       DO 30 J=1,N
-   30 Y(J)=Y(J)*COLWGT(J)
+      Y(J)=Y(J)*COLWGT(J)
+ 30   CONTINUE
       RETURN
       END
 C

@@ -14,14 +14,16 @@ C---Variable PRECIS added P.Minchin  June 1997
       CWT=1.0-CWTMIN
       IF(FRQLIM.LT.1.0E-10)FRQLIM=1.0E-10
       DO 10 J=1,N
-   10 COLWGT(J)=1.0
+      COLWGT(J)=1.0
+ 10   CONTINUE
       TOT=0.0
       DO 20 I=1,M
       II=IIROW(I)
       RR=RRWT(II)
       ROWWGT(I)=RR
       TOT=TOT+RR
-   20 X(I)=1.0
+      X(I)=1.0
+ 20   CONTINUE
       CALL XYMULT(M,MM,N,NDAT,X,Y,IIROW,IADDR,ROWWGT,
      1COLWGT,IDAT)
       DO 30 J=1,N

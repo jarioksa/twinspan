@@ -42,12 +42,14 @@ C---Changed JNAME to CHARACTER: P.Minchin June 1997
       JJQ=IDAT(IID)
       IF(JJQ.EQ.0) GOTO 84
       DO 86 JQ=1,JJQ
-      JJJ=JJJ+1
-   86 IIY(JJJ)=J+IBIG*(JQ-1)
+         JJJ=JJJ+1
+         IIY(JJJ)=J+IBIG*(JQ-1)
+ 86   CONTINUE
       GOTO 84
    87 DO 88 JJ=1,JJJ
-      ID=ID+1
-   88 IDAT(ID)=IIY(JJ)
+         ID=ID+1
+         IDAT(ID)=IIY(JJ)
+ 88   CONTINUE
       ID=ID+1
       IDAT(ID)=-1
       IF(ID.LE.IID) GOTO 90
@@ -58,7 +60,8 @@ C TO DO IS TO CONDENSE THE NUMBERING
       IP=0
       DO 140 IL=1,NL
       DO 100 JJJ=1,NSPEC
-  100 IIY(JJJ)=0
+         IIY(JJJ)=0
+ 100  CONTINUE
       ID=0
       DO 110 II=1,MM
   103 ID=ID+1
@@ -102,10 +105,12 @@ C TO DO IS TO CONDENSE THE NUMBERING
       J=INDPOT(JJ)
       IIY(J)=JJ
       JNFLAG(JJ)=JNFLAG(J)
- 160  JNAME1(JJ)=JNAME1(J)
+      JNAME1(JJ)=JNAME1(J)
+ 160  CONTINUE
       DO 170 JJ=1,NN
       J=INDPOT(JJ)
-  170 INDPOT(JJ)=IIY(J)
+      INDPOT(JJ)=IIY(J)
+ 170  CONTINUE
       JJJ=2
       IL=0
       DO 180 JJ=1,NN
@@ -114,7 +119,8 @@ C TO DO IS TO CONDENSE THE NUMBERING
       JNAME1(JJ)=JNAME1(J)
       IF(J.LE.JJJ) IL=IL+1
       JNAM(JJ)=IL
-  180 JJJ=J
+      JJJ=J
+ 180  CONTINUE
       RETURN
       END
 C

@@ -17,7 +17,8 @@ C---Variable PRECIS added P.Minchin  June 1997
       COMMON/IARBS/ICWEXP,IEND,MMIN,IPREXP,LEVMAX
       COMMON/WORK/ITEM
       DO 10 ICAT=1,6
-   10 NCAT(ICAT)=0
+      NCAT(ICAT)=0
+ 10   CONTINUE
       DO 20 I=1,M
       IZ=IZONE(I)
       IS=IX(I)

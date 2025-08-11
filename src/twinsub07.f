@@ -22,8 +22,12 @@ C EFFICIENT (HEAP-SORT) IN SITU SORTING OF VECTOR IX(N)
       I=I-1
       J=1
       JJ=2
-   15 IF(I-JJ) 12,17,16
-   16 JJX=IX(JJ)
+ 15   IF(I .LT. JJ) THEN
+         GOTO 12
+      ELSE IF (I. EQ. JJ) THEN
+         GOTO 17
+      END IF
+      JJX=IX(JJ)
       JJJ=JJ+1
       JJJX=IX(JJJ)
       IF(JJX.GE.JJJX) GOTO 18

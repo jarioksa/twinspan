@@ -13,7 +13,8 @@ C     ZONE OF INTERMEDIATENESS.
       AXNEG=0.0
       DO 10 J=1,N
       Y(J)=0.0
-   10 YY(J)=0.0
+      YY(J)=0.0
+ 10   CONTINUE
       DO 30 I=1,M
       II=IIROW(I)
       ID=IADDR(II)
