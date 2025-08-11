@@ -1,25 +1,25 @@
       SUBROUTINE YXMULT(M,MM,N,NDAT,Y,X,IIROW,IADDR,
-     1ROWWGT,COLWGT,IDAT)
-C FORMS MATRIX PRODUCT X=AY, WEIGHTED AS SUBROUTINE XYMULT.
+     1     ROWWGT,COLWGT,IDAT)
+C     FORMS MATRIX PRODUCT X=AY, WEIGHTED AS SUBROUTINE XYMULT.
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
       REAL(8) Y(N),X(M),ROWWGT(M),COLWGT(N)
       INTEGER IIROW(M),IADDR(MM),IDAT(NDAT)
       DO 10 J=1,N
-      Y(J)=Y(J)*COLWGT(J)
+         Y(J)=Y(J)*COLWGT(J)
  10   CONTINUE
       DO 20 I=1,M
-      II=IIROW(I)
-      AX=0.0
-      ID=IADDR(II)
-   15 J=IDAT(ID)
-      IF(J.EQ.-1) GOTO 16
-      AX=AX+Y(J)
-      ID=ID+1
-      GOTO 15
-   16 X(I)=AX*ROWWGT(I)
-   20 CONTINUE
+         II=IIROW(I)
+         AX=0.0
+         ID=IADDR(II)
+ 15      J=IDAT(ID)
+         IF(J.EQ.-1) GOTO 16
+         AX=AX+Y(J)
+         ID=ID+1
+         GOTO 15
+ 16      X(I)=AX*ROWWGT(I)
+ 20   CONTINUE
       DO 30 J=1,N
-      Y(J)=Y(J)/COLWGT(J)
+         Y(J)=Y(J)/COLWGT(J)
  30   CONTINUE
       RETURN
       END
