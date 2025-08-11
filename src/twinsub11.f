@@ -1,120 +1,130 @@
       SUBROUTINE PSEUDO(MM,NN,NMAX,NL,NDAT,NSPEC,IDAT,LCUT,
-     1JNFLAG,JNAME1,JNAM,INDPOT,IIY)
-C SETS UP PSEUDOSPECIES DATA IN IDAT, AND ALSO VECTOR INDPOT,
-C WHICH STORES THE REAL SPECIES NUMBERS CORRESPONDING TO THE
-C PSEUDOSPECIES.  PSEUDOSPECIES CUT LEVELS ARE IN LCUT.
-C SPECIES NAMES IN JNAME1,2.  JNAM STORES LEVELS OF PSEUDOSPECIES.
-C---Changed JNAME to CHARACTER: P.Minchin June 1997
+     1     JNFLAG,JNAME1,JNAM,INDPOT,IIY)
+C     SETS UP PSEUDOSPECIES DATA IN IDAT, AND ALSO VECTOR INDPOT,
+C     WHICH STORES THE REAL SPECIES NUMBERS CORRESPONDING TO THE
+C     PSEUDOSPECIES.  PSEUDOSPECIES CUT LEVELS ARE IN LCUT.
+C     SPECIES NAMES IN JNAME1,2.  JNAM STORES LEVELS OF PSEUDOSPECIES.
+C---  Changed JNAME to CHARACTER: P.Minchin June 1997
       INTEGER JTOP(10),IDAT(NDAT),LCUT(NL),
-     1JNFLAG(NMAX),JNAM(NMAX),INDPOT(NMAX),IIY(NMAX)
+     1     JNFLAG(NMAX),JNAM(NMAX),INDPOT(NMAX),IIY(NMAX)
       INTEGER JNAME1(NMAX)
       IBIG=50000
       ID=0
       IDMAX=0
       DO 20 II=1,MM
-   15 ID=ID+1
-      IDMAX=IDMAX+1
-      J=IDAT(ID)
-      IF(J.EQ.-1) GOTO 20
-      ID=ID+1
-      JQ=IDAT(ID)
-      JJQ=0
-      DO 16 IL=1,NL
-      IF(JQ.GE.LCUT(IL))JJQ=JJQ+1
-   16 CONTINUE
-      IDAT(ID)=JJQ
-      IDMAX=IDMAX+JJQ-1
-      GOTO 15
-   20 CONTINUE
+ 15      ID=ID+1
+         IDMAX=IDMAX+1
+         J=IDAT(ID)
+         IF(J.EQ.-1) GOTO 20
+         ID=ID+1
+         JQ=IDAT(ID)
+         JJQ=0
+         DO 16 IL=1,NL
+            IF(JQ.GE.LCUT(IL))JJQ=JJQ+1
+ 16      CONTINUE
+         IDAT(ID)=JJQ
+         IDMAX=IDMAX+JJQ-1
+         GOTO 15
+ 20   CONTINUE
       IF(IDMAX.LE.NDAT) GOTO 40
       IDMAX=IDMAX+50
-   40 IID=NDAT
-   80 IDAT(IID)=IDAT(ID)
+ 40   IID=NDAT
+ 80   IDAT(IID)=IDAT(ID)
       ID=ID-1
       IID=IID-1
       IF(ID.GT.0) GOTO 80
       DO 90 II=1,MM
-      JJJ=0
-   84 IID=IID+1
-      J=IDAT(IID)
-      IF(J.EQ.-1) GOTO 87
-      IID=IID+1
-      JJQ=IDAT(IID)
-      IF(JJQ.EQ.0) GOTO 84
-      DO 86 JQ=1,JJQ
-      JJJ=JJJ+1
-   86 IIY(JJJ)=J+IBIG*(JQ-1)
-      GOTO 84
-   87 DO 88 JJ=1,JJJ
-      ID=ID+1
-   88 IDAT(ID)=IIY(JJ)
-      ID=ID+1
-      IDAT(ID)=-1
-      IF(ID.LE.IID) GOTO 90
-      IDMAX=IDMAX+300
-   90 CONTINUE
-C WE NOW HAVE THE DESIRED INFORMATION IN IDAT.  ALL WE HAVE
-C TO DO IS TO CONDENSE THE NUMBERING
+         JJJ=0
+ 84      IID=IID+1
+         J=IDAT(IID)
+         IF(J.EQ.-1) GOTO 87
+         IID=IID+1
+         JJQ=IDAT(IID)
+         IF(JJQ.EQ.0) GOTO 84
+         DO 86 JQ=1,JJQ
+            JJJ=JJJ+1
+            IIY(JJJ)=J+IBIG*(JQ-1)
+ 86      CONTINUE
+         GOTO 84
+ 87      DO 88 JJ=1,JJJ
+            ID=ID+1
+            IDAT(ID)=IIY(JJ)
+ 88      CONTINUE
+         ID=ID+1
+         IDAT(ID)=-1
+         IF(ID.LE.IID) GOTO 90
+         IDMAX=IDMAX+300
+ 90   CONTINUE
+C     WE NOW HAVE THE DESIRED INFORMATION IN IDAT.  ALL WE HAVE
+C     TO DO IS TO CONDENSE THE NUMBERING
       IP=0
+c     Initialize jtop or compiler will warn that jtop may be used
+c     uninitialized - it is initialized in DO 140 loop, but compiler won't
+c     see that (and jtop(1) will have correct value)
+      JTOP(1) = -1
       DO 140 IL=1,NL
-      DO 100 JJJ=1,NSPEC
-  100 IIY(JJJ)=0
-      ID=0
-      DO 110 II=1,MM
-  103 ID=ID+1
-      JJJ=IDAT(ID)
-      IF(JJJ.EQ.-1) GOTO 110
-      IF(JJJ.GE.IBIG) GOTO 103
-      IF(JJJ.LT.-1) GOTO 103
-      IIY(JJJ)=IIY(JJJ)+1
-      GOTO 103
-  110 CONTINUE
-      DO 120 JJJ=1,NSPEC
-      IF(IIY(JJJ).EQ.0) GOTO 120
-      IP=IP+1
-      IF(IP.LE.NMAX) INDPOT(IP)=JJJ
-      IIY(JJJ)=IP
-  120 CONTINUE
-      ID=0
-      DO 130 II=1,MM
-  123 ID=ID+1
-      JJJ=IDAT(ID)
-      IF(JJJ.EQ.-1) GOTO 130
-      IF(JJJ.GE.IBIG) GOTO 127
-      IF(JJJ.LT.-1) GOTO 123
-      JJJ=IIY(JJJ)
-  127 IDAT(ID)=JJJ-IBIG
-      GOTO 123
-  130 CONTINUE
-      JTOP(IL)=IP
-  140 CONTINUE
+         DO 100 JJJ=1,NSPEC
+            IIY(JJJ)=0
+ 100     CONTINUE
+         ID=0
+         DO 110 II=1,MM
+ 103        ID=ID+1
+            JJJ=IDAT(ID)
+            IF(JJJ.EQ.-1) GOTO 110
+            IF(JJJ.GE.IBIG) GOTO 103
+            IF(JJJ.LT.-1) GOTO 103
+            IIY(JJJ)=IIY(JJJ)+1
+            GOTO 103
+ 110     CONTINUE
+         DO 120 JJJ=1,NSPEC
+            IF(IIY(JJJ).EQ.0) GOTO 120
+            IP=IP+1
+            IF(IP.LE.NMAX) INDPOT(IP)=JJJ
+            IIY(JJJ)=IP
+ 120     CONTINUE
+         ID=0
+         DO 130 II=1,MM
+ 123        ID=ID+1
+            JJJ=IDAT(ID)
+            IF(JJJ.EQ.-1) GOTO 130
+            IF(JJJ.GE.IBIG) GOTO 127
+            IF(JJJ.LT.-1) GOTO 123
+            JJJ=IIY(JJJ)
+ 127        IDAT(ID)=JJJ-IBIG
+            GOTO 123
+ 130     CONTINUE
+         JTOP(IL)=IP
+ 140  CONTINUE
       ID=0
       DO 150 II=1,MM
-  145 ID=ID+1
-      JJ=IDAT(ID)
-      IF(JJ.EQ.-1) GOTO 150
-      IDAT(ID)=JJ+IBIG
-      GOTO 145
-  150 CONTINUE
+ 145     ID=ID+1
+         JJ=IDAT(ID)
+         IF(JJ.EQ.-1) GOTO 150
+         IDAT(ID)=JJ+IBIG
+         GOTO 145
+ 150  CONTINUE
       NN=IP
       NSPEC=JTOP(1)
       DO 160 JJ=1,NSPEC
-      J=INDPOT(JJ)
-      IIY(J)=JJ
-      JNFLAG(JJ)=JNFLAG(J)
- 160  JNAME1(JJ)=JNAME1(J)
+         J=INDPOT(JJ)
+         IIY(J)=JJ
+         JNFLAG(JJ)=JNFLAG(J)
+         JNAME1(JJ)=JNAME1(J)
+ 160  CONTINUE
       DO 170 JJ=1,NN
-      J=INDPOT(JJ)
-  170 INDPOT(JJ)=IIY(J)
+         J=INDPOT(JJ)
+         INDPOT(JJ)=IIY(J)
+ 170  CONTINUE
       JJJ=2
       IL=0
       DO 180 JJ=1,NN
-      J=IABS(INDPOT(JJ))
-      JNFLAG(JJ)=JNFLAG(J)
-      JNAME1(JJ)=JNAME1(J)
-      IF(J.LE.JJJ) IL=IL+1
-      JNAM(JJ)=IL
-  180 JJJ=J
+         J=IABS(INDPOT(JJ))
+         JNFLAG(JJ)=JNFLAG(J)
+         JNAME1(JJ)=JNAME1(J)
+         IF(J.LE.JJJ) IL=IL+1
+         JNAM(JJ)=IL
+         JJJ=J
+ 180  CONTINUE
       RETURN
       END
 C
