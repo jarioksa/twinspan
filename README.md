@@ -34,34 +34,6 @@ install.packages('twinspan', repos = c('https://jarioksa.r-universe.dev',
                                        'https://cloud.r-project.org'))
 ```
 
-## Compiler warnings
-
-The original Fortran code uses labels to mark the end of a loop (`DO` statement). For instance:
-```
-      DO 500 II=1,MM
-         I=IX(II)
- 500  X(I)=DBLE(II)
-```
-This is flagged as a deleted feature in Fortran 2018 and you get warnings like:
-```
-Warning: Fortran 2018 deleted feature: DO termination statement which is not END DO or CONTINUE with label 500 at (1)
-```
-These should be changed to or
-```
-      DO II=1,MM
-         I=IX(II)
-         X(I)=DBLE(II)
-      END DO
-! or alternatively:
-      DO 500 II=1,MM
-         I=IX(II)
-         X(I)=DBLE(II)
- 500  CONTINUE
-```
-Pull requests are welcome. This is not a simple mechanical task, because program can jump to a numbered statement (`GO TO 500`) anywhere from the code, and you need to analyse code carefully to see that the correct line is executed both in the loop and when jumping to the line outside the loop. If you have not yet heard the term "Fortran spaghetti", this is an opportunity to learn its meaning.
-
-When the original Fortran code was written, `END DO` did not exist, and empty statement `500 CONTINUE` was regarded as a waste of one punched card and killing trees.
-
 ## What you can do with twinspan?
 
 The basic command to run twinspan is – unsurprisingly – `twinspan`:
