@@ -58,6 +58,10 @@ C---Changed JNAME to CHARACTER: P.Minchin June 1997
 C WE NOW HAVE THE DESIRED INFORMATION IN IDAT.  ALL WE HAVE
 C TO DO IS TO CONDENSE THE NUMBERING
       IP=0
+c Initialize jtop or compiler will warn that jtop may be used
+c uninitialized - it is initialized in DO 140 loop, but compiler won't
+c see that (and jtop(1) will have correct value)
+      JTOP(1) = -1
       DO 140 IL=1,NL
       DO 100 JJJ=1,NSPEC
          IIY(JJJ)=0
