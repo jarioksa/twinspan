@@ -29,8 +29,8 @@
 #' show either the levels of hierarchy or the heterogeneities of
 #' divided groups depending on the argument \code{height}.
 #'
-#' @seealso \code{\link{tabasco}} and \code{\link{heatmap}} for basic
-#'     functionality. The default colour scheme is based on
+#' @seealso \code{\link[vegan]{tabasco}} and \code{\link{heatmap}} for
+#'     basic functionality. The default colour scheme is based on
 #'     \code{\link{heat.colors}}, but better shemes can be constructed
 #'     (\CRANpkg{viridis} package provides clear schemes). The
 #'     dendrograms are based on \code{\link{as.hclust.twinspan}}.
