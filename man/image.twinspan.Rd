@@ -76,7 +76,7 @@ head(im)
 
 }
 \seealso{
-\code{\link{tabasco}} and \code{\link{heatmap}} for basic
+\code{\link[vegan]{tabasco}} and \code{\link{heatmap}} for basic
     functionality. The default colour scheme is based on
     \code{\link{heat.colors}}, but better shemes can be constructed
     (\CRANpkg{viridis} package provides clear schemes). The
