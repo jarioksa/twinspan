@@ -47,6 +47,8 @@
 #' @param height Use either division levels (\code{"level"}), total
 #'     Chi-squares (\code{"chi"}) or eigenvalues of first axis
 #'     (\code{"eigen"}) of division as dendrogram heights.
+#' @param subset A logical vector that selects a subset of items to a
+#'     dendrogram.
 #' @param what Return either a \code{"quadrat"} or \code{"species"}
 #'     dendrogram.
 #'
@@ -57,16 +59,22 @@
 #' @export
 `as.dendrogram.twinspan` <-
     function(object, height = c("level", "chi", "eigen"),
-             what = c("quadrat", "species"), ...)
+             what = c("quadrat", "species"), subset, ...)
 {
     what <- match.arg(what)
     height <- match.arg(height)
     obj <- object[[what]]
     clid <- cut(object, what=what)
+    if (!missing(subset)) {
+        clid <- clid[subset]
+        obj$labels <- obj$labels[subset]
+    }
     len <- length(obj$eig) * 2 + 1
     state <- character(len)
-    state[which(obj$eig > 0)] <- "branch"
     state[unique(clid)] <- "leaf"
+    for(k in rev(seq_len(len %/% 2)))
+        if(state[2*k] != "" || state[2*k+1] != "")
+            state[k] <- "branch"
     ## eigen: divisions have eigenvalue, for terminal group of size n
     ## use proportion (n-1)/n of mother division
     if (height == "eigen") {
@@ -80,11 +88,11 @@
         eig <- twintotalchi(object, what = what)
     } else {
         pow2 <- 2^(0:(object$levelmax+1))
-        hmax <- sum(max(which(nchar(state) >0 )) >= pow2) + 1
+        hmax <- sum(max(which(nchar(state) > 0 )) >= pow2) + 1
     }
     z <- list()
     for(k in rev(seq_along(state))) {
-        if(nchar(state[k]) == 0)
+        if(state[k] == "")
             next
         if(state[k] == "leaf") {
             zk <- as.list(which(clid == k))
@@ -104,7 +112,25 @@
             }
         }
         else { # a branch
-            x <- c(2*k, 2*k+1)
+            k1 <- 2*k
+            k2 <- 2*k+1
+            if (state[k1] == "" || state[k2] == "")
+                next
+            ## state may  be an undone branch: go deeper
+            while (state[k1] != "done") {
+                if (state[k1] != "")
+                    k1 <- 2*k1
+                else if (state[k1+1] != "")
+                    k1 <- 2*k1+1
+            }
+            while (state[k2] != "done") {
+                if (state[2*k2] != "")
+                    k2 <- 2*k2
+                else if (state[2*k2+1] != "")
+                    k2 <- 2*k2+1
+            }
+
+            x <- c(k1, k2)
             x <- as.character(x)
             zk <- list(z[[x[1]]], z[[x[2]]])
             attr(zk, "members") <- attr(z[[x[1]]], "members") +
@@ -113,6 +139,7 @@
                                      attr(z[[x[1]]], "midpoint") +
                                      attr(z[[x[2]]], "midpoint"))/2
             z[[x[1]]] <- z[[x[2]]] <- NULL
+            cat(k, ": ", k1, k2, "\n")
         }
         ## Divisions have eigenvalue, but ev is never evaluated for
         ## terminal groups ("leaf"). We use an arbitrary value: for
@@ -124,6 +151,7 @@
         else
             attr(zk, "height") <- hmax - sum(k >= pow2)
         z[[as.character(k)]] <- zk
+        state[k] <- "done"
     }
-    structure(z[[as.character(k)]], class="dendrogram")
+    structure(z[[1]], class="dendrogram")
 }
