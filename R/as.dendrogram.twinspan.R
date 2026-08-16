@@ -1,20 +1,24 @@
 #' Extract Species or Quadrat Dendrograms
 #'
 #' Function extracts the species or quadrat classification as a
-#' hierarchic \code{\link[stats]{dendrogram}}.
+#' hierarchic \code{\link[stats]{dendrogram}}. Unlike \code{hclust},
+#' twinspan dendrograms show all quadrats or species, and the final
+#' divisions are polytomous.
 #'
-#' The dendrogram heights are levels of divisions, total Chi-squares
-#' of divisions and groups, or eigenvalues of divisions depending on
-#' argument \code{height}. Terminal groups have no eigenvalues,
-#' because they were not considered for division. For them the method
-#' uses arbitrary value that for a group of \eqn{n} units is
-#' proportion \eqn{(n-1)/n} of the height of mother
+#' The dendrogram heights are levels of divisions, or total
+#' Chi-squares of divisions and groups, or eigenvalues of divisions
+#' depending on argument \code{height}. Terminal groups have no
+#' eigenvalues, because they were not considered for division. For
+#' them the method uses arbitrary value that for a group of \eqn{n}
+#' units is proportion \eqn{(n-1)/n} of the height of mother
 #' division. Chi-squares are evaluated also for terminal groups.
 #' There is no guarantee that eigenvalues or Chi-squares decrease in
 #' divisions, and there may be reversals where lower levels are higher
 #' than their mother groups, and the plotted trees can be messy and
 #' unreadable. Chi-squares decrease more monotonically than
 #' eigenvalues of first axis.
+#'
+#' Function allows selecting a subset of items.
 #'
 #' \R{} has a wealth of functions to handle and display
 #' dendrograms. See \code{\link[stats]{dendrogram}} for general
@@ -30,16 +34,23 @@
 #'
 #' @examples
 #'
-#' ## Large datasets are difficult to show in dendrograms: take only
-#' ## Northen Boreal quadrats (from 1 to 87).
+#' ## Large datasets are difficult to show in dendrograms, but
+#' #'subset' allows slicing dendrogram.
 #'
 #' data(ahti)
-#' tw <- twinspan(ahti[1:87,])
-#' den <- as.dendrogram(tw)
+#' tw <- twinspan(ahti)
+#' ## cut at level 2 into groups
+#' cl2 <- cut(tw, level=2)
+#' table(cl2)
+#' den <- as.dendrogram(tw, subset = cl2 == 4)
 #' str(den, max.level = 4)
-#' plot(den, type = "triangle", nodePar = list(lab.cex=0.6, pch=NA))
-#' den <- as.dendrogram(tw, height="chi")
-#' plot(den, type = "triangle", nodePar = list(lab.cex=0.6, pch=NA))
+#' plot(den, type = "triangle")
+#' den <- as.dendrogram(tw, height="chi", subset = cl2 == 4)
+#' plot(den, type = "triangle")
+#' ## show only most frequent species
+#' freq <- colSums(ahti > 0)
+#' den <- as.dendrogram(tw, what = "species", height="chi", subset = freq > 16)
+#' plot(den, type = "triangle")
 #'
 #' @seealso \code{\link{as.hclust.twinspan}}, \code{\link{dendrogram}}.
 #'
@@ -47,8 +58,8 @@
 #' @param height Use either division levels (\code{"level"}), total
 #'     Chi-squares (\code{"chi"}) or eigenvalues of first axis
 #'     (\code{"eigen"}) of division as dendrogram heights.
-#' @param subset A logical vector that selects a subset of items to a
-#'     dendrogram.
+#' @param subset A logical vector or indices that select a subset of
+#'     items to a dendrogram.
 #' @param what Return either a \code{"quadrat"} or \code{"species"}
 #'     dendrogram.
 #'

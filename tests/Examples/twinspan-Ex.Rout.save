@@ -1,7 +1,7 @@
 
-R version 4.5.0 Patched (2025-04-21 r88173) -- "How About a Twenty-Six"
-Copyright (C) 2025 The R Foundation for Statistical Computing
-Platform: aarch64-apple-darwin20
+R version 4.6.1 (2026-06-24) -- "Happy Hop"
+Copyright (C) 2026 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin23
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -57,48 +57,63 @@ Type 'q()' to quit R.
 > ### ** Examples
 > 
 > 
-> ## Large datasets are difficult to show in dendrograms: take only
-> ## Northen Boreal quadrats (from 1 to 87).
+> ## Large datasets are difficult to show in dendrograms, but
+> #'subset' allows slicing dendrogram.
 > 
 > data(ahti)
-> tw <- twinspan(ahti[1:87,])
-Warning in twinspan(ahti[1:87, ]) : some empty species were removed
-> den <- as.dendrogram(tw)
+> tw <- twinspan(ahti)
+> ## cut at level 2 into groups
+> cl2 <- cut(tw, level=2)
+> table(cl2)
+cl2
+ 4  5  6  7 
+39 48 40 43 
+> den <- as.dendrogram(tw, subset = cl2 == 4)
 > str(den, max.level = 4)
---[dendrogram w/ 2 branches and 87 members at h = 7]
-  |--[dendrogram w/ 2 branches and 58 members at h = 6]
-  |  |--[dendrogram w/ 2 branches and 17 members at h = 5]
-  |  |  |--[dendrogram w/ 2 branches and 9 members at h = 4]
-  |  |  |  |--[dendrogram w/ 3 branches and 3 members at h = 3] ..
-  |  |  |  `--[dendrogram w/ 2 branches and 6 members at h = 3] ..
-  |  |  `--[dendrogram w/ 2 branches and 8 members at h = 4]
-  |  |     |--[dendrogram w/ 4 branches and 4 members at h = 3] ..
-  |  |     `--[dendrogram w/ 4 branches and 4 members at h = 3] ..
-  |  `--[dendrogram w/ 2 branches and 41 members at h = 5]
-  |     |--[dendrogram w/ 2 branches and 11 members at h = 4]
-  |     |  |--[dendrogram w/ 4 branches and 4 members at h = 3] ..
-  |     |  `--[dendrogram w/ 2 branches and 7 members at h = 3] ..
-  |     `--[dendrogram w/ 2 branches and 30 members at h = 4]
-  |        |--[dendrogram w/ 2 branches and 23 members at h = 3] ..
-  |        `--[dendrogram w/ 2 branches and 7 members at h = 3] ..
-  `--[dendrogram w/ 2 branches and 29 members at h = 6]
-     |--[dendrogram w/ 2 branches and 15 members at h = 5]
-     |  |--[dendrogram w/ 2 branches and 6 members at h = 4]
-     |  |  |--[dendrogram w/ 1 branches and 1 members at h = 3] ..
-     |  |  `--[dendrogram w/ 2 branches and 5 members at h = 3] ..
-     |  `--[dendrogram w/ 2 branches and 9 members at h = 4]
-     |     |--[dendrogram w/ 2 branches and 2 members at h = 3] ..
-     |     `--[dendrogram w/ 2 branches and 7 members at h = 3] ..
-     `--[dendrogram w/ 2 branches and 14 members at h = 5]
-        |--[dendrogram w/ 2 branches and 8 members at h = 4]
-        |  |--[dendrogram w/ 4 branches and 4 members at h = 3] ..
-        |  `--[dendrogram w/ 4 branches and 4 members at h = 3] ..
-        `--[dendrogram w/ 2 branches and 6 members at h = 4]
-           |--[dendrogram w/ 4 branches and 4 members at h = 3] ..
-           `--[dendrogram w/ 2 branches and 2 members at h = 3] ..
-> plot(den, type = "triangle", nodePar = list(lab.cex=0.6, pch=NA))
-> den <- as.dendrogram(tw, height="chi")
-> plot(den, type = "triangle", nodePar = list(lab.cex=0.6, pch=NA))
+--[dendrogram w/ 2 branches and 39 members at h = 5]
+  |--[dendrogram w/ 2 branches and 14 members at h = 4]
+  |  |--[dendrogram w/ 2 branches and 6 members at h = 3]
+  |  |  |--[dendrogram w/ 2 branches and 2 members at h = 2]
+  |  |  |  |--leaf "Ster099" (h= 1  )
+  |  |  |  `--leaf "Ster097" (h= 1  )
+  |  |  `--[dendrogram w/ 4 branches and 4 members at h = 2]
+  |  |     |--leaf "Ster095" (h= 1  )
+  |  |     |--leaf "Ster107" (h= 1  )
+  |  |     |--leaf "Ster092" (h= 1  )
+  |  |     `--leaf "Ster103" (h= 1  )
+  |  `--[dendrogram w/ 2 branches and 8 members at h = 3]
+  |     |--[dendrogram w/ 4 branches and 4 members at h = 2]
+  |     |  |--leaf "Ster105" (h= 1  )
+  |     |  |--leaf "Ster106" (h= 1  )
+  |     |  |--leaf "Ster109" (h= 1  )
+  |     |  `--leaf "Ster104" (h= 1  )
+  |     `--[dendrogram w/ 4 branches and 4 members at h = 2]
+  |        |--leaf "Ster113" (h= 1  )
+  |        |--leaf "Ster110" (h= 1  )
+  |        |--leaf "Ster111" (h= 1  )
+  |        `--leaf "Ster108" (h= 1  )
+  `--[dendrogram w/ 2 branches and 25 members at h = 4]
+     |--[dendrogram w/ 2 branches and 11 members at h = 3]
+     |  |--[dendrogram w/ 2 branches and 2 members at h = 2]
+     |  |  |--leaf "Call044" (h= 1  )
+     |  |  `--leaf "Call045" (h= 1  )
+     |  `--[dendrogram w/ 2 branches and 9 members at h = 2]
+     |     |--[dendrogram w/ 5 branches and 5 members at h = 1] ..
+     |     `--[dendrogram w/ 4 branches and 4 members at h = 1] ..
+     `--[dendrogram w/ 2 branches and 14 members at h = 3]
+        |--[dendrogram w/ 2 branches and 7 members at h = 2]
+        |  |--[dendrogram w/ 2 branches and 2 members at h = 1] ..
+        |  `--[dendrogram w/ 5 branches and 5 members at h = 1] ..
+        `--[dendrogram w/ 2 branches and 7 members at h = 2]
+           |--[dendrogram w/ 6 branches and 6 members at h = 1] ..
+           `--[dendrogram w/ 1 branches and 1 members at h = 1] ..
+> plot(den, type = "triangle")
+> den <- as.dendrogram(tw, height="chi", subset = cl2 == 4)
+> plot(den, type = "triangle")
+> ## show only most frequent species
+> freq <- colSums(ahti > 0)
+> den <- as.dendrogram(tw, what = "species", height="chi", subset = freq > 16)
+> plot(den, type = "triangle")
 > 
 > 
 > 
@@ -857,7 +872,7 @@ Total inertia (scaled Chi-square): 1.7112
 
                 RA1    RA2     RA3     RA4
 Eigenvalues  0.2525 0.1257 0.09236 0.06319
-Axis lengths 2.3154 2.1411 1.90258 1.56841
+Axis lengths 2.3154 2.1411 1.90258 1.56839
 
 > ## similar first eigenvalue
 > eigenvals(twinspan(ahti))
@@ -1118,7 +1133,7 @@ Warning: tree reversal: group 45 more heterogeneous than parent 22
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.347 0.089 1.44 0 0 
+Time elapsed:  1.856 0.071 1.956 0 0 
 > grDevices::dev.off()
 null device 
           1 
