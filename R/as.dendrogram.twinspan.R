@@ -102,6 +102,8 @@
         hmax <- sum(max(which(nchar(state) > 0 )) >= pow2) + 1
     }
     z <- list()
+    ## In the beginning state can be "", "leaf" or "branch". At the
+    ## end of a cycle, processed item is re-labelled "done".
     for(k in rev(seq_along(state))) {
         if(state[k] == "")
             next
@@ -125,9 +127,10 @@
         else { # a branch
             k1 <- 2*k
             k2 <- 2*k+1
+            ## with subset a branch may have lost one of its children
             if (state[k1] == "" || state[k2] == "")
                 next
-            ## state may be an undone branch: go deeper
+            ## child can be an undone branch: go deeper
             repeat{
                 if (state[k1] == "")     # follow other branch
                     k1 <- k1 + 1
@@ -163,6 +166,7 @@
         else
             attr(zk, "height") <- hmax - sum(k >= pow2)
         z[[as.character(k)]] <- zk
+        ## done!
         state[k] <- "done"
     }
     structure(z[[1]], class="dendrogram")
