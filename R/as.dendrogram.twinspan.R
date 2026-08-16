@@ -116,18 +116,20 @@
             k2 <- 2*k+1
             if (state[k1] == "" || state[k2] == "")
                 next
-            ## state may  be an undone branch: go deeper
-            while (state[k1] != "done") {
-                if (state[k1] != "")
-                    k1 <- 2*k1
-                else if (state[k1+1] != "")
-                    k1 <- 2*k1+1
+            ## state may be an undone branch: go deeper
+            repeat{
+                if (state[k1] == "")     # follow other branch
+                    k1 <- k1 + 1
+                if (state[k1] == "done") # done!
+                    break
+                k1 <- 2 * k1             # k1 was "branch": go deeper
             }
-            while (state[k2] != "done") {
-                if (state[2*k2] != "")
-                    k2 <- 2*k2
-                else if (state[2*k2+1] != "")
-                    k2 <- 2*k2+1
+            repeat{
+                if (state[k2] == "")
+                    k2 <- k2 + 1
+                if (state[k2] == "done")
+                    break
+                k2 <- 2 * k2
             }
 
             x <- c(k1, k2)
@@ -139,7 +141,6 @@
                                      attr(z[[x[1]]], "midpoint") +
                                      attr(z[[x[2]]], "midpoint"))/2
             z[[x[1]]] <- z[[x[2]]] <- NULL
-            cat(k, ": ", k1, k2, "\n")
         }
         ## Divisions have eigenvalue, but ev is never evaluated for
         ## terminal groups ("leaf"). We use an arbitrary value: for
