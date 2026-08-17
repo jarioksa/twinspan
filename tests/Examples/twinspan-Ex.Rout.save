@@ -243,6 +243,27 @@ attr(,"sumev")
 > 
 > 
 > cleanEx()
+> nameEx("goodspec")
+> ### * goodspec
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: goodspec
+> ### Title: Most Diagnostic and Characteristic Species
+> ### Aliases: goodspec
+> 
+> ### ** Examples
+> 
+> ## similar to plot(tw, what="species") but labels classes by their
+> ## leading species
+> data(ahti)
+> tw <- twinspan(ahti)
+> plot(as.dendrogram(tw, what = "species", subset = goodspec(tw, "leading")))
+> 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("image.twinspan")
 > ### * image.twinspan
 > 
@@ -1152,7 +1173,7 @@ Warning: tree reversal: group 45 more heterogeneous than parent 22
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  2.246 0.073 2.32 0 0 
+Time elapsed:  2.254 0.069 2.327 0 0 
 > grDevices::dev.off()
 null device 
           1 
