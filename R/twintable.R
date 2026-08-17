@@ -26,6 +26,12 @@
 #' abundant species of each species group (ties broken by species
 #' frequency), or species used as indicators, or both.
 #'
+#' Function \code{\link{twinheat}} works similarly as \code{twintable}
+#' but displays a colourful image of the data table with species and
+#' quadrat dendrograms.
+#'
+#' @seealso \code{\link{twinheat}}, \code{\link{image.twinspan}}.
+#'
 #' @return Function returns invisibly the data that
 #'     \code{\link[vegan]{vegemite}} used. This data can also be
 #'     exported or used as any other data set.
@@ -45,7 +51,7 @@
 #'     tabulation. These are either species that were used as
 #'     indicator pseudospecies (\code{"indicator"}), or most abundant
 #'     species in each final species group breaking ties with
-#'     frequency (\code{"leading"}), or \code{"both"} (default). The
+#'     frequency (\code{"leading"}), or \code{"both"}. The
 #'     abundance is estimated after pseudospecies transformation for
 #'     all quadrats and cannot be used together with \code{maxspp}.
 #' @param subset Select a subset of quadrats.

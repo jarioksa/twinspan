@@ -1,20 +1,24 @@
 #' Extract Species or Quadrat Dendrograms
 #'
 #' Function extracts the species or quadrat classification as a
-#' hierarchic \code{\link[stats]{dendrogram}}.
+#' hierarchic \code{\link[stats]{dendrogram}}. Unlike \code{hclust},
+#' twinspan dendrograms show all quadrats or species, and the final
+#' divisions are polytomous.
 #'
-#' The dendrogram heights are levels of divisions, total Chi-squares
-#' of divisions and groups, or eigenvalues of divisions depending on
-#' argument \code{height}. Terminal groups have no eigenvalues,
-#' because they were not considered for division. For them the method
-#' uses arbitrary value that for a group of \eqn{n} units is
-#' proportion \eqn{(n-1)/n} of the height of mother
+#' The dendrogram heights are levels of divisions, or total
+#' Chi-squares of divisions and groups, or eigenvalues of divisions
+#' depending on argument \code{height}. Terminal groups have no
+#' eigenvalues, because they were not considered for division. For
+#' them the method uses arbitrary value that for a group of \eqn{n}
+#' units is proportion \eqn{(n-1)/n} of the height of mother
 #' division. Chi-squares are evaluated also for terminal groups.
 #' There is no guarantee that eigenvalues or Chi-squares decrease in
 #' divisions, and there may be reversals where lower levels are higher
 #' than their mother groups, and the plotted trees can be messy and
 #' unreadable. Chi-squares decrease more monotonically than
 #' eigenvalues of first axis.
+#'
+#' Function allows selecting a subset of items.
 #'
 #' \R{} has a wealth of functions to handle and display
 #' dendrograms. See \code{\link[stats]{dendrogram}} for general
@@ -30,16 +34,23 @@
 #'
 #' @examples
 #'
-#' ## Large datasets are difficult to show in dendrograms: take only
-#' ## Northen Boreal quadrats (from 1 to 87).
+#' ## Large datasets are difficult to show in dendrograms, but
+#' #'subset' allows slicing dendrogram.
 #'
 #' data(ahti)
-#' tw <- twinspan(ahti[1:87,])
-#' den <- as.dendrogram(tw)
+#' tw <- twinspan(ahti)
+#' ## cut at level 2 into groups
+#' cl2 <- cut(tw, level=2)
+#' table(cl2)
+#' den <- as.dendrogram(tw, subset = cl2 == 4)
 #' str(den, max.level = 4)
-#' plot(den, type = "triangle", nodePar = list(lab.cex=0.6, pch=NA))
-#' den <- as.dendrogram(tw, height="chi")
-#' plot(den, type = "triangle", nodePar = list(lab.cex=0.6, pch=NA))
+#' plot(den, type = "triangle")
+#' den <- as.dendrogram(tw, height="chi", subset = cl2 == 4)
+#' plot(den, type = "triangle")
+#' ## show only most frequent species
+#' freq <- colSums(ahti > 0)
+#' den <- as.dendrogram(tw, what = "species", height="chi", subset = freq > 16)
+#' plot(den, type = "triangle")
 #'
 #' @seealso \code{\link{as.hclust.twinspan}}, \code{\link{dendrogram}}.
 #'
@@ -47,6 +58,8 @@
 #' @param height Use either division levels (\code{"level"}), total
 #'     Chi-squares (\code{"chi"}) or eigenvalues of first axis
 #'     (\code{"eigen"}) of division as dendrogram heights.
+#' @param subset A logical vector or indices that select a subset of
+#'     items to a dendrogram.
 #' @param what Return either a \code{"quadrat"} or \code{"species"}
 #'     dendrogram.
 #'
@@ -57,16 +70,22 @@
 #' @export
 `as.dendrogram.twinspan` <-
     function(object, height = c("level", "chi", "eigen"),
-             what = c("quadrat", "species"), ...)
+             what = c("quadrat", "species"), subset, ...)
 {
     what <- match.arg(what)
     height <- match.arg(height)
     obj <- object[[what]]
     clid <- cut(object, what=what)
+    if (!missing(subset)) {
+        clid <- clid[subset]
+        obj$labels <- obj$labels[subset]
+    }
     len <- length(obj$eig) * 2 + 1
     state <- character(len)
-    state[which(obj$eig > 0)] <- "branch"
     state[unique(clid)] <- "leaf"
+    for(k in rev(seq_len(len %/% 2)))
+        if(state[2*k] != "" || state[2*k+1] != "")
+            state[k] <- "branch"
     ## eigen: divisions have eigenvalue, for terminal group of size n
     ## use proportion (n-1)/n of mother division
     if (height == "eigen") {
@@ -80,11 +99,13 @@
         eig <- twintotalchi(object, what = what)
     } else {
         pow2 <- 2^(0:(object$levelmax+1))
-        hmax <- sum(max(which(nchar(state) >0 )) >= pow2) + 1
+        hmax <- sum(max(which(nchar(state) > 0 )) >= pow2) + 1
     }
     z <- list()
+    ## In the beginning state can be "", "leaf" or "branch". At the
+    ## end of a cycle, processed item is re-labelled "done".
     for(k in rev(seq_along(state))) {
-        if(nchar(state[k]) == 0)
+        if(state[k] == "")
             next
         if(state[k] == "leaf") {
             zk <- as.list(which(clid == k))
@@ -104,7 +125,28 @@
             }
         }
         else { # a branch
-            x <- c(2*k, 2*k+1)
+            k1 <- 2*k
+            k2 <- 2*k+1
+            ## with subset a branch may have lost one of its children
+            if (state[k1] == "" || state[k2] == "")
+                next
+            ## child can be an undone branch: go deeper
+            repeat{
+                if (state[k1] == "")     # follow other branch
+                    k1 <- k1 + 1
+                if (state[k1] == "done") # done!
+                    break
+                k1 <- 2 * k1             # k1 was "branch": go deeper
+            }
+            repeat{
+                if (state[k2] == "")
+                    k2 <- k2 + 1
+                if (state[k2] == "done")
+                    break
+                k2 <- 2 * k2
+            }
+
+            x <- c(k1, k2)
             x <- as.character(x)
             zk <- list(z[[x[1]]], z[[x[2]]])
             attr(zk, "members") <- attr(z[[x[1]]], "members") +
@@ -124,6 +166,8 @@
         else
             attr(zk, "height") <- hmax - sum(k >= pow2)
         z[[as.character(k)]] <- zk
+        ## done!
+        state[k] <- "done"
     }
-    structure(z[[as.character(k)]], class="dendrogram")
+    structure(z[[1]], class="dendrogram")
 }
