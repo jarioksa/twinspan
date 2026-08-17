@@ -743,6 +743,25 @@ Eigenvalues for unconstrained axes:
 
 detaching ‘package:vegan’, ‘package:permute’
 
+> nameEx("twinheat")
+> ### * twinheat
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: twinheat
+> ### Title: Display twinspan Classification as a Heatmap
+> ### Aliases: twinheat
+> 
+> ### ** Examples
+> 
+> data(ahti)
+> tw <- twinspan(ahti)
+> twinheat(tw, goodspecies = "both", height = "chi")
+> twinheat(tw, subset = twingroup(tw, 4), maxspp = 45)
+> 
+> 
+> 
+> cleanEx()
 > nameEx("twinid")
 > ### * twinid
 > 
@@ -1133,7 +1152,7 @@ Warning: tree reversal: group 45 more heterogeneous than parent 22
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.856 0.071 1.956 0 0 
+Time elapsed:  2.246 0.073 2.32 0 0 
 > grDevices::dev.off()
 null device 
           1 

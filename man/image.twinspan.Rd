@@ -46,7 +46,7 @@ in cells of final quadrat and species classifications together with
 corresponding cluster trees.
 }
 \details{
-The function is based on \CRANpkg{vegan} function
+The function is based on \pkg{vegan} function
 \code{\link[vegan]{tabasco}}.  Mean abundances in cells are shown
 by colours which can be modified by the user (see
 \code{\link[vegan]{tabasco}}).  The mean abundances are either the
@@ -64,6 +64,10 @@ classification tree on the top and species classification tree on
 the left margin (see \code{\link{as.hclust.twinspan}}). These trees
 show either the levels of hierarchy or the heterogeneities of
 divided groups depending on the argument \code{height}.
+
+Function \code{\link{twinheat}} is a visually similar alternative
+that displays individual quadrats and species instead of
+\code{twinspan} classes.
 }
 \examples{
 
@@ -81,6 +85,7 @@ head(im)
     \code{\link{heat.colors}}, but better shemes can be constructed
     (\CRANpkg{viridis} package provides clear schemes). The
     dendrograms are based on \code{\link{as.hclust.twinspan}}.
-    Function \code{\link{twintable}} provides an alternative that
-    can list all quadrats and all species in textual format.
+    Functions \code{\link{twintable}} and \code{\link{twinheat}}
+    provide alternatives that can show all quadrats and all
+    species.
 }

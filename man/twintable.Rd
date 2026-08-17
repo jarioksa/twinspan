@@ -17,7 +17,7 @@ levels. The default is to show all species.}
 tabulation. These are either species that were used as
 indicator pseudospecies (\code{"indicator"}), or most abundant
 species in each final species group breaking ties with
-frequency (\code{"leading"}), or \code{"both"} (default). The
+frequency (\code{"leading"}), or \code{"both"}. The
 abundance is estimated after pseudospecies transformation for
 all quadrats and cannot be used together with \code{maxspp}.}
 
@@ -53,6 +53,10 @@ number of most abundant species, or alternatively, by restricting
 tabulation only to \dQuote{good species} which are the most
 abundant species of each species group (ties broken by species
 frequency), or species used as indicators, or both.
+
+Function \code{\link{twinheat}} works similarly as \code{twintable}
+but displays a colourful image of the data table with species and
+quadrat dendrograms.
 }
 \examples{
 
@@ -61,4 +65,7 @@ tw <- twinspan(ahti)
 ## complete table would be large, but we show subset of group 4
 twintable(tw, subset = twingroup(tw, 4), goodspecies = "both")
 
+}
+\seealso{
+\code{\link{twinheat}}, \code{\link{image.twinspan}}.
 }

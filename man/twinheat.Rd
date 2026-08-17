@@ -26,7 +26,7 @@ levels. The default is to show all species.}
 tabulation. These are either species that were used as
 indicator pseudospecies (\code{"indicator"}), or most abundant
 species in each final species group breaking ties with
-frequency (\code{"leading"}), or \code{"both"} (default). The
+frequency (\code{"leading"}), or \code{"both"}. The
 abundance is estimated after pseudospecies transformation for
 all quadrats and cannot be used together with \code{maxspp}.}
 
@@ -43,10 +43,29 @@ used to reorder the dendrogram.}
 
 \item{\dots}{Other arguments passed to \code{\link[vegan]{tabasco}}.}
 }
+\value{
+Returns indices of displayed species and quadrats within
+    the subset.
+}
 \description{
 Display \code{twinspan} classification as a \code{link{heatmap}}
 with quadrat and species dendrograms using \pkg{vegan} function
 \code{\link[vegan]{tabasco}}.
+}
+\details{
+\code{twinheat} is an interface to \pkg{vegan} function
+\code{tabasco}. It finds the plotted input data and their
+classification in the \code{\link{twinspan}} result object. The
+function is modelled after \code{\link{twintable}} and uses the
+same arguments. In appearance it is more similar to
+\code{\link{image.twinspan}}, but displays individual quadrats and
+species instead of terminal groups.
+}
+\examples{
+data(ahti)
+tw <- twinspan(ahti)
+twinheat(tw, goodspecies = "both", height = "chi")
+twinheat(tw, subset = twingroup(tw, 4), maxspp = 45)
 }
 \seealso{
 \code{\link{twintable}}, \code{\link{image.twinspan}},
