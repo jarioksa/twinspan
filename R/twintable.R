@@ -73,6 +73,11 @@
     mat <- twin2mat(object)
     ## select first a subset
     if (!missing(subset)) {
+        if (!is.logical(subset)) {
+            logi <- logical(length(i))
+            logi[subset] <- TRUE
+            subset <- logi
+        }
         i <- i[subset[i]]
     }
     ## First see if we want to have only the "good species"

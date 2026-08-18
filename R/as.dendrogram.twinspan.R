@@ -77,12 +77,15 @@
     obj <- object[[what]]
     clid <- cut(object, what=what)
     if (!missing(subset)) {
+        if (!is.logical(subset))
+            subset <- sort(subset) # subset does not re-order
         clid <- clid[subset]
         obj$labels <- obj$labels[subset]
     }
     len <- length(obj$eig) * 2 + 1
     state <- character(len)
     state[unique(clid)] <- "leaf"
+    ## with subset a branch can have only one kid, hende || instead of &&
     for(k in rev(seq_len(len %/% 2)))
         if(state[2*k] != "" || state[2*k+1] != "")
             state[k] <- "branch"
