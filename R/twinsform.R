@@ -58,8 +58,11 @@
 {
     x <- as.matrix(x)
     ## take a subset
-    if (!missing(subset))
+    if (!missing(subset)) {
+        if (!is.logical(subset))
+            subset <- sort(subset)
         x <- x[subset,, drop = FALSE]
+    }
     ## Twinspan stacks binary matrices of pseudospecies and
     ## downweights them
     nlev <- length(cutlevels)
@@ -220,6 +223,8 @@
         out[i, idat[j]] <- 1L
     }
     if (!missing(subset)) {
+        if (!is.logical(subset))
+            subset <- sort(subset) # do not reorder subset
         out <- out[subset,, drop = FALSE]
         cs <- colSums(out)
         if (any(cs==0))
@@ -276,7 +281,7 @@
 ### "pseudoquadrat1". If it is 2x times more frequent, it is also
 ### "pseudoquadrat2", and 6x preferentials are "pseudoquadrat3". So
 ### each cluster/division is divided into three pseudoquadrats for
-### each species, solely spaced on species frequencies. Then these
+### each species, solely based on species frequencies. Then these
 ### data are downweighted with row weights of species frequency, and
 ### for CA both the species (rows) and the pseudoquadrats are weighted
 ### by the cluster total occurrences of species, and the
@@ -343,6 +348,8 @@
     cwt <- c(cwt, 2*cwt, 2*cwt)
     ## subset of species
     if (!missing(subset)) {
+        if (!is.logical(subset))
+            subset <- sort(subset)
         smat <- smat[subset,, drop=FALSE]
         rwt <- rwt[subset]
     }
