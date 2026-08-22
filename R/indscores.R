@@ -41,7 +41,7 @@
                    classification = cl,
                    ordination = ord,
                    positivelimit = object$quadrat$positivelimit[division]),
-              clas = "indscores")
+              class = c("indscores", "list"))
 }
 
 #' @rdname indscores
