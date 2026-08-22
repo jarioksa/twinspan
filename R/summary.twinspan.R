@@ -48,22 +48,27 @@
 #' @param what Summarize either quadrat or species classification.
 #' @param binname Use binary labels for divisions instead of decimal numbers.
 #' @param maxitems Maximum number of items (members) listed for terminal groups.
+#' @param level Maximum number of levels showed.
 #' @param \dots Other arguments (ignored).
 #'
 #' @export
 `summary.twinspan` <-
     function(object, what = c("quadrat","species"), binname = FALSE,
-             maxitems, ...)
+             maxitems, level, ...)
 {
     if (missing(maxitems))
-        maxitems <- Inf
+        maxitems <- Inf # show all
+    if (missing(level))
+        level <- Inf    # show all
     what <- match.arg(what)
     obj <- object[[what]]
-    clid <- cut(object, what=what)
+    obj$iclass <- cut(object, level = level, what = what)
     len <- length(obj$eig) * 2 + 1
     state <- character(len)
-    state[which(obj$eig > 0)] <- "division"
-    state[unique(clid)] <- "cluster"
+    state[unique(obj$iclass)] <- "cluster"
+    for (k in rev(seq_along(obj$eig)))
+        if (state[2*k] != "" || state[2*k+1] != "")
+            state[k] <- "division"
     ## twinvisit is called recursively
     o <- twinvisit(1, state, obj, binname = binname, maxitems = maxitems)
 }

@@ -4,7 +4,14 @@
 \alias{summary.twinspan}
 \title{Summary of twinspan Classification}
 \usage{
-\method{summary}{twinspan}(object, what = c("quadrat", "species"), binname = FALSE, maxitems, ...)
+\method{summary}{twinspan}(
+  object,
+  what = c("quadrat", "species"),
+  binname = FALSE,
+  maxitems,
+  level,
+  ...
+)
 }
 \arguments{
 \item{object}{\code{\link{twinspan}} result object.}
@@ -14,6 +21,8 @@
 \item{binname}{Use binary labels for divisions instead of decimal numbers.}
 
 \item{maxitems}{Maximum number of items (members) listed for terminal groups.}
+
+\item{level}{Maximum number of levels showed.}
 
 \item{\dots}{Other arguments (ignored).}
 }
