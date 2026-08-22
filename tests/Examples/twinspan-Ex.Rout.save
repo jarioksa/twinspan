@@ -325,20 +325,20 @@ Warning: tree reversal: group 31 more heterogeneous than parent 15
 > 
 > 
 > cleanEx()
-> nameEx("indscores")
-> ### * indscores
+> nameEx("indvalues")
+> ### * indvalues
 > 
 > flush(stderr()); flush(stdout())
 > 
-> ### Name: indscores
+> ### Name: indvalues
 > ### Title: Indicator Scores of Pseudospecies in a Division
-> ### Aliases: indscores summary.indscores
+> ### Aliases: indvalues summary.indvalues
 > 
 > ### ** Examples
 > 
 > data(ahti)
 > tw <- twinspan(ahti)
-> summary(indscores(tw, 1))
+> summary(indvalues(tw, 1))
 
 Best Indicator Pseudospecies:
  Cladcocc1  Cladnigr1  Dicrpoly1  Cladmiti3  Cladmiti2  Cladpleu1  Cladmiti4 
@@ -359,7 +359,7 @@ Best Indicator Pseudospecies:
 -0.2528736 -0.2523196 -0.2512117  0.2399945 -0.2336242 -0.2248996 -0.2181138 
  Dicrpoly3  Cladvert1 
  0.2168675 -0.2139593 
-> summary(indscores(tw, 2))
+> summary(indvalues(tw, 2))
 
 Best Indicator Pseudospecies:
  Cladstel5  Cladstel3  Polypili2  Cladstel4  Cladvert1  Cladstel2  Dicrfusc1 
@@ -376,7 +376,7 @@ Best Indicator Pseudospecies:
 -0.2355769  0.2355769 -0.2323718 -0.2195513  0.2195513 -0.2179487  0.2147436 
  Empeherm1  Leciulig1  Cladrang2  Stertome1  Cladsubf1 
  0.2147436 -0.2067308  0.2035256 -0.2035256  0.2035256 
-> summary(indscores(tw, 3))
+> summary(indvalues(tw, 3))
 
 Best Indicator Pseudospecies:
  Cladarbu5  Cladstel3  Cladarbu4  Cladarbu3  Cladstel5  Cladcris1  Cladstel4 
@@ -1244,7 +1244,7 @@ Warning: tree reversal: group 45 more heterogeneous than parent 22
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.954 0.115 2.076 0 0 
+Time elapsed:  1.952 0.121 2.107 0 0 
 > grDevices::dev.off()
 null device 
           1 

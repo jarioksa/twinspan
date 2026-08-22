@@ -38,7 +38,7 @@ to the second alternative.  For division number \eqn{k}, the next
 items are either \eqn{2k}{2*k} (\sQuote{negative} group) or
 \eqn{2k+1}{2*k+1} (\sQuote{positive} group). Function
 \code{\link{plot.twinspan}} displays the division numbers in a
-classification tree. Function \code{\link{indscores}} returns the
+classification tree. Function \code{\link{indvalues}} returns the
 used numeric indicator scores, and lists also the pseudospecies
 that were not among official indicators (repeated pseudospecies of
 the same basic species, redundant pseudospecies that do not improve
@@ -58,6 +58,6 @@ summary(tw, "species")
 \code{\link{plot.twinspan}} displays the same structure
     visually.  Function \code{\link{predict.twinspan}} follows the
     summary strcture to predict the classification with indicator
-    pseudospecies. \code{\link{indscores}} gives the numeric
+    pseudospecies. \code{\link{indvalues}} gives the numeric
     indicator values used to select the indicator pseudospecies.
 }

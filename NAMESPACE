@@ -10,12 +10,12 @@ S3method(plot,twinspan)
 S3method(predict,twinspan)
 S3method(print,misclassified)
 S3method(print,twinspan)
-S3method(summary,indscores)
+S3method(summary,indvalues)
 S3method(summary,twinspan)
 export(cuth)
 export(eigenvals)
 export(goodspec)
-export(indscores)
+export(indvalues)
 export(misclassified)
 export(totalchi)
 export(twin2mat)
@@ -28,14 +28,20 @@ export(twinsform)
 export(twinspan)
 export(twintable)
 export(twintotalchi)
-importFrom(graphics,image)
-importFrom(graphics,plot)
-importFrom(stats,as.dendrogram)
-importFrom(stats,as.hclust)
-importFrom(stats,predict)
+importFrom(graphics,
+  image,
+  plot
+)
+importFrom(stats,
+  as.dendrogram,
+  as.hclust,
+  predict
+)
 importFrom(utils,str)
-importFrom(vegan,eigenvals)
-importFrom(vegan,ordilabel)
-importFrom(vegan,tabasco)
-importFrom(vegan,vegemite)
+importFrom(vegan,
+  eigenvals,
+  ordilabel,
+  tabasco,
+  vegemite
+)
 useDynLib(twinspan, .registration=TRUE)

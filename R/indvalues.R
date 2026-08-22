@@ -21,15 +21,15 @@
 #' @examples
 #' data(ahti)
 #' tw <- twinspan(ahti)
-#' summary(indscores(tw, 1))
-#' summary(indscores(tw, 2))
-#' summary(indscores(tw, 3))
+#' summary(indvalues(tw, 1))
+#' summary(indvalues(tw, 2))
+#' summary(indvalues(tw, 3))
 #'
 #' @param object \code{twinspan} result object.
 #' @param division Number code of \code{twinspan} division for quadrats.
 #'
 #' @export
-`indscores` <-
+`indvalues` <-
     function(object, division)
 {
     if(object$quadrat$eig[division] == 0 ||
@@ -41,15 +41,15 @@
     cl <- cut(object, level + 1)[twingroup(object, division)]
     freq <- by(x, cl, colMeans)
     inds <- freq[[2]] - freq[[1]]
-    class(inds) <- "indscores"
+    class(inds) <- "indvalues"
     inds
 }
 
-#' @rdname indscores
+#' @rdname indvalues
 #' @param indlimit Minimum absolute value of returned indicator scores
 #' @param \dots Other arguments passed to the function (ignored).
 #' @export
-`summary.indscores` <-
+`summary.indvalues` <-
     function(object, indlimit = 0.2, ...)
 {
     cat("\nBest Indicator Pseudospecies:\n")
