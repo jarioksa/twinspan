@@ -325,6 +325,102 @@ Warning: tree reversal: group 31 more heterogeneous than parent 15
 > 
 > 
 > cleanEx()
+> nameEx("indscores")
+> ### * indscores
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: indscores
+> ### Title: Indicator Scores for Quadrats
+> ### Aliases: indscores plot.indscores
+> 
+> ### ** Examples
+> 
+> data(ahti)
+> tw <- twinspan(ahti)
+> summary(tw, level = 3, maxitems = 6)
+1) eig=0.253:  -Cladcocc1 -Cladnigr1 -Cladmiti3 +Dicrpoly1 < 0
+  2) eig=0.156:  +Cladstel5 -Cladvert1 -Polypili2 +Dicrfusc1 -Cladturb1 -Cetreric1 < 0
+    4) eig=0.163:  +Cladrang3 -Sterpasc4 +Cladmero1 -Empenigr2 +Cladmiti4 +Callvulg1 < 2
+      8) N=14: Ster113 Ster105 Ster095 Ster106 Ster107 Ster109 ...
+      9) N=25: Ster098 Call044 Call055 Call053 Call119 Call118 ...
+    5) eig=0.151:  +Vaccmyrt1 -Sterpasc2 +Callvulg1 -Empenigr3 +Cladunci2 +Dicrdrum1 -Vacculig1 < 0
+      10) N=18: Vmyr100 Vmyr102 Vuli084 Vuli081 Vuli059 Vuli083 ...
+      11) N=30: Vmyr070 Vmyr040 Vmyr060 Vmyr071 Vmyr037 Vmyr042 ...
+  3) eig=0.153:  -Cladarbu5 -Cladcris1 +Cladstel3 < 0
+    6) eig=0.11:  -Cladstel3 +Vaccviti4 +Pleuschr3 -Leciulig1 -Lecigran1 -Cetreric1 +Dicrpoly2 < 0
+      12) N=22: Vmyr068 Mold162 Mold160 Mold134 Sold143 Sold164 ...
+      13) N=18: Sold137 Sold144 Sold014 Sold027 Sold015 Sold022 ...
+    7) eig=0.142:  +Dicrpoly3 +Vaccviti5 +Pleuschr4 -Cladgray1 +Cetrisla2 < 3
+      14) N=32: Vmyr058 Vmyr041 Mold154 Mold155 Mold159 Mold156 ...
+      15) N=11: Mold131 Mold122 Mold127 Sold001 Sold005 Sold006 ...
+> indscores(tw, division = 8)
+$score
+Ster113 Ster105 Ster095 Ster106 Ster107 Ster109 Ster110 Ster111 Ster092 Ster099 
+      1       1       0       1      -1       2       2       2      -1       0 
+Ster103 Ster097 Ster108 Ster104 
+      0      -1       1       2 
+
+$classification
+ [1] 17 17 16 17 16 17 17 17 16 16 16 16 17 17
+
+$ordination
+    Ster113     Ster105     Ster095     Ster106     Ster107     Ster109 
+ 0.46183274  0.56092304 -0.48141378  0.33098524 -0.19251516  0.13657571 
+    Ster110     Ster111     Ster092     Ster099     Ster103     Ster097 
+ 0.08926322 -0.02627200 -0.88876517 -0.13785570 -0.27171699 -0.38458515 
+    Ster108     Ster104 
+ 0.34047813  0.70730141 
+
+$positivelimit
+[1] 1
+
+attr(,"class")
+[1] "indscores" "list"     
+> summary(indvalues(tw, division = 8))
+
+Best Indicator Pseudospecies:
+ Arctuvau2  Polypili4  Empenigr3  Empenigr4  Polypili3  Polypili5  Arctuvau3 
+-0.8333333 -0.7083333  0.7083333  0.6250000 -0.6250000 -0.5000000 -0.5000000 
+ Vaccviti3  Empenigr2  Peltmala1  Cladmero1  Diphcomp1  Vaccviti2  Cladunci4 
+ 0.5000000  0.5000000  0.5000000 -0.5000000  0.4583333  0.4166667 -0.3750000 
+ Diphcomp2  Cladmacr1  Cladceno1  Pohlnuta1  Cladunci2  Cladpyxi1  Cladcorn1 
+ 0.3750000 -0.3750000  0.3750000  0.3750000  0.3333333 -0.3333333  0.3333333 
+ Vaccviti1  Cladrang3  Cladcris2  Cladstel2  Empenigr5  Vaccviti4  Polyjuni3 
+ 0.3333333 -0.3333333 -0.3333333  0.2916667  0.2500000  0.2500000 -0.2500000 
+ Cladmiti3  Polypili2  Solocroc1  Cladturb1  Festovin1  Solivirg1  Lecigran1 
+-0.2500000 -0.2500000  0.2500000 -0.2500000 -0.2500000  0.2500000  0.2500000 
+ Cladvert1  Cladnigr1  Stercond1  Leciulig1  Descflex1  Dicrundu1  Cladcorn2 
+-0.2083333  0.2083333  0.2083333  0.2083333  0.2083333  0.2083333 -0.2083333 
+ Cladrang2  Cladcarn1  Empeherm1 
+-0.2083333 -0.2083333 -0.2083333 
+> misclassified(tw)
+
+ 15 misclassified quadrats:
+
+     Quadrat Class Predicted Division
+  13 Vmyr068  50   114        3      
+  16 Vmyr032  90    94       11      
+  19 Vmyr102  86    92        5      
+  34 Vuli080  40    90        5      
+  43 Ster092  33    76        4      
+  47 Ster108  35    83        2      
+  62 Call064  94    79        2      
+  73 Empe090  77    91        2      
+ 112 Mold134 102   114        3      
+ 123 Sold019  29    54        3      
+ 135 Sold164 102   113        3      
+ 154 Syng007 102    36        1      
+ 156 Syng026 105    36        1      
+ 160 Hbor168  98   105        6      
+ 161 Hbor167  98   105        6      
+> plot(indscores(tw, 1))
+> plot(indscores(tw, 3))
+> 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("indvalues")
 > ### * indvalues
 > 
@@ -1244,7 +1340,7 @@ Warning: tree reversal: group 45 more heterogeneous than parent 22
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.952 0.121 2.107 0 0 
+Time elapsed:  2.048 0.115 2.167 0 0 
 > grDevices::dev.off()
 null device 
           1 

@@ -18,9 +18,61 @@ indscores(object, division)
 
 \item{col}{Colours for negative (left) and positive (right) groups.}
 
-\item{...}{Other arguments passed to the function (ignored).}
+\item{\dots}{Other arguments passed to \code{plot}.}
+}
+\value{
+Function returns an object of class \code{"indscores"}
+    which is a list of following items:
+\describe{
+    \item{score}{Indicator score for each quadrat.}
+    \item{classification}{Classes within this division.}
+    \item{ordination}{First axis of correspondence analysis within
+    this division.}
+    \item{positivelimit}{Lower limit of indicator
+    score for the positive (right) group.} }
 }
 \description{
 Indicator scores are the sum of negative and positive pseudospecies
 indicators on each quadrat.
+}
+\details{
+Function calculates the indicator scores that are used to split
+quadrats at each division. These scores are the sum of positive and
+negative indicator pseudospecies at each division. The indicator
+pseudospecies can be seen in \code{\link{summary.twinspan}} and the
+actual indicator values for each pseudospecies with
+\code{\link{indvalues}}.
+
+Function has a \code{plot} method that display indicator scores
+against first ordination axis using different colours for the
+negative (left) and positive (right) group of the subdivision. The
+\code{plot} adds a horizontal line that separates negative (left)
+and positive (right) groups, and vertical lines for tentative
+\dQuote{indifferent} zone for ordination split. If a quadrat is
+deep in the negative or positive side of the ordination axis, it
+will be classified by ordination against its indicator
+scores. These quadrats appear as points with \dQuote{wrong} colour
+for their indicator score, and they are said to be
+\dQuote{misclassified} by indicators (these quadrats are reported
+by function \code{\link{misclassified}}). \code{twinspan} uses
+\dQuote{polished} ordination for final classification instead of
+raw ordination axis. This is not accessible with the current code,
+and therefore the vertical lines are tentative.
+}
+\examples{
+data(ahti)
+tw <- twinspan(ahti)
+summary(tw, level = 3, maxitems = 6)
+indscores(tw, division = 8)
+summary(indvalues(tw, division = 8))
+misclassified(tw)
+plot(indscores(tw, 1))
+plot(indscores(tw, 3))
+
+}
+\seealso{
+\code{\link{summary.twinspan}} for divisions and indicator
+    pseudospecies, \code{\link{indvalues}} for actual indicator
+    values of pseudospecies, and \code{\link{misclassified}} for
+    misclassified quadrats.
 }
