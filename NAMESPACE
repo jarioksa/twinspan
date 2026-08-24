@@ -7,6 +7,7 @@ S3method(cut,twinspan)
 S3method(eigenvals,twinspan)
 S3method(image,twinspan)
 S3method(plot,indscores)
+S3method(plot,twinord)
 S3method(plot,twinspan)
 S3method(predict,twinspan)
 S3method(print,misclassified)
@@ -35,7 +36,9 @@ export(twintotalchi)
 importFrom(graphics,
   abline,
   image,
-  plot
+  plot,
+  points,
+  text
 )
 importFrom(stats,
   as.dendrogram,
@@ -47,6 +50,7 @@ importFrom(utils,str)
 importFrom(vegan,
   decorana,
   eigenvals,
+  ordihull,
   ordilabel,
   scores,
   tabasco,

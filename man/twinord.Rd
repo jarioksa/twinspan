@@ -2,14 +2,39 @@
 % Please edit documentation in R/twinord.R
 \name{twinord}
 \alias{twinord}
+\alias{plot.twinord}
 \title{Ordination Demonstrating Twinspan Division}
 \usage{
 twinord(object, division)
+
+\method{plot}{twinord}(
+  x,
+  quadrats = c("text", "points", "score", "none"),
+  pseudospecies = c("none", "all", "indicators", "valuable"),
+  value = 0.25,
+  qcol = c("blue", "red"),
+  ...
+)
 }
 \arguments{
 \item{object}{\code{twinspan} result object.}
 
 \item{division}{Number code of \code{twinspan} division for quadrats.}
+
+\item{x}{\code{twinord} result object.}
+
+\item{quadrats}{Plot quadrats as text, points or with their
+indicator score or none.}
+
+\item{pseudospecies}{Plot text for none, all, indicator
+pseudospecies or valuable species exceeding \code{value}.}
+
+\item{value}{Limit of absolute indicator value for displayed
+pseudospecies.}
+
+\item{qcol}{Colour of quadrat text in negative and positive groups.}
+
+\item{\dots}{Other arguments passed to graphical functions.}
 }
 \value{
 Function returns an object of class \code{"twinord"} which
