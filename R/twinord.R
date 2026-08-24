@@ -11,17 +11,18 @@
 #' subdivision, quadrat indicator scores, indicator pseudospecies and
 #' indicator values of pseudospecies.
 #'
-#' @return
-#' Function returns an object of class \code{"twinord"} with elements:
+#' @return Function returns an object of class \code{"twinord"} which
+#'     inherits from a \pkg{vegan} \code{\link[vegan]{decorana}}
+#'     object, but adds the following auxiliary elements:
+#'
 #' \describe{
-#' \item{ordination}{Orthogonal correspondence analysis solution from
-#'   \code{\link[vegan]{decorana}} (\pkg{vegan} package).}
 #' \item{class}{Two classes into which this division was split.}
 #' \item{indscores}{Indicator scores for quadrats from \code{\link{indscores}}.}
 #' \item{indicators}{Name labels of indicator pseudospecies used to split this
 #'   class from \code{\link{twinspan}} (see \code{\link{summary.twinspan}}).}
 #' \item{indvals}{Indicator values for pseudospecies from
 #'   \code{\link{indvalues}}.}
+#' \item{division}{\code{twinspan} division.}
 #' }
 #'
 #' @param object \code{twinspan} result object.
@@ -54,10 +55,21 @@
     inds <- object$quadrat$indlabels[abs(object$quadrat$indicators[,division])]
     ## indicator values for species
     indval <- indvalues(object, division)
-    structure(list(ordination = ord,
-                   class = cl,
-                   indscores = indscore,
-                   indicators = inds,
-                   indvalues = indval),
-              class = "twinord")
+    ## add auxiliary items to the decorana object
+    ord$class <- cl
+    ord$indscores <- indscore
+    ord$indicators <- inds
+    ord$indvalues <- indval
+    ord$division <- division
+    ord$call <- match.call()
+    class(ord) <- c("twinord", class(ord))
+    ord
+}
+
+#' @export
+`print.twinord` <- function(x, ...)
+{
+    cat("\nCorrespondence Analysis of twinspan division", x$division, "\n")
+    cat("using vegan::decorana with ira=1 and twinspan downweighting\n")
+    NextMethod("print")
 }

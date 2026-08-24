@@ -12,16 +12,18 @@ twinord(object, division)
 \item{division}{Number code of \code{twinspan} division for quadrats.}
 }
 \value{
-Function returns an object of class \code{"twinord"} with elements:
+Function returns an object of class \code{"twinord"} which
+    inherits from a \pkg{vegan} \code{\link[vegan]{decorana}}
+    object, but adds the following auxiliary elements:
+
 \describe{
-\item{ordination}{Orthogonal correspondence analysis solution from
-  \code{\link[vegan]{decorana}} (\pkg{vegan} package).}
 \item{class}{Two classes into which this division was split.}
 \item{indscores}{Indicator scores for quadrats from \code{\link{indscores}}.}
 \item{indicators}{Name labels of indicator pseudospecies used to split this
   class from \code{\link{twinspan}} (see \code{\link{summary.twinspan}}).}
 \item{indvals}{Indicator values for pseudospecies from
   \code{\link{indvalues}}.}
+\item{division}{\code{twinspan} division.}
 }
 }
 \description{
