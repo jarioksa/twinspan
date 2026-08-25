@@ -7,14 +7,14 @@
 \usage{
 indvalues(object, division)
 
-\method{summary}{indvalues}(object, indlimit = 0.2, ...)
+\method{summary}{indvalues}(object, value = 0.25, ...)
 }
 \arguments{
 \item{object}{\code{twinspan} result object.}
 
 \item{division}{Number code of \code{twinspan} division for quadrats.}
 
-\item{indlimit}{Minimum absolute value of returned indicator scores}
+\item{value}{Minimum absolute value of returned indicator scores.}
 
 \item{\dots}{Other arguments passed to the function (ignored).}
 }

@@ -46,13 +46,13 @@
 }
 
 #' @rdname indvalues
-#' @param indlimit Minimum absolute value of returned indicator scores
+#' @param value Minimum absolute value of returned indicator scores.
 #' @param \dots Other arguments passed to the function (ignored).
 #' @export
 `summary.indvalues` <-
-    function(object, indlimit = 0.2, ...)
+    function(object, value = 0.25, ...)
 {
     cat("\nBest Indicator Pseudospecies:\n")
-    object <- object[abs(object) >= indlimit]
+    object <- object[abs(object) >= value]
     object[rev(order(abs(object)))]
 }

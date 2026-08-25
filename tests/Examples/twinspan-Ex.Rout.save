@@ -390,10 +390,6 @@ Best Indicator Pseudospecies:
  0.3333333 -0.3333333 -0.3333333  0.2916667  0.2500000  0.2500000 -0.2500000 
  Cladmiti3  Polypili2  Solocroc1  Cladturb1  Festovin1  Solivirg1  Lecigran1 
 -0.2500000 -0.2500000  0.2500000 -0.2500000 -0.2500000  0.2500000  0.2500000 
- Cladvert1  Cladnigr1  Stercond1  Leciulig1  Descflex1  Dicrundu1  Cladcorn2 
--0.2083333  0.2083333  0.2083333  0.2083333  0.2083333  0.2083333 -0.2083333 
- Cladrang2  Cladcarn1  Empeherm1 
--0.2083333 -0.2083333 -0.2083333 
 > misclassified(tw)
 
  15 misclassified quadrats:
@@ -451,10 +447,8 @@ Best Indicator Pseudospecies:
 -0.3313945 -0.3294558 -0.3212851  0.3176845 -0.2988506 -0.2949730 -0.2758621 
  Pleuschr2  Empenigr2  Cetrisla2  Callvulg2  Cladrang3  Polypili2  Pleuschr4 
  0.2685224 -0.2675530  0.2650602  0.2647833  0.2627060 -0.2615981  0.2546739 
- Cladunci4  Baeorufu1  Empeherm2  Cladturb1  Cladcarn1  Empenigr3  Cladgray1 
--0.2528736 -0.2523196 -0.2512117  0.2399945 -0.2336242 -0.2248996 -0.2181138 
- Dicrpoly3  Cladvert1 
- 0.2168675 -0.2139593 
+ Cladunci4  Baeorufu1  Empeherm2 
+-0.2528736 -0.2523196 -0.2512117 
 > summary(indvalues(tw, 2))
 
 Best Indicator Pseudospecies:
@@ -466,12 +460,8 @@ Best Indicator Pseudospecies:
 -0.3862179 -0.3830128  0.3830128  0.3525641 -0.3413462 -0.3333333  0.3253205 
  Callvulg1  Vaccviti3  Sterpasc2  Sterpasc3  Cladarbu3  Cladnigr1  Dicrdrum1 
 -0.3221154  0.3205128 -0.3076923 -0.2884615 -0.2868590  0.2804487  0.2724359 
- Callvulg2  Vaccviti5  Pleuschr2  Polypili4  Cladarbu4  Cladphyl1  Sterpasc1 
--0.2660256  0.2612179  0.2580128 -0.2564103 -0.2564103 -0.2500000 -0.2467949 
- Solocroc1  Vaccviti2  Cladmiti5  Polyjuni3  Ptilcili1  Baeorufu1  Vaccmyrt2 
--0.2355769  0.2355769 -0.2323718 -0.2195513  0.2195513 -0.2179487  0.2147436 
- Empeherm1  Leciulig1  Cladrang2  Stertome1  Cladsubf1 
- 0.2147436 -0.2067308  0.2035256 -0.2035256  0.2035256 
+ Callvulg2  Vaccviti5  Pleuschr2  Polypili4  Cladarbu4  Cladphyl1 
+-0.2660256  0.2612179  0.2580128 -0.2564103 -0.2564103 -0.2500000 
 > summary(indvalues(tw, 3))
 
 Best Indicator Pseudospecies:
@@ -481,10 +471,8 @@ Best Indicator Pseudospecies:
 -0.4372093 -0.3994186  0.3872093 -0.3872093 -0.3604651  0.3546512 -0.3517442 
  Vaccviti4  Leciulig1  Cladstel2  Cladturb1  Dicrfusc1  Cladceno1  Cladmiti2 
  0.3511628 -0.3267442  0.3052326 -0.2994186  0.2936047 -0.2819767 -0.2569767 
- Claddefo1  Empenigr2  Vaccviti5  Callvulg4  Vaccviti2  Cladgray1  Cladrang5 
--0.2563953  0.2523256  0.2453488 -0.2441860  0.2319767 -0.2296512 -0.2290698 
- Callvulg5  Polypili1  Lecigran1  Callvulg3  Pohlnuta1  Diphcomp1  Cladvert1 
--0.2284884 -0.2284884 -0.2250000 -0.2081395 -0.2081395 -0.2017442 -0.2000000 
+ Claddefo1  Empenigr2 
+-0.2563953  0.2523256 
 > 
 > 
 > 
@@ -1340,7 +1328,7 @@ Warning: tree reversal: group 45 more heterogeneous than parent 22
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  2.048 0.115 2.167 0 0 
+Time elapsed:  2.044 0.126 2.195 0 0 
 > grDevices::dev.off()
 null device 
           1 
