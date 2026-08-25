@@ -106,8 +106,19 @@
     function(x, col = c("blue", "red"), ...)
 {
     col <- col[x$classification - min(x$classification) + 1]
+    cl <- sort(unique(x$classification))
+    maxleft <- max(x$ordination[x$classification == cl[1]])
+    minright <- min(x$ordination[x$classification == cl[2]])
     plot(score ~ ordination, data = x, col = col, ...)
-    abline(v = min(x$ordination)/5)
-    abline(v = max(x$ordination)/5)
+    if (minright > maxleft)
+        abline(v = (maxleft + minright) / 2)
+    else {
+        segments(maxleft, min(x$score) - 0.5, maxleft, x$positivelimit - 0.5)
+        segments(maxleft, x$positivelimit - 0.5, maxleft, max(x$score) + 0.5,
+                 lty = 2)
+        segments(minright, min(x$score) - 0.5, minright, x$positivelimit - 0.5,
+                 lty = 2)
+        segments(minright, x$positivelimit - 0.5, minright, max(x$score + 0.5))
+    }
     abline(h = x$positivelimit - 0.5)
 }
