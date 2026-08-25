@@ -4,7 +4,14 @@
 \alias{summary.twinspan}
 \title{Summary of twinspan Classification}
 \usage{
-\method{summary}{twinspan}(object, what = c("quadrat", "species"), binname = FALSE, maxitems, ...)
+\method{summary}{twinspan}(
+  object,
+  what = c("quadrat", "species"),
+  binname = FALSE,
+  maxitems,
+  level,
+  ...
+)
 }
 \arguments{
 \item{object}{\code{\link{twinspan}} result object.}
@@ -14,6 +21,8 @@
 \item{binname}{Use binary labels for divisions instead of decimal numbers.}
 
 \item{maxitems}{Maximum number of items (members) listed for terminal groups.}
+
+\item{level}{Maximum number of levels showed.}
 
 \item{\dots}{Other arguments (ignored).}
 }
@@ -38,7 +47,11 @@ to the second alternative.  For division number \eqn{k}, the next
 items are either \eqn{2k}{2*k} (\sQuote{negative} group) or
 \eqn{2k+1}{2*k+1} (\sQuote{positive} group). Function
 \code{\link{plot.twinspan}} displays the division numbers in a
-classification tree.
+classification tree. Function \code{\link{indvalues}} returns the
+used numeric indicator scores, and lists also the pseudospecies
+that were not among official indicators (repeated pseudospecies of
+the same basic species, redundant pseudospecies that do not improve
+the classification).
 
 For terminal groups, the function gives the size of the group and
 lists its elements (quadrats or species).
@@ -54,5 +67,6 @@ summary(tw, "species")
 \code{\link{plot.twinspan}} displays the same structure
     visually.  Function \code{\link{predict.twinspan}} follows the
     summary strcture to predict the classification with indicator
-    pseudospecies.
+    pseudospecies. \code{\link{indvalues}} gives the numeric
+    indicator values used to select the indicator pseudospecies.
 }

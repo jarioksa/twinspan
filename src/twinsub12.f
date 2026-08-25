@@ -39,7 +39,7 @@ C     LIMS
       RARE = 0.2
       FEEBLE = 0.1
       FRQLIM = 0.2
-      TOL = 5E-6
+      TOL = 1.5E-8
       RATLIM = 3.0
       REPLIM = 2.0
       PRECIS = 1E-7

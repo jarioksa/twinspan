@@ -1,7 +1,7 @@
 
-R version 4.6.1 (2026-06-24) -- "Happy Hop"
-Copyright (C) 2026 The R Foundation for Statistical Computing
-Platform: aarch64-apple-darwin23
+R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -320,6 +320,159 @@ Warning: tree reversal: group 31 more heterogeneous than parent 15
 33 (N=4)        0        0     0.25        0
 34 (N=4)        0        0     0.00        0
 35 (N=4)        0        0     0.00        0
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("indscores")
+> ### * indscores
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: indscores
+> ### Title: Indicator Scores for Quadrats
+> ### Aliases: indscores plot.indscores
+> 
+> ### ** Examples
+> 
+> data(ahti)
+> tw <- twinspan(ahti)
+> summary(tw, level = 3, maxitems = 6)
+1) eig=0.253:  -Cladcocc1 -Cladnigr1 -Cladmiti3 +Dicrpoly1 < 0
+  2) eig=0.156:  +Cladstel5 -Cladvert1 -Polypili2 +Dicrfusc1 -Cladturb1 -Cetreric1 < 0
+    4) eig=0.163:  +Cladrang3 -Sterpasc4 +Cladmero1 -Empenigr2 +Cladmiti4 +Callvulg1 < 2
+      8) N=14: Ster113 Ster105 Ster095 Ster106 Ster107 Ster109 ...
+      9) N=25: Ster098 Call044 Call055 Call053 Call119 Call118 ...
+    5) eig=0.151:  +Vaccmyrt1 -Sterpasc2 +Callvulg1 -Empenigr3 +Cladunci2 +Dicrdrum1 -Vacculig1 < 0
+      10) N=18: Vmyr100 Vmyr102 Vuli084 Vuli081 Vuli059 Vuli083 ...
+      11) N=30: Vmyr070 Vmyr040 Vmyr060 Vmyr071 Vmyr037 Vmyr042 ...
+  3) eig=0.153:  -Cladarbu5 -Cladcris1 +Cladstel3 < 0
+    6) eig=0.11:  -Cladstel3 +Vaccviti4 +Pleuschr3 -Leciulig1 -Lecigran1 -Cetreric1 +Dicrpoly2 < 0
+      12) N=22: Vmyr068 Mold162 Mold160 Mold134 Sold143 Sold164 ...
+      13) N=18: Sold137 Sold144 Sold014 Sold027 Sold015 Sold022 ...
+    7) eig=0.142:  +Dicrpoly3 +Vaccviti5 +Pleuschr4 -Cladgray1 +Cetrisla2 < 3
+      14) N=32: Vmyr058 Vmyr041 Mold154 Mold155 Mold159 Mold156 ...
+      15) N=11: Mold131 Mold122 Mold127 Sold001 Sold005 Sold006 ...
+> indscores(tw, division = 8)
+$score
+Ster113 Ster105 Ster095 Ster106 Ster107 Ster109 Ster110 Ster111 Ster092 Ster099 
+      1       1       0       1      -1       2       2       2      -1       0 
+Ster103 Ster097 Ster108 Ster104 
+      0      -1       1       2 
+
+$classification
+ [1] 17 17 16 17 16 17 17 17 16 16 16 16 17 17
+
+$ordination
+    Ster113     Ster105     Ster095     Ster106     Ster107     Ster109 
+ 0.46183274  0.56092304 -0.48141378  0.33098524 -0.19251516  0.13657571 
+    Ster110     Ster111     Ster092     Ster099     Ster103     Ster097 
+ 0.08926322 -0.02627200 -0.88876517 -0.13785570 -0.27171699 -0.38458515 
+    Ster108     Ster104 
+ 0.34047813  0.70730141 
+
+$positivelimit
+[1] 1
+
+attr(,"class")
+[1] "indscores" "list"     
+> summary(indvalues(tw, division = 8))
+
+Best Indicator Pseudospecies:
+ Arctuvau2  Polypili4  Empenigr3  Empenigr4  Polypili3  Polypili5  Arctuvau3 
+-0.8333333 -0.7083333  0.7083333  0.6250000 -0.6250000 -0.5000000 -0.5000000 
+ Vaccviti3  Empenigr2  Peltmala1  Cladmero1  Diphcomp1  Vaccviti2  Cladunci4 
+ 0.5000000  0.5000000  0.5000000 -0.5000000  0.4583333  0.4166667 -0.3750000 
+ Diphcomp2  Cladmacr1  Cladceno1  Pohlnuta1  Cladunci2  Cladpyxi1  Cladcorn1 
+ 0.3750000 -0.3750000  0.3750000  0.3750000  0.3333333 -0.3333333  0.3333333 
+ Vaccviti1  Cladrang3  Cladcris2  Cladstel2  Empenigr5  Vaccviti4  Polyjuni3 
+ 0.3333333 -0.3333333 -0.3333333  0.2916667  0.2500000  0.2500000 -0.2500000 
+ Cladmiti3  Polypili2  Solocroc1  Cladturb1  Festovin1  Solivirg1  Lecigran1 
+-0.2500000 -0.2500000  0.2500000 -0.2500000 -0.2500000  0.2500000  0.2500000 
+> misclassified(tw)
+
+ 15 misclassified quadrats:
+
+     Quadrat Class Predicted Division
+  13 Vmyr068  50   114        3      
+  16 Vmyr032  90    94       11      
+  19 Vmyr102  86    92        5      
+  34 Vuli080  40    90        5      
+  43 Ster092  33    76        4      
+  47 Ster108  35    83        2      
+  62 Call064  94    79        2      
+  73 Empe090  77    91        2      
+ 112 Mold134 102   114        3      
+ 123 Sold019  29    54        3      
+ 135 Sold164 102   113        3      
+ 154 Syng007 102    36        1      
+ 156 Syng026 105    36        1      
+ 160 Hbor168  98   105        6      
+ 161 Hbor167  98   105        6      
+> plot(indscores(tw, 1))
+> plot(indscores(tw, 3))
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("indvalues")
+> ### * indvalues
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: indvalues
+> ### Title: Indicator Scores of Pseudospecies in a Division
+> ### Aliases: indvalues summary.indvalues
+> 
+> ### ** Examples
+> 
+> data(ahti)
+> tw <- twinspan(ahti)
+> summary(indvalues(tw, 1))
+
+Best Indicator Pseudospecies:
+ Cladcocc1  Cladnigr1  Dicrpoly1  Cladmiti3  Cladmiti2  Cladpleu1  Cladmiti4 
+-0.8248165 -0.7339704  0.7323085 -0.7306467 -0.7256613 -0.6501870 -0.6425703 
+ Cetrisla1  Cladunci2  Cladarbu2  Polypili1  Sterpasc1  Cladrang5  Cladarbu3 
+ 0.6249827 -0.6058718  0.6036560 -0.5790057 -0.5790057  0.5669575  0.5614181 
+ Cladphyl1  Cladarbu4  Dicrpoly2  Empeherm1  Polyjuni1  Sterpasc2  Cladrang4 
+-0.5488160  0.5236117  0.4819277 -0.4564465 -0.4540922 -0.4471680  0.4455062 
+ Dicrscop1  Cladunci3  Callvulg1  Cladarbu5  Dicrundu1  Lecigran1  Cladcris1 
+ 0.4448137 -0.4247334  0.4236255  0.4124083 -0.3984213 -0.3973134 -0.3866500 
+ Cetreric1  Sterpasc3  Cladunci1  Stergran1  Dicrfusc1  Cladmiti5  Cetrniva1 
+-0.3769561 -0.3672622 -0.3636615 -0.3546600 -0.3435812 -0.3333333 -0.3327794 
+ Claddefo1  Cladmacr1  Cladbell1  Pleuschr3  Sterpasc4  Polyjuni2  Sterpasc5 
+-0.3313945 -0.3294558 -0.3212851  0.3176845 -0.2988506 -0.2949730 -0.2758621 
+ Pleuschr2  Empenigr2  Cetrisla2  Callvulg2  Cladrang3  Polypili2  Pleuschr4 
+ 0.2685224 -0.2675530  0.2650602  0.2647833  0.2627060 -0.2615981  0.2546739 
+ Cladunci4  Baeorufu1  Empeherm2 
+-0.2528736 -0.2523196 -0.2512117 
+> summary(indvalues(tw, 2))
+
+Best Indicator Pseudospecies:
+ Cladstel5  Cladstel3  Polypili2  Cladstel4  Cladvert1  Cladstel2  Dicrfusc1 
+ 0.6939103  0.6394231 -0.6250000  0.6185897 -0.5528846  0.5272436  0.5208333 
+ Cladturb1  Cladunci3  Cetreric1  Cladunci2  Polypili3  Polyjuni2  Cladunci4 
+-0.5128205 -0.5096154 -0.4903846 -0.4439103 -0.4358974 -0.4278846 -0.4246795 
+ Polypili1  Sterpasc5  Vaccmyrt1  Vaccviti4  Sterpasc4  Cladpyxi1  Cladbell1 
+-0.3862179 -0.3830128  0.3830128  0.3525641 -0.3413462 -0.3333333  0.3253205 
+ Callvulg1  Vaccviti3  Sterpasc2  Sterpasc3  Cladarbu3  Cladnigr1  Dicrdrum1 
+-0.3221154  0.3205128 -0.3076923 -0.2884615 -0.2868590  0.2804487  0.2724359 
+ Callvulg2  Vaccviti5  Pleuschr2  Polypili4  Cladarbu4  Cladphyl1 
+-0.2660256  0.2612179  0.2580128 -0.2564103 -0.2564103 -0.2500000 
+> summary(indvalues(tw, 3))
+
+Best Indicator Pseudospecies:
+ Cladarbu5  Cladstel3  Cladarbu4  Cladarbu3  Cladstel5  Cladcris1  Cladstel4 
+-0.7819767  0.6052326 -0.6011628 -0.5098837  0.5046512 -0.5011628  0.4959302 
+ Polyjuni1  Cladmero1  Vaccviti3  Arctuvau1  Cladphyl1  Empenigr1  Arctuvau2 
+-0.4372093 -0.3994186  0.3872093 -0.3872093 -0.3604651  0.3546512 -0.3517442 
+ Vaccviti4  Leciulig1  Cladstel2  Cladturb1  Dicrfusc1  Cladceno1  Cladmiti2 
+ 0.3511628 -0.3267442  0.3052326 -0.2994186  0.2936047 -0.2819767 -0.2569767 
+ Claddefo1  Empenigr2 
+-0.2563953  0.2523256 
 > 
 > 
 > 
@@ -723,6 +876,7 @@ Warning in twinspan(ahti[i != 1, ]) : some empty species were removed
 > if (suppressPackageStartupMessages(require("vegan"))) {
 + cca(x)
 + }
+Warning: package ‘permute’ was built under R version 4.4.3
 
 Call: cca(X = x)
 
@@ -842,6 +996,56 @@ attr(,"class")
 > 
 > 
 > cleanEx()
+> nameEx("twinord")
+> ### * twinord
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: twinord
+> ### Title: Ordination Demonstrating Twinspan Division
+> ### Aliases: twinord plot.twinord
+> 
+> ### ** Examples
+> 
+> data(ahti)
+> tw <- twinspan(ahti)
+> summary(tw, level = 2, maxitems = 6)
+1) eig=0.253:  -Cladcocc1 -Cladnigr1 -Cladmiti3 +Dicrpoly1 < 0
+  2) eig=0.156:  +Cladstel5 -Cladvert1 -Polypili2 +Dicrfusc1 -Cladturb1 -Cetreric1 < 0
+    4) N=39: Ster113 Ster105 Ster095 Ster106 Ster107 Ster109 ...
+    5) N=48: Vmyr070 Vmyr040 Vmyr060 Vmyr071 Vmyr037 Vmyr042 ...
+  3) eig=0.153:  -Cladarbu5 -Cladcris1 +Cladstel3 < 0
+    6) N=40: Vmyr068 Mold162 Mold160 Mold134 Sold137 Sold143 ...
+    7) N=43: Vmyr058 Vmyr041 Mold131 Mold154 Mold155 Mold159 ...
+> ord <- twinord(tw, division = 2)
+> ord
+
+Correspondence Analysis of twinspan division 2 
+using vegan::decorana with ira=1 and twinspan downweighting
+
+Call:
+twinord(object = tw, division = 2) 
+
+Orthogonal correspondence analysis.
+Downweighting of rare species from fraction 1/5.
+Total inertia (scaled Chi-square): 1.5277 
+
+               RA1    RA2     RA3    RA4
+Eigenvalues  0.156 0.1319 0.07967 0.0623
+Axis lengths 2.160 1.4632 1.16732 1.4492
+
+> eigenvals(tw)[2] # same as the first eigenvalue of ord
+     Div2 
+0.1560232 
+> twintotalchi(tw)[2] # same as total ineretia of ord
+[1] 1.527689
+> plot(ord)
+> plot(ord, pseudospecies = "indicators", quadrats = "score")
+> 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("twinsform")
 > ### * twinsform
 > 
@@ -902,6 +1106,7 @@ attr(,"class")
 > if (suppressPackageStartupMessages(require("vegan"))) {
 + decorana(tahti, ira=1)
 + }
+Warning: package ‘permute’ was built under R version 4.4.3
 
 Call:
 decorana(veg = tahti, ira = 1) 
@@ -1173,7 +1378,7 @@ Warning: tree reversal: group 45 more heterogeneous than parent 22
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  2.254 0.069 2.327 0 0 
+Time elapsed:  2.404 0.159 2.568 0 0 
 > grDevices::dev.off()
 null device 
           1 
