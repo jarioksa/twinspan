@@ -137,5 +137,6 @@
     if (quadrats != "none")
         ordihull(x, x$class, draw = "polygon", label = TRUE, cex=1)
     if (pseudospecies != "none")
-        text(pl, what = "species", optimize=TRUE, xpd = TRUE)
+        text(pl, what = "species", optimize=TRUE, xpd = TRUE, col = 1, ...)
+    invisible(pl)
 }
