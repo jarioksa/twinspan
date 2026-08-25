@@ -11,6 +11,46 @@
 #' subdivision, quadrat indicator scores, indicator pseudospecies and
 #' indicator values of pseudospecies.
 #'
+#' Function finds a multidimensional ordination which has the same
+#' first axis as was the one-dimensional ordination used in
+#' \code{twinspan} split. This is similar as orthogonal correspondence
+#' analysis with downweigthing of rare pseudospecies in
+#' \code{\link[vegan]{decorana}}. This result can be plotted and
+#' analysed to study \code{twinspan} divisions.
+#'
+#' The ordination is based on the stacked pseudospecies data from
+#' \code{\link{twin2stack}} with downweighting. \code{\link{decorana}}
+#' does not use its own downweighting but re-uses the \code{twinspan}
+#' one. The eigenvalue of the first ordination axis is the same as
+#' used in \code{twinspan} division, and extracted for that division
+#' by \code{\link{eigenvals.twinspan}}.  The \sQuote{total inertia
+#' (scaled Chi-square)} returned by \code{decorana} is the same as
+#' returned by \code{\link{twintotalchi}}.
+#'
+#' Function \code{twinord} returns an ordination object inheriting
+#' from \code{\link{decorana}} and all \pkg{vegan} functions can be
+#' used to analyse, use and process the result object. However, the
+#' function adds some \code{twinspan}-specific items to analyse
+#' \code{twinspan} divisions. There is a specific \code{plot} function
+#' to display the ordination for \pkg{twinspan}. The default
+#' \code{plot} will show all sampling units with colour coding for
+#' negative (left) and positive (right) groups of division, each group
+#' enclosed within convex hull (using
+#' \code{\link[vegan]{ordihull}}). The default is to display quadrat
+#' labels, but it is possible to use points or indicator scores of
+#' quadrats from \code{\link{indscores}}. It is possible to have some
+#' or all pseudospecies in the graph. You can show the used indicator
+#' pseudospecies (see \code{\link{summary.twinspan}}) or the
+#' pseudospecies with highest absolute indicator values from
+#' \code{\link{indvalues}}. If there are several pseudospecies cut
+#' levels with the same basic species among highest absolute indicator
+#' values, only the pseudospecies with highest value will be shown. In
+#' \code{decorana} scaling species are more widely dispersed in
+#' ordination space than quadrats, and adding pseudospecies packs
+#' quadrats much more densely in the centre of ordination, especially
+#' when the first axis (and \code{twinspan} division) has low
+#' eigenvalue.
+#'
 #' @return Function returns an object of class \code{"twinord"} which
 #'     inherits from a \pkg{vegan} \code{\link[vegan]{decorana}}
 #'     object, but adds the following auxiliary elements:
@@ -24,6 +64,20 @@
 #'   \code{\link{indvalues}}.}
 #' \item{division}{\code{twinspan} division.}
 #' }
+#'
+#' @seealso \code{\link[vegan]{decorana}}, \code{\link{twin2stack}},
+#'     \code{\link{indvalues}}, \code{\link{indscores}}.
+#'
+#' @examples
+#' data(ahti)
+#' tw <- twinspan(ahti)
+#' summary(tw, level = 2, maxitems = 6)
+#' ord <- twinord(tw, division = 2)
+#' ord
+#' eigenvals(tw)[2] # same as the first eigenvalue of ord
+#' twintotalchi(tw)[2] # same as total ineretia of ord
+#' plot(ord)
+#' plot(ord, pseudospecies = "indicators", quadrats = "score")
 #'
 #' @param object \code{twinspan} result object.
 #' @param division Number code of \code{twinspan} division for quadrats.

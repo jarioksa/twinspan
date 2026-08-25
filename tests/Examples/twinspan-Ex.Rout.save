@@ -996,6 +996,56 @@ attr(,"class")
 > 
 > 
 > cleanEx()
+> nameEx("twinord")
+> ### * twinord
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: twinord
+> ### Title: Ordination Demonstrating Twinspan Division
+> ### Aliases: twinord plot.twinord
+> 
+> ### ** Examples
+> 
+> data(ahti)
+> tw <- twinspan(ahti)
+> summary(tw, level = 2, maxitems = 6)
+1) eig=0.253:  -Cladcocc1 -Cladnigr1 -Cladmiti3 +Dicrpoly1 < 0
+  2) eig=0.156:  +Cladstel5 -Cladvert1 -Polypili2 +Dicrfusc1 -Cladturb1 -Cetreric1 < 0
+    4) N=39: Ster113 Ster105 Ster095 Ster106 Ster107 Ster109 ...
+    5) N=48: Vmyr070 Vmyr040 Vmyr060 Vmyr071 Vmyr037 Vmyr042 ...
+  3) eig=0.153:  -Cladarbu5 -Cladcris1 +Cladstel3 < 0
+    6) N=40: Vmyr068 Mold162 Mold160 Mold134 Sold137 Sold143 ...
+    7) N=43: Vmyr058 Vmyr041 Mold131 Mold154 Mold155 Mold159 ...
+> ord <- twinord(tw, division = 2)
+> ord
+
+Correspondence Analysis of twinspan division 2 
+using vegan::decorana with ira=1 and twinspan downweighting
+
+Call:
+twinord(object = tw, division = 2) 
+
+Orthogonal correspondence analysis.
+Downweighting of rare species from fraction 1/5.
+Total inertia (scaled Chi-square): 1.5277 
+
+               RA1    RA2     RA3    RA4
+Eigenvalues  0.156 0.1319 0.07967 0.0623
+Axis lengths 2.160 1.4632 1.16732 1.4492
+
+> eigenvals(tw)[2] # same as the first eigenvalue of ord
+     Div2 
+0.1560232 
+> twintotalchi(tw)[2] # same as total ineretia of ord
+[1] 1.527689
+> plot(ord)
+> plot(ord, pseudospecies = "indicators", quadrats = "score")
+> 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("twinsform")
 > ### * twinsform
 > 
@@ -1328,7 +1378,7 @@ Warning: tree reversal: group 45 more heterogeneous than parent 22
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  2.044 0.126 2.195 0 0 
+Time elapsed:  2.404 0.159 2.568 0 0 
 > grDevices::dev.off()
 null device 
           1 
