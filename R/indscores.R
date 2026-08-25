@@ -103,7 +103,7 @@
 #'
 #' @export
 `plot.indscores` <-
-    function(x, col = c("red", "blue"), ...)
+    function(x, col = c("blue", "red"), ...)
 {
     col <- col[x$classification - min(x$classification) + 1]
     plot(score ~ ordination, data = x, col = col, ...)

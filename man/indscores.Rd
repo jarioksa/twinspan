@@ -7,7 +7,7 @@
 \usage{
 indscores(object, division)
 
-\method{plot}{indscores}(x, col = c("red", "blue"), ...)
+\method{plot}{indscores}(x, col = c("blue", "red"), ...)
 }
 \arguments{
 \item{object}{\code{twinspan} result object.}
