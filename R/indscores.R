@@ -99,7 +99,7 @@
 #' @param col Colours for negative (left) and positive (right) groups.
 #' @param \dots Other arguments passed to \code{plot}.
 #'
-#' @importFrom graphics abline
+#' @importFrom graphics abline segments
 #'
 #' @export
 `plot.indscores` <-
