@@ -113,6 +113,10 @@
     if (minright > maxleft)
         abline(v = (maxleft + minright) / 2)
     else {
+        maxleft <- (min(x$ordination[x$ordination > maxleft]) +
+                    maxleft) / 2
+        minright <- (max(x$ordination[x$ordination < minright]) +
+                     minright) / 2
         segments(maxleft, min(x$score) - 0.5, maxleft, x$positivelimit - 0.5)
         segments(maxleft, x$positivelimit - 0.5, maxleft, max(x$score) + 0.5,
                  lty = 2)
