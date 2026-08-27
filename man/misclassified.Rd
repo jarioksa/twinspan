@@ -33,9 +33,11 @@ that is \code{TRUE} for misclassified quadrats.
 }
 \description{
 \code{\link{twinspan}} bases its quadrat classification primarily
-on ordination axis. In some cases this is in conflict with the
-classification derived from indicator pseudospecies. This function
-identifies these cases.
+on ordination axis and used indicator species only for quadrats
+that are close to the dividing line, and could be in either
+class. In some cases this is in conflict with the classification
+derived from indicator pseudospecies. This function identifies
+these cases.
 }
 \details{
 The function compares the final \code{\link{twinspan}}
@@ -48,7 +50,11 @@ quadrats. In default, it also returns the names, twinspan classes
 and predicted classes of misclassified quadrats, and the division
 where the misclassification occurred and classifications
 diverged. The divisions and their numbers can be seen in
-\code{\link{summary.twinspan}} and \code{\link{plot.twinspan}}.
+\code{\link{summary.twinspan}} and
+\code{\link{plot.twinspan}}. Function \code{\link{indscores}}
+calculates indicator scores for all quadrats, and its \code{plot}
+function displays indicator scores and classification against
+ordination axis showing the \dQuote{misclassified} quadrats.
 }
 \examples{
 
@@ -65,5 +71,7 @@ misclassified(tw, level = 2)
 The basic functions are \code{\link{cut.twinspan}} and
     \code{\link{predict.twinspan}}. You can see the division
     numbers with \code{\link{summary.twinspan}} (with indicator
-    pseudospecies) and in \code{\link{plot.twinspan}}.
+    pseudospecies) and in \code{\link{plot.twinspan}}. Function
+    \code{\link{indscores}} provides tools for visual inspection of
+    possible \dQuote{misclassification}.
 }

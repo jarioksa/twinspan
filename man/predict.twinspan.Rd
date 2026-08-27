@@ -2,9 +2,12 @@
 % Please edit documentation in R/predict.twinspan.R
 \name{predict.twinspan}
 \alias{predict.twinspan}
+\alias{dumpclass}
 \title{Predict Class Membership of Quadrats}
 \usage{
 \method{predict}{twinspan}(object, newdata, level, binname = FALSE, ...)
+
+dumpclass(object, level, binname = FALSE)
 }
 \arguments{
 \item{object}{\code{twinspan} result object.}
@@ -26,31 +29,52 @@ reported indicator pseudospecies and limit for the indicator score
 for the \dQuote{positive} (right) group.
 }
 \details{
-The \code{twinspan} classification is based on splicing polarized
-ordination axis, and the reported indicator pseudospecies only
-indicate the decisions in each division, and do not necessarily
-give the same classification: The original classification cannot be
-necessarily found when giving the original data as
-\code{newdata}. In the original TWINSPAN this is called
-misclassification.
+The \code{twinspan} classification is based on splitting ordination
+axis, and the indicator pseudospecies are used for decision in the
+\dQuote{indifferent zone} on the border of two classes. Points
+further towards the ends are classified by their position on the
+ordination axis. The \code{predict} function uses indicator scores
+and the predicted classification differs for the points that were
+primarily classified by their position on the ordination
+axis. Function \code{\link{misclassified}} reports these points,
+and the classification can be visualized with the \code{plot} of
+the \code{\link{indscores}}.
+
+Function can use \code{newdata} to predict classification for
+quadrats that were not included in the \code{twinspan}
+analysis. However, the method is not very good in extrapolating
+classification with different set of species. It will happily
+predict a class even with \code{newdata} that shares no species
+with the \code{twinspan} result: it will follow the decision path
+where every indicator value is 0. Function \code{dumpclass} will
+report what would be the predicted class when \code{newdata} has no
+indicator species. The members of that class should be carefully
+inspected, and the result should be treated with caution if that
+class is over-represented in the prediction.
 }
 \examples{
 
 data(ahti)
 tw <- twinspan(ahti)
 predict(tw)
+dumpclass(tw)
 predict(tw, level=3)
+dumpclass(tw, level=3)
 ## misclassifications: predict and twinspan differ
 sum(predict(tw) != cut(tw))
 ## build model for 4/5 of data and predict for the removed 1/5
 i <- rep(1:5, length = nrow(ahti))
 i <- sample(i) # shuffle in random order
-tw <- twinspan(ahti[i != 1,]) # remove i==1
+tw <- twinspan(ahti[i != 1,]) # remove partition i==1
 predict(tw, newdata = ahti[i==1,])
+dumpclass(tw)
 
 }
 \seealso{
 \code{\link{cut.twinspan}} gives the original
     classification, and \code{\link{misclassified}} analyses the
-    differences of this and \code{predict}.
+    differences of this and \code{predict}. Function
+    \code{\link{indscores}} returns the indicator scores for
+    quadrats in any division, and its \code{plot} function can be
+    used for visualization of predictions.
 }
