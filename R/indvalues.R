@@ -54,5 +54,6 @@
 {
     cat("\nBest Indicator Pseudospecies:\n")
     object <- object[abs(object) >= value]
-    object[rev(order(abs(object)))]
+    i <- rev(order(abs(object), rev(seq_along(object))))
+    object[i]
 }
