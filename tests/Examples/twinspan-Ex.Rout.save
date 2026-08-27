@@ -380,16 +380,16 @@ attr(,"class")
 > summary(indvalues(tw, division = 8))
 
 Best Indicator Pseudospecies:
- Arctuvau2  Polypili4  Empenigr3  Empenigr4  Polypili3  Polypili5  Arctuvau3 
--0.8333333 -0.7083333  0.7083333  0.6250000 -0.6250000 -0.5000000 -0.5000000 
- Vaccviti3  Empenigr2  Peltmala1  Cladmero1  Diphcomp1  Vaccviti2  Cladunci4 
- 0.5000000  0.5000000  0.5000000 -0.5000000  0.4583333  0.4166667 -0.3750000 
- Diphcomp2  Cladmacr1  Cladceno1  Pohlnuta1  Cladunci2  Cladpyxi1  Cladcorn1 
- 0.3750000 -0.3750000  0.3750000  0.3750000  0.3333333 -0.3333333  0.3333333 
- Vaccviti1  Cladrang3  Cladcris2  Cladstel2  Empenigr5  Vaccviti4  Polyjuni3 
+ Arctuvau2  Empenigr3  Polypili4  Polypili3  Empenigr4  Cladmero1  Peltmala1 
+-0.8333333  0.7083333 -0.7083333 -0.6250000  0.6250000 -0.5000000  0.5000000 
+ Empenigr2  Vaccviti3  Arctuvau3  Polypili5  Diphcomp1  Vaccviti2  Pohlnuta1 
+ 0.5000000  0.5000000 -0.5000000 -0.5000000  0.4583333  0.4166667  0.3750000 
+ Cladceno1  Cladmacr1  Diphcomp2  Cladunci4  Vaccviti1  Cladcorn1  Cladpyxi1 
+ 0.3750000 -0.3750000  0.3750000 -0.3750000  0.3333333  0.3333333 -0.3333333 
+ Cladunci2  Cladcris2  Cladrang3  Cladstel2  Lecigran1  Solivirg1  Festovin1 
  0.3333333 -0.3333333 -0.3333333  0.2916667  0.2500000  0.2500000 -0.2500000 
- Cladmiti3  Polypili2  Solocroc1  Cladturb1  Festovin1  Solivirg1  Lecigran1 
--0.2500000 -0.2500000  0.2500000 -0.2500000 -0.2500000  0.2500000  0.2500000 
+ Cladturb1  Solocroc1  Polypili2  Cladmiti3  Polyjuni3  Vaccviti4  Empenigr5 
+-0.2500000  0.2500000 -0.2500000 -0.2500000 -0.2500000  0.2500000  0.2500000 
 > misclassified(tw)
 
  15 misclassified quadrats:
@@ -435,7 +435,7 @@ Best Indicator Pseudospecies:
 Best Indicator Pseudospecies:
  Cladcocc1  Cladnigr1  Dicrpoly1  Cladmiti3  Cladmiti2  Cladpleu1  Cladmiti4 
 -0.8248165 -0.7339704  0.7323085 -0.7306467 -0.7256613 -0.6501870 -0.6425703 
- Cetrisla1  Cladunci2  Cladarbu2  Polypili1  Sterpasc1  Cladrang5  Cladarbu3 
+ Cetrisla1  Cladunci2  Cladarbu2  Sterpasc1  Polypili1  Cladrang5  Cladarbu3 
  0.6249827 -0.6058718  0.6036560 -0.5790057 -0.5790057  0.5669575  0.5614181 
  Cladphyl1  Cladarbu4  Dicrpoly2  Empeherm1  Polyjuni1  Sterpasc2  Cladrang4 
 -0.5488160  0.5236117  0.4819277 -0.4564465 -0.4540922 -0.4471680  0.4455062 
@@ -456,19 +456,19 @@ Best Indicator Pseudospecies:
  0.6939103  0.6394231 -0.6250000  0.6185897 -0.5528846  0.5272436  0.5208333 
  Cladturb1  Cladunci3  Cetreric1  Cladunci2  Polypili3  Polyjuni2  Cladunci4 
 -0.5128205 -0.5096154 -0.4903846 -0.4439103 -0.4358974 -0.4278846 -0.4246795 
- Polypili1  Sterpasc5  Vaccmyrt1  Vaccviti4  Sterpasc4  Cladpyxi1  Cladbell1 
--0.3862179 -0.3830128  0.3830128  0.3525641 -0.3413462 -0.3333333  0.3253205 
+ Polypili1  Vaccmyrt1  Sterpasc5  Vaccviti4  Sterpasc4  Cladpyxi1  Cladbell1 
+-0.3862179  0.3830128 -0.3830128  0.3525641 -0.3413462 -0.3333333  0.3253205 
  Callvulg1  Vaccviti3  Sterpasc2  Sterpasc3  Cladarbu3  Cladnigr1  Dicrdrum1 
 -0.3221154  0.3205128 -0.3076923 -0.2884615 -0.2868590  0.2804487  0.2724359 
- Callvulg2  Vaccviti5  Pleuschr2  Polypili4  Cladarbu4  Cladphyl1 
+ Callvulg2  Vaccviti5  Pleuschr2  Cladarbu4  Polypili4  Cladphyl1 
 -0.2660256  0.2612179  0.2580128 -0.2564103 -0.2564103 -0.2500000 
 > summary(indvalues(tw, 3))
 
 Best Indicator Pseudospecies:
  Cladarbu5  Cladstel3  Cladarbu4  Cladarbu3  Cladstel5  Cladcris1  Cladstel4 
 -0.7819767  0.6052326 -0.6011628 -0.5098837  0.5046512 -0.5011628  0.4959302 
- Polyjuni1  Cladmero1  Vaccviti3  Arctuvau1  Cladphyl1  Empenigr1  Arctuvau2 
--0.4372093 -0.3994186  0.3872093 -0.3872093 -0.3604651  0.3546512 -0.3517442 
+ Polyjuni1  Cladmero1  Arctuvau1  Vaccviti3  Cladphyl1  Empenigr1  Arctuvau2 
+-0.4372093 -0.3994186 -0.3872093  0.3872093 -0.3604651  0.3546512 -0.3517442 
  Vaccviti4  Leciulig1  Cladstel2  Cladturb1  Dicrfusc1  Cladceno1  Cladmiti2 
  0.3511628 -0.3267442  0.3052326 -0.2994186  0.2936047 -0.2819767 -0.2569767 
  Claddefo1  Empenigr2 
@@ -565,7 +565,7 @@ Best Indicator Pseudospecies:
 > 
 > ### Name: predict.twinspan
 > ### Title: Predict Class Membership of Quadrats
-> ### Aliases: predict.twinspan
+> ### Aliases: predict.twinspan dumpclass
 > 
 > ### ** Examples
 > 
@@ -583,6 +583,8 @@ Best Indicator Pseudospecies:
 [127]  60 105 102 112 105 112 105 105 113 105  53 105 113 102 102 102 102  98
 [145]  74 103  74 103  50  50  53 104  53  36  74  36 102 105 105 105 105  98
 [163]  48  48  54  55  55  54  54  31
+> dumpclass(tw)
+[1] 115
 > predict(tw, level=3)
   [1] 11 11 11 11 11 11 11 11 14 11 11 11 14 11 11 11 14 10 11 10 10 10 10 10 10
  [26] 10 10 10 10 10 10 10 10 11  8  8  8  8  8  8  8  8  9  8  8  8 10  9  8  9
@@ -591,17 +593,21 @@ Best Indicator Pseudospecies:
 [101] 14 14 14 14 14 14 14 14 14 12 12 14 15 15 15 15 15 14 14 14 14 15 13 15 14
 [126] 14 15 13 12 14 13 14 13 13 14 13 13 13 14 12 12 12 12 12  9 12  9 12 12 12
 [151] 13 13 13  9  9  9 12 13 13 13 13 12 12 12 13 13 13 13 13 15
+> dumpclass(tw, level=3)
+[1] 14
 > ## misclassifications: predict and twinspan differ
 > sum(predict(tw) != cut(tw))
 [1] 15
 > ## build model for 4/5 of data and predict for the removed 1/5
 > i <- rep(1:5, length = nrow(ahti))
 > i <- sample(i) # shuffle in random order
-> tw <- twinspan(ahti[i != 1,]) # remove i==1
+> tw <- twinspan(ahti[i != 1,]) # remove partition i==1
 Warning in twinspan(ahti[i != 1, ]) : some empty species were removed
 > predict(tw, newdata = ahti[i==1,])
  [1]  87  83  46  83  84  83  70  40  76  37 121 119 118  31 118 119 118 118  58
 [20]  45 118 119 123  55  57  56  55  57  76  26  51  26 118 109
+> dumpclass(tw)
+[1] 57
 > 
 > 
 > 
@@ -1378,7 +1384,7 @@ Warning: tree reversal: group 45 more heterogeneous than parent 22
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  2.404 0.159 2.568 0 0 
+Time elapsed:  2.373 0.147 2.526 0 0 
 > grDevices::dev.off()
 null device 
           1 
