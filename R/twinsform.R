@@ -93,6 +93,7 @@
 `downweight` <-
     function(x, rw = rep(1, NROW(x)))
 {
+    x <- as.matrix(x)
     cs <- colSums(rw * x)
     v <- rep(1, ncol(x))
     lim <- sum(rw)/5
